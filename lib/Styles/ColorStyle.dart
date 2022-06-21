@@ -12,7 +12,7 @@ class ColorStyle {
   static final Color white = hex("#FFFFFF");
   static final Color yellow = hex("#CEA100");
   static final Color blue = hex("#F4F6FA");
-  static final Color bluee = hex("#BBB7C4");
+  static final Color grays = hex("#BBB7C4");
 
 
   static Color hex(String hexString) {

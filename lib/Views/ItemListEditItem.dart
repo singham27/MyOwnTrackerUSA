@@ -20,7 +20,7 @@ class ItemListEditItem extends StatelessWidget {
     if (states.any(interactiveStates.contains)) {
       return ColorStyle.secondryColor;
     }
-    return ColorStyle.bluee;
+    return ColorStyle.blue;
   }
 
   @override

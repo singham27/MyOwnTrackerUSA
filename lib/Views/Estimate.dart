@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Estimate extends StatelessWidget {
-   Estimate({Key? key}) : super(key: key);
+  Estimate({Key? key}) : super(key: key);
   final controller = Get.put(EstimateController());
   @override
   Widget build(BuildContext context) {
@@ -167,7 +167,7 @@ class Estimate extends StatelessWidget {
                                           style:  TextStylesProductSans.textStyles_12
                                               .apply(color: ColorStyle.white, fontWeightDelta: 0)),
                                       decoration: BoxDecoration(
-                                          color: ColorStyle.bluee,
+                                          color: ColorStyle.blue,
                                           borderRadius: BorderRadius.circular(6)
                                       ),
                                     ),onTap: (){},)

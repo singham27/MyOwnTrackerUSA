@@ -20,7 +20,7 @@ class EditItem extends StatelessWidget {
      if (states.any(interactiveStates.contains)) {
        return ColorStyle.secondryColor;
      }
-     return ColorStyle.bluee;
+     return ColorStyle.blue;
    }
 
   @override
@@ -190,7 +190,7 @@ class EditItem extends StatelessWidget {
               ElevatedButtonCustom(
                 height: 60,
                 text: "Save",
-                colorBG:ColorStyle.bluee,
+                colorBG:ColorStyle.grays,
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
