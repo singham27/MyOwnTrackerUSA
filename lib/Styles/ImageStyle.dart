@@ -14,5 +14,11 @@ class ImageStyle {
   static const String IconlLightOutlineSearch = baseImage + "Iconly-Light-Outline-Search.png";
   static const String Group1709 = baseImage + "Group1709.png";
   static const String Group17 = baseImage + "Group17.png";
+  static const String Path475 = baseImage + "Path475.png";
+  static const String editIcon = baseImage + "editIcon.png";
+  static const String Group3117 = baseImage + "Group3117.png";
+  static const String Group3118 = baseImage + "Group3118.png";
+
+
 
 }

@@ -37,6 +37,8 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.0.3
   flutter_swiper_plus:
+  percent_indicator: ^4.2.2
+  buttons_tabbar: ^1.3.6
 
 dev_dependencies:
   flutter_test:
