@@ -5,12 +5,16 @@ import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+
+import '../Controllers/ChooseYourIndustry.dart';
 
 class ChooseYourIndustry extends StatelessWidget {
    ChooseYourIndustry({Key? key}) : super(key: key);
-   List<bool> listSelected = [false, false,false,false, false]; // make a list of bool value
 
-   String selectedLanguage = '';
+   final controller = Get.put(ChooseYourIndustryController());
+
+
    buttons(String text, Function() onTap) {
     return InkWell(
       child: Container(
@@ -19,20 +23,25 @@ class ChooseYourIndustry extends StatelessWidget {
             textAlign: TextAlign.center,
             // maxLines: 3,
             style:  TextStylesProductSans.textStyles_14
-                .apply(color: ColorStyle.black,fontWeightDelta: 0 )),
+                .apply(color: ColorStyle.black)
+        ),
         padding: EdgeInsets.only(
           left: 16, right: 16,
           top: 10, bottom: 10
         ),
         decoration: BoxDecoration(
-            color: ColorStyle.primaryColor,
+            // color: ColorStyle.primaryColor,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
-              color: ColorStyle.grey,
+
+              color:ColorStyle.black
+
             )
         ),
       ),
-      onTap: (){},
+      onTap: (){
+
+      },
     );
   }
 
@@ -74,6 +83,7 @@ class ChooseYourIndustry extends StatelessWidget {
               buttons('Carpentry', () => {
 
               }),
+
               buttons('Decking', () => {
               }),
               buttons('Drywall', () => {

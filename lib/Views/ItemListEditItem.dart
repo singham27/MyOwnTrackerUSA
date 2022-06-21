@@ -1,27 +1,27 @@
-import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
+import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
-import 'package:business_trackers/Views/ItemList.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:business_trackers/Views/EditClient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
-class EditItem extends StatelessWidget {
-   EditItem({Key? key}) : super(key: key);
-   bool isChecked = false;
-   Color getColor(Set<MaterialState> states) {
-     const Set<MaterialState> interactiveStates = <MaterialState>{
-       MaterialState.pressed,
-       MaterialState.hovered,
-       MaterialState.focused,
-     };
-     if (states.any(interactiveStates.contains)) {
-       return ColorStyle.secondryColor;
-     }
-     return ColorStyle.bluee;
-   }
+import '../Components/AppBarStyle.dart';
+
+class ItemListEditItem extends StatelessWidget {
+   ItemListEditItem({Key? key}) : super(key: key);
+   bool isSwitched = false;
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return ColorStyle.secondryColor;
+    }
+    return ColorStyle.bluee;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,17 @@ class EditItem extends StatelessWidget {
           leading: BackButton(
             color: ColorStyle.black,
           ),
+          trailings: [
+
+
+            InkWell(
+              child: Image.asset(ImageStyle.delete,height: 30,),
+              onTap: (){
+
+
+              },
+            ),
+          ],
         ),
         backgroundColor: ColorStyle.primaryColor,
         body: SingleChildScrollView(
@@ -45,7 +56,7 @@ class EditItem extends StatelessWidget {
                 decoration: InputDecoration(
                   // border: InputBorder.none,
 
-                    hintText: 'Item name'
+                    hintText: 'Solid'
                 ),
               ),
               SizedBox(height: 34,),
@@ -85,7 +96,7 @@ class EditItem extends StatelessWidget {
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                   Text(
-                      '0',
+                      '100',
                       // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
@@ -116,7 +127,7 @@ class EditItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8)
                     ),
                   ),onTap: (){
-                    filter(context);
+                    // filter(context);
                   },),
                   // Checkbox(
                   //
@@ -154,13 +165,35 @@ class EditItem extends StatelessWidget {
                   // controller.estimate1[index],
                   style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 3)),
-              SizedBox(height: 14,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                      'GST (12%)',
+                      // controller.estimate1[index],
+                      style:  TextStylesProductSans.textStyles_14
+                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                  // InkWell(child:  Image.asset(ImageStyle.Group17,height: 20,),onTap: (){},)
+                  Switch(
+                    value: isSwitched,
+                    onChanged: (value) {
+
+                      isSwitched = value;
+                      print(isSwitched);
+
+                    },
+                    activeTrackColor:ColorStyle.secondryColor.withOpacity(.3),
+                    activeColor: ColorStyle.secondryColor,
+                  ),
+                ],
+              ),
+              // SizedBox(height: 14,),
               InkWell(child: Text(
                   '+ ADD NEW TAX',
                   // controller.estimate1[index],
                   style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),onTap: (){
-                filters(context);
+                // filters(context);
               },),
               SizedBox(height: 20,),
               Container(
@@ -181,20 +214,20 @@ class EditItem extends StatelessWidget {
               ),
               TextField (
                 decoration: InputDecoration(
-                  border: InputBorder.none,
+                    border: InputBorder.none,
 
-                    hintText: 'Add Notes'
+                    hintText: 'Lorem Ipsum'
                 ),
               ),
-              SizedBox(height: 172,),
+              SizedBox(height: 140,),
               ElevatedButtonCustom(
                 height: 60,
                 text: "Save",
-                colorBG:ColorStyle.bluee,
+                colorBG:ColorStyle.secondryColor,
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
-                  Get.to(ItemList());
+                  // Get.to(ItemList());
 
                 },
               ),
@@ -204,146 +237,4 @@ class EditItem extends StatelessWidget {
         )
     );
   }
-}
-
-filter(context) {
-  // final controller = Get.put(HomeScreenController());
-
-  return Get.dialog(
-      Material(
-          color: Colors.transparent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(left: 18,right: 18,top: 22,bottom: 22),
-                margin: EdgeInsets.only(left: 50, right: 50,top: 80),
-                // height: 100,
-                width: MediaQuery.of(Get.context!).size.width,
-                decoration: BoxDecoration(
-                  color: ColorStyle.primaryColor,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-
-                    Text(
-                        'Do you want to save your changes?',
-                        textAlign: TextAlign.center,
-                        // controller.estimate1[index],
-                        style:  TextStylesProductSans.textStyles_16
-                            .apply(color: ColorStyle.black, fontWeightDelta: 0)
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButtonCustom(
-                      height: 50,
-                      text: "Save",
-                      colorBG:ColorStyle.secondryColor,
-                      colorText: ColorStyle.primaryColor,
-                      width: MediaQuery.of(context).size.width,
-                      onTap: () {
-                        Get.back();
-
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    InkWell(
-                      child:   Text(
-                        "  Don't Save",
-                          textAlign: TextAlign.center,
-                          // controller.estimate1[index],
-                          style:  TextStylesProductSans.textStyles_16
-                              .apply(color: ColorStyle.black, fontWeightDelta: 0)
-                      ),
-                      onTap: (){
-                        Get.back();
-                      },
-                    ),
-
-
-
-                  ],
-                ),
-              ),
-            ],
-          )
-      ));
-}
-filters(context) {
-  // final controller = Get.put(HomeScreenController());
-
-  return Get.dialog(
-      Material(
-          color: Colors.transparent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(left: 18,right: 18,top: 22,bottom: 22),
-                margin: EdgeInsets.only(left: 6, right: 6,bottom: 100),
-                // height: 100,
-                width: MediaQuery.of(Get.context!).size.width,
-                decoration: BoxDecoration(
-                  color: ColorStyle.primaryColor,
-                  // borderRadius: BorderRadius.circular(15),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                        'Add New Tax',
-                        // textAlign: TextAlign.center,
-                        // controller.estimate1[index],
-                        style:  TextStylesProductSans.textStyles_16
-                            .apply(color: ColorStyle.black, fontWeightDelta: 0)
-                    ),
-
-                    TextField (
-                      decoration: InputDecoration(
-                        // border: InputBorder.none,
-
-                          hintText: ''
-                      ),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    TextField (
-                      decoration: InputDecoration(
-                        // border: InputBorder.none,
-
-                          hintText: ''
-                      ),
-                    ),
-                    SizedBox(
-                      height: 80,
-                    ),
-                    ElevatedButtonCustom(
-                      height: 60,
-                      text: "Save",
-                      colorBG:ColorStyle.secondryColor,
-                      colorText: ColorStyle.primaryColor,
-                      width: MediaQuery.of(context).size.width,
-                      onTap: () {
-                        Get.back();
-
-                      },
-                    ),
-
-
-
-                  ],
-                ),
-              ),
-            ],
-          )
-      ));
 }
