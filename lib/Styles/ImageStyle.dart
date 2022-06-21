@@ -14,5 +14,23 @@ class ImageStyle {
   static const String IconlLightOutlineSearch = baseImage + "Iconly-Light-Outline-Search.png";
   static const String Group1709 = baseImage + "Group1709.png";
   static const String Group17 = baseImage + "Group17.png";
-
+  static const String Group1718 = baseImage + "Group1718.png";
+  static const String IconlyBold = baseImage + "IconlyBold.png";
+  static const String Group1727 = baseImage + "Group1727.png";
+  static const String Sign = baseImage + "Sign.png";
+  static const String IconlyBoldProfile = baseImage + "Iconly-Bold-Profile.png";
+  static const String Group3134 = baseImage + "Group3134.png";
+  static const String Group3140= baseImage + "Group3140.png";
+  static const String Group3135 = baseImage + "Group3135.png";
+  static const String Group3136 = baseImage + "Group3136.png";
+  static const String Group3137 = baseImage + "Group3137.png";
+  static const String Group3138 = baseImage + "Group3138.png";
+  static const String Group3139 = baseImage + "Group3139.png";
+  static const String Group3122 = baseImage + "Group3122.png";
+  static const String Group3124 = baseImage + "Group3124.png";
+  static const String Group3123 = baseImage + "Group3123.png";
+  static const String Group3125 = baseImage + "Group3125.png";
+  static const String Group3126 = baseImage + "Group3126.png";
+  static const String Group3141 = baseImage + "Group3141.png";
+  static const String delete = baseImage + "delete.png";
 }

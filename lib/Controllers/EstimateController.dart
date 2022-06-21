@@ -9,6 +9,8 @@ class EstimateController extends GetxController {
     'Approved',
     'Declined',
   ].obs;
+
+
   RxList<String> estimate1 = [
     'Estimate #12345',
     'John Deo',
