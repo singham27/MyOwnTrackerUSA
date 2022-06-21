@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Estimate extends StatelessWidget {
-   Estimate({Key? key}) : super(key: key);
+  Estimate({Key? key}) : super(key: key);
   final controller = Get.put(EstimateController());
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,15 @@ class Estimate extends StatelessWidget {
 
         backgroundColor: ColorStyle.primaryColor,
         body: GetBuilder(
+
           init: EstimateController(),
-            initState: (state){
+          initState: (state) {
             controller.reset();
-    },
-      builder: (authController){
-            return Obx(() => SingleChildScrollView(
+
+            print(controller.intAppBar.value);
+          },
+          builder: (authController) {
+            return Obx(() =>  SingleChildScrollView(
               padding: EdgeInsets.only(left: 20,right: 20,bottom: 20,top: 50),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +64,7 @@ class Estimate extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: controller.estimate.length,
                         scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
+                        // physics: BouncingScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
 
                           return Row(
@@ -138,7 +141,7 @@ class Estimate extends StatelessWidget {
                                         style:  TextStylesProductSans.textStyles_16
                                             .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                                     Text(
-                                        'S2,500.00',
+                                        '\$2,500.00',
 
                                         style:  TextStylesProductSans.textStyles_16
                                             .apply(color: ColorStyle.black, fontWeightDelta: 0)),
@@ -164,7 +167,7 @@ class Estimate extends StatelessWidget {
                                           style:  TextStylesProductSans.textStyles_12
                                               .apply(color: ColorStyle.white, fontWeightDelta: 0)),
                                       decoration: BoxDecoration(
-                                          color: ColorStyle.grays,
+                                          color: ColorStyle.blue,
                                           borderRadius: BorderRadius.circular(6)
                                       ),
                                     ),onTap: (){},)
@@ -225,8 +228,10 @@ class Estimate extends StatelessWidget {
                 ],
               ),
             ));
-      },
+          },
         )
+
+
     );
   }
 }

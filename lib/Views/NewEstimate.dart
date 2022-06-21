@@ -15,6 +15,7 @@ import '../Controllers/NewEstimateController.dart';
 class NewEstimate extends StatelessWidget {
    NewEstimate({Key? key}) : super(key: key);
   final controller = Get.put(NewEstimateController());
+   bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +105,7 @@ class NewEstimate extends StatelessWidget {
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                   Text(
-                      'S0.00',
+                      '\$0.00',
                       // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
@@ -120,7 +121,7 @@ class NewEstimate extends StatelessWidget {
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                   Text(
-                      'S0.00',
+                      '\$0.00',
                       // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
@@ -136,7 +137,7 @@ class NewEstimate extends StatelessWidget {
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                   Text(
-                      'S0.00',
+                      '\$0.00',
                       // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
@@ -281,7 +282,18 @@ class NewEstimate extends StatelessWidget {
                       // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  InkWell(child:  Image.asset(ImageStyle.Group1709,height: 20,),onTap: (){},)
+                  // InkWell(child:  Image.asset(ImageStyle.Group1709,height: 20,),onTap: (){},)
+                  Switch(
+                    value: isSwitched,
+                    onChanged: (value) {
+
+                      isSwitched = value;
+                      print(isSwitched);
+
+                    },
+                    activeTrackColor:ColorStyle.secondryColor.withOpacity(.3),
+                    activeColor: ColorStyle.secondryColor,
+                  ),
                 ],
               ),
               SizedBox(height: 15,),

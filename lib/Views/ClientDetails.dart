@@ -25,7 +25,7 @@ class ClientDetails extends StatelessWidget {
             InkWell(
               child:Image.asset(ImageStyle.editIcon,height: 20,),
               onTap: (){
-                myClient();
+                // myClient();
               },
             ),
             SizedBox(width: 10,),

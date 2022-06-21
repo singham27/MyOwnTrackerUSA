@@ -4,12 +4,14 @@ import 'package:business_trackers/Components/TextFieldCustom.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
+import 'package:business_trackers/Views/ClientList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class EditClient extends StatelessWidget {
-  const EditClient({Key? key}) : super(key: key);
-
+   EditClient({Key? key}) : super(key: key);
+  bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,7 @@ class EditClient extends StatelessWidget {
                 style:  TextStylesProductSans.textStyles_14
                     .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),
             onTap: (){
-              myClient();
+              filter();
 
             },
           ),
@@ -66,7 +68,18 @@ class EditClient extends StatelessWidget {
                     // controller.estimate1[index],
                     style:  TextStylesProductSans.textStyles_14
                         .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                InkWell(child:  Image.asset(ImageStyle.Group17,height: 20,),onTap: (){},)
+                // InkWell(child:  Image.asset(ImageStyle.Group17,height: 20,),onTap: (){},)
+                Switch(
+                  value: isSwitched,
+                  onChanged: (value) {
+
+                    isSwitched = value;
+                    print(isSwitched);
+
+                  },
+                  activeTrackColor:ColorStyle.secondryColor.withOpacity(.3),
+                  activeColor: ColorStyle.secondryColor,
+                ),
               ],
             ),
             Text(
@@ -128,7 +141,7 @@ class EditClient extends StatelessWidget {
               colorText: ColorStyle.primaryColor,
               width: MediaQuery.of(context).size.width,
               onTap: () {
-                // Get.to(ChooseYourIndustry());
+                Get.to(ClientList());
               },
             ),
           ],
@@ -137,25 +150,58 @@ class EditClient extends StatelessWidget {
     );
   }
 }
- myClient(){
-  Container(
-    child: Column(
-      children: [
-        Text(
-            'Saved Address',
-            // controller.estimate1[index],
-            style:  TextStylesProductSans.textStyles_16
-                .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-        Text(
-            'Address Book',
-            // controller.estimate1[index],
-            style:  TextStylesProductSans.textStyles_16
-                .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-      ],
-    ),
-    height: 30,
-    width: 100,
-    color: ColorStyle.white,
+filter() {
+  // final controller = Get.put(HomeScreenController());
 
-  );
- }
+  return Get.dialog(
+      Material(
+          color: Colors.transparent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.only(left: 18,top: 18,bottom: 18),
+                margin: EdgeInsets.only(left: 150, right: 22,bottom: 580),
+                // height: 100,
+                width: MediaQuery.of(Get.context!).size.width,
+                decoration: BoxDecoration(
+                  color: ColorStyle.primaryColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                   InkWell(
+                     child:  Text(
+                         'Saved Address',
+                         // controller.estimate1[index],
+                         style:  TextStylesProductSans.textStyles_16
+                             .apply(color: ColorStyle.black, fontWeightDelta: 0)
+                     ),
+                     onTap: (){  Get.back();},
+                   ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    InkWell(
+                      child:   Text(
+                          'Address Book',
+                          // controller.estimate1[index],
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)
+                      ),
+                      onTap: (){
+                        Get.back();
+                      },
+                    )
+
+
+
+                  ],
+                ),
+              ),
+            ],
+          )
+      ));
+}
