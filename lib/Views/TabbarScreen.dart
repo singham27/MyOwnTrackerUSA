@@ -1,8 +1,10 @@
 import 'package:business_trackers/Controllers/TabbarScreenController.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
+import 'package:business_trackers/Views/Clients.dart';
 import 'package:business_trackers/Views/Estimate.dart';
 import 'package:business_trackers/Views/ForgotPassword.dart';
+import 'package:business_trackers/Views/InvoicesActive.dart';
 import 'package:business_trackers/Views/MoreScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,11 +21,11 @@ class TabbarScreen extends StatelessWidget {
 
   final arrBody = [
     Estimate(),
-    Container(
-      color: ColorStyle.secondryColor,
+    InvoicesActive(
+
     ),
-    Container(
-      color: ColorStyle.grey,
+    Clients(
+
     ),
     MoreScreen(),
 

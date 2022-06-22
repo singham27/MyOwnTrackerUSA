@@ -4,6 +4,7 @@ import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:business_trackers/Views/EditClient.dart';
+import 'package:business_trackers/Views/EditCotract.dart';
 import 'package:business_trackers/Views/EditItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -216,46 +217,30 @@ class NewEstimate extends StatelessWidget {
                   style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 4)),
               SizedBox(height: 15,),
-              Container(
-                // alignment: Alignment.center,
-                height: 35,
-                // color: ColorStyle.grey,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: controller.estimate.length,
-                    scrollDirection: Axis.horizontal,
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                      'Contact',
+                      // controller.estimate[index],
+                      style:  TextStylesProductSans.textStyles_16
 
-                      return Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(child:   Container(
-                      padding: EdgeInsets.only(left: 10,right: 10),
-                      alignment: Alignment.center,
-                      // height: 2,
-                      // width: 20,
-                      child:  Text(
-                      // 'Technologies',
-                      controller.estimate[index],
-                      style:  TextStylesProductSans.textStyles_12
-                          .apply(color: (controller.intAppBar.value == index)
-                      ? ColorStyle.white
-                          : ColorStyle.black,fontWeightDelta: 2 )
-                      ),
-                      decoration: BoxDecoration(
-                      color: (controller.intAppBar.value == index)
-                      ? ColorStyle.secondryColor
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(5)
-                      ),
-                      ),
-                            onTap: (){  controller.intAppBar.value = index;},),
-                          SizedBox(width: 25,),
-                        ],
-                      );
+                  ),
+                  InkWell(
+                    child: Text(
+                        'Generic Contract ',
+                        // controller.estimate[index],
+                        style:  TextStylesProductSans.textStyles_16.apply(
+                            color: ColorStyle.secondryColor
+                        )
 
-                    }),
+                    ),
+                    onTap: (){
+                      Get.to(EditCotract());
+                    },
+                  )
+
+                ],
               ),
               SizedBox(height: 15,),
               Container(

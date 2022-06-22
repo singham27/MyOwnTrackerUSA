@@ -1,4 +1,15 @@
 
+import 'package:business_trackers/Views/About.dart';
+import 'package:business_trackers/Views/AboutUs.dart';
+import 'package:business_trackers/Views/EstimateApproved.dart';
+import 'package:business_trackers/Views/EstimateDeclined.dart';
+import 'package:business_trackers/Views/EstimatePending1.dart';
+import 'package:business_trackers/Views/InvoicesActive.dart';
+import 'package:business_trackers/Views/InvoicesActived.dart';
+import 'package:business_trackers/Views/MoreScreen.dart';
+import 'package:business_trackers/Views/PrivacyPolicy.dart';
+import 'package:business_trackers/Views/TabbarScreen.dart';
+import 'package:business_trackers/Views/TermsOfService.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'Views/ClientDetails.dart';
@@ -20,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:ClientDetails(),
+      home: EstimatePending1(),
     );
   }
 }
