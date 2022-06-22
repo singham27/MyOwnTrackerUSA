@@ -171,11 +171,11 @@ class UpgrdeToPro extends StatelessWidget {
               child:    InkWell(
                 child:   Text(
                     "I'LL UPDRAGE LATER",
-
-                    // controller.estimate1[index],
                     style:  TextStylesProductSans.textStyles_16
                         .apply(color: ColorStyle.secondryColor, fontWeightDelta: 3)),
-                onTap: (){},
+                onTap: (){
+                  Get.back();
+                },
               ),
 
 

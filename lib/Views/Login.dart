@@ -1,11 +1,12 @@
-import 'package:business_trackers/Components/AppBarStyle.dart';
-import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
-import 'package:business_trackers/Components/TextFieldCustom.dart';
-import 'package:business_trackers/Styles/ColorStyle.dart';
-import 'package:business_trackers/Styles/ImageStyle.dart';
-import 'package:business_trackers/Styles/TextStyles.dart';
-import 'package:business_trackers/Views/CreateAnAccount.dart';
-import 'package:business_trackers/Views/ForgotPassword.dart';
+import '../Components/AppBarStyle.dart';
+import '../Components/ElevatedButtonCustom.dart';
+import '../Components/TextFieldCustom.dart';
+import '../Styles/ColorStyle.dart';
+import '../Styles/ImageStyle.dart';
+import '../Styles/TextStyles.dart';
+import '../Views/CreateAnAccount.dart';
+import '../Views/ForgotPassword.dart';
+import '../Views/TabbarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -19,138 +20,204 @@ class Login extends StatelessWidget {
         appBar: AppBarStyles(
           overlayStyle: SystemUiOverlayStyle.dark,
           title: 'Login',
-          leading: BackButton(
-            color: ColorStyle.black,
-          ),
+          // leading: BackButton(
+          //   color: ColorStyle.black,
+          // ),
         ),
         backgroundColor: ColorStyle.primaryColor,
         body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 20,right: 20,),
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                  'Welcome back, we missed you!',
+              Text('Welcome back, we missed you!',
                   textAlign: TextAlign.center,
                   // maxLines: 3,
-                  style:  TextStylesProductSans.textStyles_14
-                      .apply(color: ColorStyle.black, )),
-              SizedBox(height: 20,),
-              TextFieldEmailLoginCustom(),
-              SizedBox(height: 40,),
-           InkWell(
-             child:    Container(
-               alignment: Alignment.center,
-               child: Text(
-                   'Forgot Password?',
-                   // textAlign: TextAlign.center,
-                   // maxLines: 3,
-                   style:  TextStylesProductSans.textStyles_14
-                       .apply(color: ColorStyle.black, )),
-             ),
-             onTap: (){
-               Get.to(ForgotPassword());
-             },
-           ),
-              SizedBox(height: 40,),
+                  style: TextStylesProductSans.textStyles_14.apply(
+                    color: ColorStyle.black,
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              Text('Email',
+                  textAlign: TextAlign.center,
+                  // maxLines: 3,
+                  style: TextStylesProductSans.textStyles_14.apply(
+                    color: ColorStyle.black,
+                  )),
+              SizedBox(
+                height: 10,
+              ),
+              TextFieldOutline(
+                radiusBorder: 14,
+                hintText: 'Enter your email',
+                keyboardType: TextInputType.emailAddress,
+                padding: EdgeInsets.only(
+                  left: 16, right: 16
+                ),
+                colorBoder: Colors.black,
+                textStyle: TextStylesProductSans.textStyles_14.apply(
+                  color: ColorStyle.black,
+                  fontWeightDelta: 0
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text('Password',
+                  textAlign: TextAlign.center,
+                  // maxLines: 3,
+                  style: TextStylesProductSans.textStyles_14.apply(
+                    color: ColorStyle.black,
+                  )),
+              SizedBox(
+                height: 10,
+              ),
+              TextFieldPWDOutline(
+                radiusBorder: 14,
+                hintText: 'Enter your password',
+                padding: EdgeInsets.only(
+                    left: 16, right: 16
+                ),
+                colorBoder: Colors.black,
+                textStyle: TextStylesProductSans.textStyles_14.apply(
+                    color: ColorStyle.black,
+                    fontWeightDelta: 0
+                ),
+              ),
+
+              SizedBox(
+                height: 40,
+              ),
+              InkWell(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text('Forgot Password?',
+                      // textAlign: TextAlign.center,
+                      // maxLines: 3,
+                      style: TextStylesProductSans.textStyles_14.apply(
+                        color: ColorStyle.black,
+                      )),
+                ),
+                onTap: () {
+                  Get.to(ForgotPassword());
+                },
+              ),
+              SizedBox(
+                height: 40,
+              ),
               Container(
                 alignment: Alignment.center,
-                child: Text(
-                    'Or Continue with',
+                child: Text('Or Continue with',
                     // textAlign: TextAlign.center,
                     // maxLines: 3,
-                    style:  TextStylesProductSans.textStyles_14
-                        .apply(color: ColorStyle.black, )),
+                    style: TextStylesProductSans.textStyles_14.apply(
+                      color: ColorStyle.black,
+                    )),
               ),
-              SizedBox(height: 28,),
+              SizedBox(
+                height: 28,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
                     child: Container(
                       width: 120,
-                      padding: EdgeInsets.only(top: 10,bottom: 10),
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(ImageStyle.Google__G__Logo,height: 20,),
-                          SizedBox(width: 5,),
-                          Text(
-                              'Google',
+                          Image.asset(
+                            ImageStyle.Google__G__Logo,
+                            height: 20,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('Google',
                               textAlign: TextAlign.center,
                               // maxLines: 3,
-                              style:  TextStylesProductSans.textStyles_14
-                                  .apply(color: ColorStyle.black, )),
+                              style: TextStylesProductSans.textStyles_14.apply(
+                                color: ColorStyle.black,
+                              )),
                         ],
                       ),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
-                          border: Border.all(
-                              color: ColorStyle.grey
-                          )
-                      ),
+                          border: Border.all(color: ColorStyle.grey)),
                     ),
-                    onTap: (){},
+                    onTap: () {},
                   ),
-                  SizedBox(width: 14,),
+                  SizedBox(
+                    width: 14,
+                  ),
                   InkWell(
-                    child:    Container(
+                    child: Container(
                       width: 120,
-                      padding: EdgeInsets.only(top: 10,bottom: 10),
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(ImageStyle.Apple_logo_black,height: 20,),
-                          SizedBox(width: 5,),
-                          Text(
-                              'Apple',
+                          Image.asset(
+                            ImageStyle.Apple_logo_black,
+                            height: 20,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('Apple',
                               textAlign: TextAlign.center,
                               // maxLines: 3,
-                              style:  TextStylesProductSans.textStyles_14
-                                  .apply(color: ColorStyle.black, )),
+                              style: TextStylesProductSans.textStyles_14.apply(
+                                color: ColorStyle.black,
+                              )),
                         ],
                       ),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
-                          border: Border.all(
-                              color: ColorStyle.grey
-                          )
-                      ),
+                          border: Border.all(color: ColorStyle.grey)),
                     ),
-                    onTap: (){},
+                    onTap: () {},
                   ),
-
                 ],
               ),
-              SizedBox(height: 120,),
+              SizedBox(
+                height: 120,
+              ),
               ElevatedButtonCustom(
                 text: "Continue",
-                colorBG:ColorStyle.secondryColor,
+                colorBG: ColorStyle.secondryColor,
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
-                  // Get.to(CreatePassword());
+                  Get.offAll(TabbarScreen());
                 },
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               InkWell(
-                child:     Center(
-                  child:   Text(
-                      'Having trouble logging in? Sign up',
+                child: Center(
+                  child: Text('Having trouble logging in? Sign up',
                       // textAlign: TextAlign.center,
                       // maxLines: 3,
-                      style:  TextStylesProductSans.textStyles_14
-                          .apply(color: ColorStyle.black, )),
+                      style: TextStylesProductSans.textStyles_14.apply(
+                        color: ColorStyle.black,
+                      )),
                 ),
-                onTap: (){
-                  Get.back();
+                onTap: () {
+                  Get.to(CreateAnAccount());
                 },
               ),
-              SizedBox(height: 50,),
-
+              SizedBox(
+                height: 50,
+              ),
             ],
           ),
-        )
-    );
+        ));
   }
 }

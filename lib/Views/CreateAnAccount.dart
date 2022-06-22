@@ -17,155 +17,197 @@ class CreateAnAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: ColorStyle.primaryColor,
         appBar: AppBarStyle(
           overlayStyle: SystemUiOverlayStyle.dark,
-          title: '',
+          title: 'Create an account',
           leading: BackButton(
             color: ColorStyle.black,
           ),
         ),
-      backgroundColor: ColorStyle.primaryColor,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 20,right: 20,),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+        body: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Row(
                 children: [
-                  Image.asset(ImageStyle.Image3,height: 20,),
-                  SizedBox(width: 10,),
-                  Text(
-                      'Welcome to Business Tracker USA',
-                      textAlign: TextAlign.center,
-                      // maxLines: 3,
-                      style:  TextStylesProductSans.textStyles_14
-                          .apply(color: ColorStyle.black, )),
+                  Image.asset(
+                    ImageStyle.logo,
+                    height: 60,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Text('Welcome to Business Tracker USA',
+                        textAlign: TextAlign.left,
+                        // maxLines: 3,
+                        style: TextStylesProductSans.textStyles_14.apply(
+                          color: ColorStyle.black,
+                        )),
+                  ),
                 ],
               ),
-            SizedBox(height: 20,),
-            Text(
-                'Create an account',
-                textAlign: TextAlign.center,
-                // maxLines: 3,
-                style:  TextStylesProductSans.textStyles_24
-                    .apply(color: ColorStyle.black,fontWeightDelta: 2 )),
-            SizedBox(height: 20,),
-            TextFieldEmailCustom(),
-            SizedBox(height: 40,),
-            Container(
-              alignment: Alignment.center,
-              child: Text(
-                  'Or Continue with',
-                  // textAlign: TextAlign.center,
+              SizedBox(
+                height: 20,
+              ),
+              Text('Email',
+                  textAlign: TextAlign.center,
                   // maxLines: 3,
-                  style:  TextStylesProductSans.textStyles_14
-                      .apply(color: ColorStyle.black, )),
-            ),
-            SizedBox(height: 28,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  child: Container(
-                    width: 120,
-                    padding: EdgeInsets.only(top: 10,bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(ImageStyle.Google__G__Logo,height: 20,),
-                        SizedBox(width: 5,),
-                        Text(
-                            'Google',
-                            textAlign: TextAlign.center,
-                            // maxLines: 3,
-                            style:  TextStylesProductSans.textStyles_14
-                                .apply(color: ColorStyle.black, )),
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(
-                            color: ColorStyle.grey
-                        )
-                    ),
-                  ),
-                  onTap: (){},
+                  style: TextStylesProductSans.textStyles_14.apply(
+                    color: ColorStyle.black,
+                  )),
+              SizedBox(
+                height: 10,
+              ),
+              TextFieldOutline(
+                radiusBorder: 14,
+                hintText: 'Enter your email',
+                keyboardType: TextInputType.emailAddress,
+                padding: EdgeInsets.only(
+                    left: 16, right: 16
                 ),
-                SizedBox(width: 14,),
-                InkWell(
-                  child:    Container(
-                    width: 120,
-                    padding: EdgeInsets.only(top: 10,bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(ImageStyle.Apple_logo_black,height: 20,),
-                        SizedBox(width: 5,),
-                        Text(
-                            'Apple',
-                            textAlign: TextAlign.center,
-                            // maxLines: 3,
-                            style:  TextStylesProductSans.textStyles_14
-                                .apply(color: ColorStyle.black, )),
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(
-                            color: ColorStyle.grey
-                        )
-                    ),
-                  ),
-                  onTap: (){},
+                colorBoder: Colors.black,
+                textStyle: TextStylesProductSans.textStyles_14.apply(
+                    color: ColorStyle.black,
+                    fontWeightDelta: 0
                 ),
-
-              ],
-            ),
-            SizedBox(height: 120,),
-            ElevatedButtonCustom(
-              text: "Continue",
-              colorBG:ColorStyle.secondryColor,
-              colorText: ColorStyle.primaryColor,
-              width: MediaQuery.of(context).size.width,
-              onTap: () {
-                Get.to(CreatePassword());
-              },
-            ),
-            SizedBox(height: 30,),
-                   InkWell(
-        child:     Center(
-          child:   Text(
-              'Already have an account with us? Login',
-              // textAlign: TextAlign.center,
-              // maxLines: 3,
-              style:  TextStylesProductSans.textStyles_14
-                  .apply(color: ColorStyle.black, )),
-        ),
-        onTap: (){
-          Get.to( Login());
-        },
-      ),
-            SizedBox(height: 50,),
-            Center(
-              child:   Text(
-                  'By clicking "Continue", you agree to our',
-                  // textAlign: TextAlign.center,
-                  // maxLines: 3,
-                  style:  TextStylesProductSans.textStyles_12
-                      .apply(color: ColorStyle.black, )),
-            ),
-            SizedBox(height: 2,),
-            Center(
-              child:   Text(
-                  'Terms of Services and Privacy Policies',
-                  // textAlign: TextAlign.center,
-                  // maxLines: 3,
-                  style:  TextStylesProductSans.textStyles_12
-                      .apply(color: ColorStyle.black, )),
-            )
-          ],
-        ),
-      )
-    );
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: Text('Or Continue with',
+                    // textAlign: TextAlign.center,
+                    // maxLines: 3,
+                    style: TextStylesProductSans.textStyles_14.apply(
+                      color: ColorStyle.black,
+                    )),
+              ),
+              SizedBox(
+                height: 28,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    child: Container(
+                      width: 120,
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            ImageStyle.Google__G__Logo,
+                            height: 20,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('Google',
+                              textAlign: TextAlign.center,
+                              // maxLines: 3,
+                              style: TextStylesProductSans.textStyles_14.apply(
+                                color: ColorStyle.black,
+                              )),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          border: Border.all(color: ColorStyle.grey)),
+                    ),
+                    onTap: () {},
+                  ),
+                  SizedBox(
+                    width: 14,
+                  ),
+                  InkWell(
+                    child: Container(
+                      width: 120,
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            ImageStyle.Apple_logo_black,
+                            height: 20,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('Apple',
+                              textAlign: TextAlign.center,
+                              // maxLines: 3,
+                              style: TextStylesProductSans.textStyles_14.apply(
+                                color: ColorStyle.black,
+                              )),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          border: Border.all(color: ColorStyle.grey)),
+                    ),
+                    onTap: () {},
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 120,
+              ),
+              ElevatedButtonCustom(
+                text: "Continue",
+                colorBG: ColorStyle.secondryColor,
+                colorText: ColorStyle.primaryColor,
+                width: MediaQuery.of(context).size.width,
+                onTap: () {
+                  Get.to(CreatePassword());
+                },
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              InkWell(
+                child: Center(
+                  child: Text('Already have an account with us? Login',
+                      // textAlign: TextAlign.center,
+                      // maxLines: 3,
+                      style: TextStylesProductSans.textStyles_14.apply(
+                        color: ColorStyle.black,
+                      )),
+                ),
+                onTap: () {
+                  Get.back();
+                },
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Center(
+                child: Text('By clicking "Continue", you agree to our',
+                    // textAlign: TextAlign.center,
+                    // maxLines: 3,
+                    style: TextStylesProductSans.textStyles_12.apply(
+                      color: ColorStyle.black,
+                    )),
+              ),
+              SizedBox(
+                height: 2,
+              ),
+              Center(
+                child: Text('Terms of Services and Privacy Policies',
+                    // textAlign: TextAlign.center,
+                    // maxLines: 3,
+                    style: TextStylesProductSans.textStyles_12.apply(
+                      color: ColorStyle.black,
+                    )),
+              )
+            ],
+          ),
+        ));
   }
 }

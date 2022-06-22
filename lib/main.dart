@@ -1,14 +1,25 @@
 
 
-import 'package:business_trackers/Views/EstimatePending1.dart';
+import 'package:business_trackers/Views/EstimatePending.dart';
 import 'package:business_trackers/Views/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'Views/TabbarScreen.dart';
+import 'package:flutter/services.dart';
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+      ));
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
   runApp(const MyApp());
 }
 
