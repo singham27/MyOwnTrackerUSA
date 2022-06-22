@@ -14,7 +14,6 @@ class UpgrdeToPro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         backgroundColor: ColorStyle.primaryColor,
         body: SingleChildScrollView(
           padding: EdgeInsets.only(left: 20,right: 20,),
@@ -24,7 +23,9 @@ class UpgrdeToPro extends StatelessWidget {
               SizedBox(height: 60,),
              InkWell(
                child:  Image.asset(ImageStyle.Group1718,height: 34,),
-               onTap: (){},
+               onTap: (){
+                 Get.back();
+               },
              ),
               SizedBox(height: 40,),
               Text(
@@ -179,9 +180,6 @@ class UpgrdeToPro extends StatelessWidget {
 
 
             )
-
-
-
             ],
           ),
         )

@@ -78,7 +78,7 @@ class EmailMessage extends StatelessWidget {
 
               // SizedBox(height: 14,),
 
-              SizedBox(height: 360,),
+              SizedBox(height: 340,),
               ElevatedButtonCustom(
                 height: 60,
                 text: "Save",

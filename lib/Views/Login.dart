@@ -143,7 +143,7 @@ class Login extends StatelessWidget {
                           .apply(color: ColorStyle.black, )),
                 ),
                 onTap: (){
-                  Get.to( CreateAnAccount());
+                  Get.back();
                 },
               ),
               SizedBox(height: 50,),

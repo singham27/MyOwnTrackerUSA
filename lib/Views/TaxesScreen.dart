@@ -48,7 +48,7 @@ class TaxesScreen extends StatelessWidget {
                text: " +  Add",
                colorBG:ColorStyle.secondryColor,
                colorText: ColorStyle.primaryColor,
-               width: MediaQuery.of(context).size.width-280,
+               width: MediaQuery.of(context).size.width-260,
                onTap: () {
                  Get.to(AddNewTax());
                },

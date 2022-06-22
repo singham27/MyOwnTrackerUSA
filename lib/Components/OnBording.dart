@@ -25,7 +25,7 @@ class OnBording extends StatelessWidget {
         itemCount: totalPages,
         scrollDirection: Axis.horizontal,
         pagination: SwiperPagination(
-            margin: EdgeInsets.only(bottom: 200,right: 300),
+            margin: EdgeInsets.only(bottom: 200,right: 270),
             builder: new DotSwiperPaginationBuilder(
 
               color: ColorStyle.grey,
@@ -62,7 +62,7 @@ class OnBording extends StatelessWidget {
                   child:  Image.asset(
                       ImageStyle.Group19,
                       // width: 143,
-                      height: 130
+                      height: 100
                   ),
                 ),
                 Container(
@@ -71,7 +71,7 @@ class OnBording extends StatelessWidget {
                   child:  Image.asset(
                       ImageStyle.Group20,
                       // width: 143,
-                      height: 130
+                      height: 100
                   ),
                 ),
                 Container(
@@ -80,7 +80,7 @@ class OnBording extends StatelessWidget {
                   child: Image.asset(
                       ImageStyle.Group21,
                       // width: 143,
-                      height: 130
+                      height: 100
                   ),
                 ),
                 SizedBox(height: 30,),

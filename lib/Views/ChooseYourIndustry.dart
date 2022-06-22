@@ -3,6 +3,8 @@ import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
+import 'package:business_trackers/Views/Authentication.dart';
+import 'package:business_trackers/Views/TabbarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -57,7 +59,7 @@ class ChooseYourIndustry extends StatelessWidget {
           ),
         ),
         backgroundColor: ColorStyle.primaryColor,
-        body: SingleChildScrollView(
+        body: Container(
           padding: EdgeInsets.only(left: 20,right: 20,),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,14 +130,14 @@ class ChooseYourIndustry extends StatelessWidget {
 
         ],
           ),
-              SizedBox(height: 170,),
+              SizedBox(height: 100,),
               ElevatedButtonCustom(
                 text: "Submit",
                 colorBG: ColorStyle.secondryColor,
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
-                  // Get.to(Authentication());
+                  Get.to(TabbarScreen());
                 },
               ),
 
