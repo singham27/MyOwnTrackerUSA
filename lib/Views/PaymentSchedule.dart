@@ -12,7 +12,9 @@ import 'package:get/get.dart';
 
 class PaymentSchedule extends StatelessWidget {
    PaymentSchedule({Key? key}) : super(key: key);
+
   final controller = Get.put(PaymentScheduleController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +27,6 @@ class PaymentSchedule extends StatelessWidget {
         ),
         backgroundColor: ColorStyle.primaryColor,
         body:  GetBuilder(
-
           init: PaymentScheduleController(),
           initState: (state) {
             controller.reset();

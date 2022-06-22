@@ -320,11 +320,10 @@ class TextFieldEditAccount extends StatelessWidget {
 
                 style:  TextStylesProductSans.textStyles_16
                     .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-            SizedBox(width: 200,),
             Expanded(child:  TextField (
+              textAlign: TextAlign.right,
               decoration: InputDecoration(
                   border: InputBorder.none,
-
                   hintText: 'John'
               ),
             ),),
@@ -345,8 +344,8 @@ class TextFieldEditAccount extends StatelessWidget {
 
                 style:  TextStylesProductSans.textStyles_16
                     .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-            SizedBox(width: 200,),
             Expanded(child:  TextField (
+              textAlign: TextAlign.right,
               decoration: InputDecoration(
                   border: InputBorder.none,
 
@@ -370,11 +369,10 @@ class TextFieldEditAccount extends StatelessWidget {
 
                 style:  TextStylesProductSans.textStyles_16
                     .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-            SizedBox(width: 125,),
             Expanded(child:  TextField (
+              textAlign: TextAlign.right,
               decoration: InputDecoration(
                   border: InputBorder.none,
-
                   hintText: 'johndeo@gmail.com'
               ),
             ),),

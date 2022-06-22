@@ -11,13 +11,12 @@ class InvoicesPaidCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 460,
-      child: ListView.builder(
-          itemCount: 2,
+    return Scaffold(
+      backgroundColor: ColorStyle.primaryColor,
+      body: ListView.builder(
+          itemCount: controller.paid.length,
           padding: EdgeInsets.only(bottom: 16),
           shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
             return Container(
               padding: EdgeInsets.only(left:10,top: 15,bottom: 15),

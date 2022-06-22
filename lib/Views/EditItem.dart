@@ -190,11 +190,11 @@ class EditItem extends StatelessWidget {
               ElevatedButtonCustom(
                 height: 60,
                 text: "Save",
-                colorBG:ColorStyle.grays,
+                colorBG:ColorStyle.secondryColor,
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
-                  Get.to(ItemList());
+                  // Get.to(ItemList());
 
                 },
               ),

@@ -25,7 +25,7 @@ class Estimated extends StatelessWidget {
           },
           builder: (authController) {
             return Obx(() =>  SingleChildScrollView(
-              padding: EdgeInsets.only(left: 20,right: 20,bottom: 20,top: 50),
+              padding: EdgeInsets.only(left: 20,right: 20,bottom: 20,),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -107,46 +107,10 @@ class Estimated extends StatelessWidget {
 
                         }),
                   ),
-                  Container(
-                    height: 15,),
-                  Text(
-                      'Enjoying Business Tracker USA?',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Container(
-                    height: 15,),
-                  Text(
-                      'Invite other contractors!',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.secondryColor, fontWeightDelta: 3)),
-                  Container(
-                    height: 20,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButtonCustom(
 
-                        text: "Invite now",
 
-                        colorBG:ColorStyle.black,
-                        colorText: ColorStyle.primaryColor,
-                        width: 124,
-                        onTap: () {
-                          // Get.to(ChooseYourIndustry());
-                        },
-                      ),
-                      ElevatedButtonCustom(
-                        text: "+  Create",
-                        colorBG:ColorStyle.secondryColor,
-                        colorText: ColorStyle.primaryColor,
-                        width: 116,
-                        onTap: () {
-                          Get.to(NewEstimate());
-                        },
-                      ),
-                    ],)
+
+
 
                 ],
               ),

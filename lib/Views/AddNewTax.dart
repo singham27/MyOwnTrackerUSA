@@ -58,7 +58,7 @@ class AddNewTax extends StatelessWidget {
 
                ),
              ),
-            SizedBox(height: 500,),
+            SizedBox(height: 400,),
             Container(
               alignment: Alignment.centerRight,
               child:  ElevatedButtonCustom(
@@ -66,7 +66,7 @@ class AddNewTax extends StatelessWidget {
                 text: " +  Add",
                 colorBG:ColorStyle.secondryColor,
                 colorText: ColorStyle.primaryColor,
-                width: MediaQuery.of(context).size.width-280,
+                width: MediaQuery.of(context).size.width-260,
                 onTap: () {
                   // Get.to(AddNewTax());
                 },

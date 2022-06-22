@@ -39,8 +39,6 @@ class EditCotract extends StatelessWidget {
 
               TextField (
                 decoration: InputDecoration(
-                  // border: InputBorder.none,
-
                     hintText: 'Generic Contract'
                 ),
               ),
@@ -50,8 +48,7 @@ class EditCotract extends StatelessWidget {
                   // controller.estimate1[index],
                   style:  TextStylesProductSans.textStyles_14
                       .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-
-              SizedBox(height: 468,),
+              SizedBox(height: 350,),
               ElevatedButtonCustom(
                 height: 60,
                 text: "Save",

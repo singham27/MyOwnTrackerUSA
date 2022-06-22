@@ -15,6 +15,16 @@ class InvoicesActiveController extends GetxController {
   RxList<String> active = [
     'DRAFT',
     'PARTIAL',
+    'DRAFT',
+    'PARTIAL',
+    'DRAFT',
+    'PARTIAL',
+    'DRAFT',
+    'PARTIAL',
+    'DRAFT',
+    'PARTIAL',
+    'DRAFT',
+    'PARTIAL',
   ].obs;
 
   reset() {

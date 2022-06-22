@@ -78,7 +78,7 @@ class Authentication extends StatelessWidget {
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
-                  Get.to(ChooseYourIndustry());
+                  // Get.to(ChooseYourIndustry());
                 },
               ),
               SizedBox(height: 30,),

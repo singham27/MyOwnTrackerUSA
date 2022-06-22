@@ -6,12 +6,13 @@ import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:business_trackers/Views/EditClient.dart';
 import 'package:business_trackers/Views/EditCotract.dart';
 import 'package:business_trackers/Views/EditItem.dart';
+import 'package:business_trackers/Views/ItemList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../Controllers/NewEstimateController.dart';
-
+import '../Views/PaymentSchedule.dart';
 
 class NewEstimate extends StatelessWidget {
    NewEstimate({Key? key}) : super(key: key);
@@ -93,7 +94,7 @@ class NewEstimate extends StatelessWidget {
                   ),
                 ),
                 onTap: (){
-                  Get.to( EditItem());
+                  Get.to( ItemList());
                 },
               ),
               SizedBox(height: 20,),
@@ -169,11 +170,15 @@ class NewEstimate extends StatelessWidget {
                       // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                 InkWell(child:  Text(
+                 InkWell(
+                   child:  Text(
                      '+ ADD',
                      // controller.estimate1[index],
                      style:  TextStylesProductSans.textStyles_16
-                         .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),onTap: (){},)
+                         .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),
+                   onTap: (){
+                     Get.to(PaymentSchedule());
+                   },)
                 ],
               ),
               SizedBox(height: 20,),

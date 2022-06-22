@@ -9,6 +9,21 @@ class InvoicesPaidController extends GetxController {
   RxList<String> paid = [
     'PAID',
     'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+    'PAID',
+
   ].obs;
 
   reset() {

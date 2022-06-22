@@ -2,6 +2,7 @@ import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
+import 'package:business_trackers/Views/EditItem.dart';
 import 'package:business_trackers/Views/PaymentSchedule.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,10 +22,10 @@ class ItemList extends StatelessWidget {
           ),
         ),
         backgroundColor: ColorStyle.primaryColor,
-        body: SingleChildScrollView(
+        body: Container(
           padding: EdgeInsets.only(left: 20,right: 20,),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 padding: EdgeInsets.only(left: 16,),
@@ -51,20 +52,12 @@ class ItemList extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)
                 ),
               ),
-              // SizedBox(height: 15,),
-              Container(
-                // alignment: Alignment.center,
-                height: MediaQuery.of(context).size.height-500,
-                // color: ColorStyle.grey,
+              Expanded(
                 child: ListView.builder(
                     padding: EdgeInsets.only(bottom: 16,top: 16),
                     shrinkWrap: true,
-                    itemCount: 2,
-                    // scrollDirection: Axis.horizontal,
-                    physics: BouncingScrollPhysics(),
+                    itemCount: 10,
                     itemBuilder: (BuildContext context, int index) {
-
-
                       return Container(
                         padding: EdgeInsets.only(left: 16,right: 16,top: 16,bottom: 16),
                         alignment: Alignment.center,
@@ -105,7 +98,6 @@ class ItemList extends StatelessWidget {
 
                     }),
               ),
-              SizedBox(height: 228,),
              Container(
                alignment: Alignment.centerRight,
                child:  ElevatedButtonCustom(
@@ -113,16 +105,13 @@ class ItemList extends StatelessWidget {
                  text: "+ Add Item",
                  colorBG:ColorStyle.secondryColor,
                  colorText: ColorStyle.white,
-                 width: MediaQuery.of(context).size.width-240,
+                 width: MediaQuery.of(context).size.width-230,
                  onTap: () {
-                   Get.to(PaymentSchedule());
+                   Get.to(EditItem());
 
                  },
                ),
              )
-
-
-
             ],
           ),
         )
