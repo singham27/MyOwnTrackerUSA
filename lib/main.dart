@@ -1,4 +1,8 @@
 
+import 'package:business_trackers/Components/OnBording.dart';
+import 'package:business_trackers/Views/NewEstimate.dart';
+import 'package:business_trackers/Views/SplashScreen.dart';
+import 'package:business_trackers/Views/TabbarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'Views/ClientDetails.dart';
@@ -20,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:ClientDetails(),
+      home:TabbarScreen(),
     );
   }
 }

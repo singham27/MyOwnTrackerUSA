@@ -1,6 +1,7 @@
 import 'package:business_trackers/Views/EditClient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import '../Components/AppBarStyle.dart';
 import '../Components/ElevatedButtonCustom.dart';
@@ -25,7 +26,7 @@ class ClientDetails extends StatelessWidget {
             InkWell(
               child:Image.asset(ImageStyle.editIcon,height: 20,),
               onTap: (){
-                // myClient();
+                Get.to(EditClient());
               },
             ),
             SizedBox(width: 10,),

@@ -69,9 +69,7 @@ class MoreScreen extends StatelessWidget {
               },
             ),
             Container(
-              // alignment: Alignment.center,
               height: MediaQuery.of(context).size.height-262,
-              // color: ColorStyle.secondryColor,
               child: ListView.builder(
                   padding: EdgeInsets.only(bottom: 16),
                   shrinkWrap: true,
@@ -79,20 +77,14 @@ class MoreScreen extends StatelessWidget {
                   // scrollDirection: Axis.horizontal,
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
-
-
                     return Container(
                       margin: EdgeInsets.only(top: 6),
                       padding: EdgeInsets.only(left: 16,right: 16,top: 20,bottom: 20),
                       child: Column(
                         children: [
                           Row(
-
                             children: [
-
                               Container(
-
-                                // child: Icon(Icons.person,size: 30,color: ColorStyle.secondryColor,),
                                 child: Image.asset(controller.images1[index],height: 60,),
                                 decoration: BoxDecoration(
                                   color: ColorStyle.hex('#F2EBFF'),
@@ -123,8 +115,6 @@ class MoreScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 20,),
                           Container(
-
-
                               decoration: BoxDecoration(
                                 color: ColorStyle.grey,
                                 borderRadius: BorderRadius.circular(50),

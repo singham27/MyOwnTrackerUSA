@@ -221,8 +221,6 @@ class TextFieldEditClient extends StatelessWidget {
         // SizedBox(height: 8,),
         TextField (
           decoration: InputDecoration(
-            // border: InputBorder.none,
-
               hintText: 'Client name'
           ),
         ),

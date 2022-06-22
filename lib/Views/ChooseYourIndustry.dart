@@ -76,7 +76,7 @@ class ChooseYourIndustry extends StatelessWidget {
                   style:  TextStylesProductSans.textStyles_24
                       .apply(color: ColorStyle.black,fontWeightDelta: 2 )),
               SizedBox(height: 40,),
-          Wrap(
+              Wrap(
             runSpacing: 8.0,
             spacing: 12.0,
             children: <Widget>[

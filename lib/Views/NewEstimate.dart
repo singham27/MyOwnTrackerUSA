@@ -307,6 +307,7 @@ class NewEstimate extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 15,),
+
               Text(
                   'Document Info',
                   // controller.estimate1[index],

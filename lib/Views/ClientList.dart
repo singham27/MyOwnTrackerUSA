@@ -2,8 +2,10 @@ import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
+import 'package:business_trackers/Views/EditClient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class ClientList extends StatelessWidget {
   const ClientList({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class ClientList extends StatelessWidget {
         appBar: AppBarStyless(
           overlayStyle: SystemUiOverlayStyle.dark,
           title: 'Client List',
-          leading: BackButton(
+          leading:BackButton(
             color: ColorStyle.black,
           ),
         ),
