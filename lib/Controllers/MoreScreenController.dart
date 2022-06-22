@@ -3,6 +3,7 @@ import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:get/get.dart';
 
 class MoreScreenController extends GetxController {
+  RxInt intAppBar = 0.obs;
   RxList<String> images1 = <String>[
     ImageStyle.Group3134,
     ImageStyle.Group3140,
@@ -31,5 +32,8 @@ class MoreScreenController extends GetxController {
     'Chat with us',
     'About company and terms',
   ].obs;
+  reset() {
+    intAppBar.value = 0;
+  }
 
 }

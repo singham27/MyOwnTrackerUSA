@@ -148,7 +148,7 @@ class UpgrdeToPro extends StatelessWidget {
                         colorText: ColorStyle.primaryColor,
                         width: MediaQuery.of(context).size.width,
                         onTap: () {
-                          Get.to(EditCotract());
+                          // Get.to(EditCotract());
                         },
                       ),
 

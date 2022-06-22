@@ -117,7 +117,7 @@ filter(context) {
                     ),
                     ElevatedButtonCustom(
                       height: 50,
-                      text: "Remove",
+                      text: "Cancel",
                       colorBG:ColorStyle.primaryColor,
                       colorText: ColorStyle.black,
                       width: MediaQuery.of(context).size.width,

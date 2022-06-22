@@ -1,15 +1,13 @@
-import 'package:business_trackers/Components/InvoicesPaidCustom.dart';
+import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
+import 'package:business_trackers/Components/InvoicesActiveCustom.dart';
+import 'package:business_trackers/Controllers/InvoicesActiveController.dart';
+import 'package:business_trackers/Styles/ColorStyle.dart';
+import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Components/ElevatedButtonCustom.dart';
-import '../Controllers/InvoicesActiveController.dart';
-import '../Styles/ColorStyle.dart';
-import '../Styles/TextStyles.dart';
 
-class InvoicesPaid extends StatelessWidget {
-  InvoicesPaid({Key? key}) : super(key: key);
-
-  final controller = Get.put(InvoicesActiveController());
+class InvoicesActived extends StatelessWidget {
+   InvoicesActived({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +19,6 @@ class InvoicesPaid extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              SizedBox(
-                height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -31,7 +27,7 @@ class InvoicesPaid extends StatelessWidget {
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
                   Text(
-                      '\$200.00',
+                      '\$456.00',
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
                 ],),
@@ -43,10 +39,9 @@ class InvoicesPaid extends StatelessWidget {
               ),
               SizedBox(
                 height: 15,),
-
-              InvoicesPaidCustom(),
+              InvoicesActiveCustom(),
               Container(
-                alignment: Alignment.centerRight,
+                alignment: Alignment.bottomRight,
                 child: ElevatedButtonCustom(
                   text: "+  Create",
                   colorBG:ColorStyle.secondryColor,
@@ -56,7 +51,7 @@ class InvoicesPaid extends StatelessWidget {
                     // Get.to(.NewEstimate());
                   },
                 ),
-              )
+              ),
             ],
           ),
         )

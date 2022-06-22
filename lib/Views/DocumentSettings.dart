@@ -2,8 +2,10 @@ import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
+import 'package:business_trackers/Views/EditCotract.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class DocumentSettings extends StatelessWidget {
   const DocumentSettings({Key? key}) : super(key: key);
@@ -42,12 +44,14 @@ class DocumentSettings extends StatelessWidget {
                   style:  TextStylesProductSans.textStyles_14
                       .apply(color: ColorStyle.black, fontWeightDelta: 0)
               ),
-              Text(
-                  'Generic Contract',
-                  // controller.estimate1[index],
-                  style:  TextStylesProductSans.textStyles_14
-                      .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)
-              ),
+             InkWell(child:  Text(
+                 'Generic Contract',
+                 // controller.estimate1[index],
+                 style:  TextStylesProductSans.textStyles_14
+                     .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)
+             ),onTap: (){
+               Get.to(EditCotract());
+             },)
 
             ],
           ),

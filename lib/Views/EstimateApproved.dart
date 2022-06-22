@@ -1,18 +1,19 @@
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
-import 'package:business_trackers/Controllers/EstimateDeclinedContoller.dart';
+import 'package:business_trackers/Controllers/EstimateApprovedController.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EstimateDeclined extends StatelessWidget {
-   EstimateDeclined({Key? key}) : super(key: key);
-  final controller = Get.put(EstimateDeclinedContoller());
+
+class EstimateApproved extends StatelessWidget {
+   EstimateApproved({Key? key}) : super(key: key);
+  final controller = Get.put(EstimateApprovedController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
+    return  Scaffold(
         backgroundColor: ColorStyle.primaryColor,
         body: SingleChildScrollView(
           padding: EdgeInsets.only(left: 20,right: 20,top: 30),
@@ -45,9 +46,7 @@ class EstimateDeclined extends StatelessWidget {
               // Container(
               //   height: 25,),
               // Container(
-              //   // alignment: Alignment.center,
               //   height: 35,
-              //   // color: ColorStyle.grey,
               //   child: ListView.builder(
               //       shrinkWrap: true,
               //       itemCount: controller.estimate.length,
@@ -99,7 +98,6 @@ class EstimateDeclined extends StatelessWidget {
                   // controller.estimate1[index],
                   style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 2)),
-
               Container(
                 // alignment: Alignment.center,
                 height: 460,
@@ -117,7 +115,7 @@ class EstimateDeclined extends StatelessWidget {
                         padding: EdgeInsets.only(right: 16,),
 
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
                               // padding: EdgeInsets.only(top: ),
@@ -126,13 +124,14 @@ class EstimateDeclined extends StatelessWidget {
                               width: 12,
 
                               decoration: BoxDecoration(
-                                color: ColorStyle.hex('#FF8989'),
+                                color: ColorStyle.hex('#61C842'),
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(20),
                                   bottomLeft: Radius.circular(20),
                                 ),
                               ),
                             ),
+
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -204,20 +203,16 @@ class EstimateDeclined extends StatelessWidget {
 
                     }),
               ),
-
-
               Container(
                 height: 15,),
               Text(
                   'Enjoying Business Tracker USA?',
-                  // controller.estimate1[index],
                   style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 0)),
               Container(
                 height: 15,),
               Text(
                   'Invite other contractors!',
-                  // controller.estimate1[index],
                   style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.secondryColor, fontWeightDelta: 3)),
               Container(
@@ -226,9 +221,7 @@ class EstimateDeclined extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButtonCustom(
-
                     text: "Invite now",
-
                     colorBG:ColorStyle.black,
                     colorText: ColorStyle.primaryColor,
                     width: 124,
@@ -246,7 +239,6 @@ class EstimateDeclined extends StatelessWidget {
                     },
                   ),
                 ],)
-
             ],
           ),
         )
@@ -255,4 +247,3 @@ class EstimateDeclined extends StatelessWidget {
     );
   }
 }
-

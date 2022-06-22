@@ -24,9 +24,8 @@ class TabbarScreen extends StatelessWidget {
     Estimate(),
     InvoicesActive(),
     Clients(),
+    InvoicesActive(),
     MoreScreen(),
-
-
   ];
 
   @override
