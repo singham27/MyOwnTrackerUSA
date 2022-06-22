@@ -30,7 +30,6 @@ class EditClient extends StatelessWidget {
                     .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),
             onTap: (){
               filter();
-
             },
           ),
           SizedBox(width: 10,),
@@ -179,7 +178,9 @@ filter() {
                          style:  TextStylesProductSans.textStyles_16
                              .apply(color: ColorStyle.black, fontWeightDelta: 0)
                      ),
-                     onTap: (){  Get.back();},
+                     onTap: (){  Get.back();
+                       Get.to(ClientList());
+                       },
                    ),
                     SizedBox(
                       height: 15,
