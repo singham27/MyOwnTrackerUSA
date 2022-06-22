@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MoreScreen extends StatelessWidget {
-   MoreScreen({Key? key}) : super(key: key);
+  MoreScreen({Key? key}) : super(key: key);
   final controller = Get.put(MoreScreenController());
   @override
   Widget build(BuildContext context) {

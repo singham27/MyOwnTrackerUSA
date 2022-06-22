@@ -115,9 +115,7 @@ class OnBording extends StatelessWidget {
         },
       ),
         floatingActionButton: Container(
-          // color: ColorStyle.grey,
             padding: EdgeInsets.only(left: 35,),
-
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -1,3 +1,4 @@
+
 import 'package:business_trackers/Controllers/TabbarScreenController.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
@@ -21,15 +22,10 @@ class TabbarScreen extends StatelessWidget {
 
   final arrBody = [
     Estimate(),
-    InvoicesActive(
-
-    ),
-    Clients(
-
-    ),
+    InvoicesActive(),
+    Clients(),
+    InvoicesActive(),
     MoreScreen(),
-
-
   ];
 
   @override

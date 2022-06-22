@@ -1,4 +1,6 @@
+import 'package:business_trackers/Views/ClientDetails.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../Components/ElevatedButtonCustom.dart';
 import '../Components/InvoicesPaidCustom.dart';
@@ -49,32 +51,39 @@ class Clients extends StatelessWidget {
                 shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: EdgeInsets.only(left:15,top: 20,bottom: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                            'ABC Company Pvt. Ltd.',
-                            style:  TextStylesProductSans.textStyles_15
-                                .apply(color: ColorStyle.black,)),
-                        SizedBox(
-                          height: 10,),
-                        Text(
-                            'johndeo@gmail.com',
-                            style:  TextStylesProductSans.textStyles_14
-                                .apply(color: ColorStyle.black,)),
-                      ],
+                  return InkWell(
+                    child:  Container(
+                      padding: EdgeInsets.only(left:15,top: 20,bottom: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              'ABC Company Pvt. Ltd.',
+                              style:  TextStylesProductSans.textStyles_15
+                                  .apply(color: ColorStyle.black,)),
+                          SizedBox(
+                            height: 10,),
+                          Text(
+                              'johndeo@gmail.com',
+                              style:  TextStylesProductSans.textStyles_14
+                                  .apply(color: ColorStyle.black,)),
+                        ],
+                      ),
+                      margin: EdgeInsets.only(top: 10),
+                      decoration: BoxDecoration(
+                          color: ColorStyle.blue,
+                          borderRadius: BorderRadius.circular(20)
+                      ),
                     ),
-                    margin: EdgeInsets.only(top: 10),
-                    decoration: BoxDecoration(
-                        color: ColorStyle.blue,
-                        borderRadius: BorderRadius.circular(20)
-                    ),
+                    onTap: () {
+                      Get.to(ClientDetails());
+                    },
                   );
 
                 }),
           ),
+              SizedBox(
+                height: 50,),
               Container(
                 alignment: Alignment.bottomRight,
                 child: ElevatedButtonCustom(
