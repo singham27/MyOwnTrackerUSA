@@ -5,7 +5,7 @@ import 'package:business_trackers/Views/EstimateApproved.dart';
 import 'package:business_trackers/Views/EstimateDeclined.dart';
 import 'package:business_trackers/Views/EstimatePending.dart';
 import 'package:business_trackers/Views/Estimated.dart';
-import 'package:business_trackers/Views/NewEstimate.dart';
+import 'package:business_trackers/Views/EstimateCreate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -84,7 +84,7 @@ class Estimate extends StatelessWidget {
                 colorBG: ColorStyle.secondryColor,
                 colorText: ColorStyle.primaryColor,
                 onTap: () {
-                  Get.to(NewEstimate());
+                  Get.to(EstimateCreate());
                 },
               ),
             ),

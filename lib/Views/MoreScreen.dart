@@ -20,17 +20,31 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: ColorStyle.white,
+        leadingWidth: 160,
+        leading: Row(
+          children: [
+            SizedBox(
+              width: 14,
+            ),
+            Text('More',
+                style: TextStylesProductSans.textStyles_22
+                    .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 16, right: 16,),
+        padding: EdgeInsets.only(
+          top: 16,
+          left: 16,
+          right: 16,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('More',
-                style: TextStylesProductSans.textStyles_30
-                    .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-            SizedBox(
-              height: 16,
-            ),
+
             InkWell(
               child: Container(
                 padding:

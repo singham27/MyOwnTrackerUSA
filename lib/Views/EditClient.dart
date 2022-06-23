@@ -48,6 +48,7 @@ class EditClient extends StatelessWidget {
                   Text('Basic Info',
                       style: TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+                  SizedBox(height: 16,),
                   TextFieldUnderline(
                     hintText: 'Client name',
                     padding: EdgeInsets.only(
@@ -58,6 +59,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -69,6 +71,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -83,6 +86,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -110,14 +114,10 @@ class EditClient extends StatelessWidget {
                       // controller.estimate1[index],
                       style: TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-                  SizedBox(
-                    height: 12,
-                  ),
                   Text('Address where the bill be sent',
                       // controller.estimate1[index],
                       style: TextStylesProductSans.textStyles_12
                           .apply(color: ColorStyle.grey, fontWeightDelta: 0)),
-
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -128,6 +128,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -138,6 +139,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -148,6 +150,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -158,6 +161,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -180,7 +184,6 @@ class EditClient extends StatelessWidget {
                       // controller.estimate1[index],
                       style: TextStylesProductSans.textStyles_14
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  // InkWell(child:  Image.asset(ImageStyle.Group17,height: 20,),onTap: (){},)
                   SwitchCustom(),
                 ],
               ),
@@ -211,9 +214,7 @@ class EditClient extends StatelessWidget {
                       // controller.estimate1[index],
                       style: TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-                  SizedBox(
-                    height: 10,
-                  ),
+
                   Text('Address where the work will be done',
                       // controller.estimate1[index],
                       style: TextStylesProductSans.textStyles_12
@@ -228,6 +229,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -238,6 +240,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -248,6 +251,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -258,6 +262,7 @@ class EditClient extends StatelessWidget {
                         .apply(color: ColorStyle.black,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   TextFieldUnderline(
                     padding: EdgeInsets.only(
                         top: 0,
@@ -313,46 +318,52 @@ filter() {
 
   return Get.dialog(Material(
       color: Colors.transparent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: 18, top: 18, bottom: 18),
-            margin: EdgeInsets.only(left: 150, right: 22, bottom: 580),
-            // height: 100,
-            width: MediaQuery.of(Get.context!).size.width,
-            decoration: BoxDecoration(
-              color: ColorStyle.primaryColor,
-              borderRadius: BorderRadius.circular(10),
+      child: InkWell(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.only(left: 18, top: 18, bottom: 18),
+              margin: EdgeInsets.only(left: 150, right: 22, bottom: 580),
+              width: MediaQuery.of(Get.context!).size.width,
+              decoration: BoxDecoration(
+                color: ColorStyle.primaryColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                    child: Text('Saved Address',
+                        // controller.estimate1[index],
+                        style: TextStylesProductSans.textStyles_16
+                            .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                    onTap: () {
+                      Get.back();
+                      Get.to(ClientList());
+                    },
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  InkWell(
+                    child: Text('Address Book',
+                        // controller.estimate1[index],
+                        style: TextStylesProductSans.textStyles_16
+                            .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                    onTap: () {
+                      Get.back();
+                    },
+                  )
+                ],
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InkWell(
-                  child: Text('Saved Address',
-                      // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  onTap: () {
-                    Get.back();
-                    Get.to(ClientList());
-                  },
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                InkWell(
-                  child: Text('Address Book',
-                      // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  onTap: () {
-                    Get.back();
-                  },
-                )
-              ],
-            ),
-          ),
-        ],
-      )));
+          ],
+        ),
+        onTap: () {
+          Get.back();
+        },
+      )
+  )
+  );
 }
