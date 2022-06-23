@@ -39,4 +39,6 @@ class ImageStyle {
   static const String Group3141 = baseImage + "Group3141.png";
   static const String delete = baseImage + "delete.png";
   static const String logo = baseImage + "logo.png";
+  static const String Group1731 = baseImage + "Group1731.png";
+
 }

@@ -13,11 +13,13 @@ import 'package:get/get.dart';
 
 import '../Controllers/NewEstimateController.dart';
 import '../Views/PaymentSchedule.dart';
+import '../Components/SwitchCustom.dart';
 
-class NewEstimate extends StatelessWidget {
-   NewEstimate({Key? key}) : super(key: key);
+
+class EstimateCreate extends StatelessWidget {
+   EstimateCreate({Key? key}) : super(key: key);
   final controller = Get.put(NewEstimateController());
-   bool isSwitched = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -273,17 +275,7 @@ class NewEstimate extends StatelessWidget {
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                   // InkWell(child:  Image.asset(ImageStyle.Group1709,height: 20,),onTap: (){},)
-                  Switch(
-                    value: isSwitched,
-                    onChanged: (value) {
-
-                      isSwitched = value;
-                      print(isSwitched);
-
-                    },
-                    activeTrackColor:ColorStyle.secondryColor.withOpacity(.3),
-                    activeColor: ColorStyle.secondryColor,
-                  ),
+                  SwitchCustom()
                 ],
               ),
               SizedBox(height: 15,),
