@@ -9,7 +9,7 @@ import 'package:business_trackers/Views/ItemList.dart';
 import 'package:business_trackers/Views/LiveChat.dart';
 import 'package:business_trackers/Views/MyAccount.dart';
 import 'package:business_trackers/Views/MyCompany.dart';
-import 'package:business_trackers/Views/TaxesScreen.dart';
+import 'package:business_trackers/Views/TaxList.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,7 +44,6 @@ class MoreScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             InkWell(
               child: Container(
                 padding:
@@ -91,6 +90,7 @@ class MoreScreen extends StatelessWidget {
                 Get.to(MyAccount());
               },
             ),
+            SizedBox(height: 16,),
             ListView.builder(
                 padding: EdgeInsets.only(bottom: 10),
                 shrinkWrap: true,
@@ -98,16 +98,14 @@ class MoreScreen extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    // margin: EdgeInsets.only(top: 6),
                     padding: EdgeInsets.only(
-                        left: 16, right: 16, top: 20, bottom: 20),
+                        left: 16, right: 16, bottom: 16),
                     child: InkWell(
                       child: Column(
                         children: [
                           Row(
                             children: [
                               Container(
-                                // child: Icon(Icons.person,size: 30,color: ColorStyle.secondryColor,),
                                 child: Image.asset(
                                   controller.images1[index],
                                   height: 50,
@@ -126,31 +124,29 @@ class MoreScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    // 'My Account',
+                                      // 'My Account',
                                       controller.moreItem[index],
-                                      style: TextStylesProductSans
-                                          .textStyles_16
+                                      style: TextStylesProductSans.textStyles_16
                                           .apply(
-                                          color: ColorStyle.black,
-                                          fontWeightDelta: 0)),
+                                              color: ColorStyle.black,
+                                              fontWeightDelta: 0)),
                                   SizedBox(
                                     height: 6,
                                   ),
                                   Text(
-                                    // 'johndeo@gmail.com',
+                                      // 'johndeo@gmail.com',
                                       controller.moreItem1[index],
-                                      style: TextStylesProductSans
-                                          .textStyles_14
+                                      style: TextStylesProductSans.textStyles_14
                                           .apply(
-                                          color: ColorStyle.grey
-                                              .withOpacity(.3),
-                                          fontWeightDelta: 0)),
+                                              color: ColorStyle.grey
+                                                  .withOpacity(.3),
+                                              fontWeightDelta: 0)),
                                 ],
                               ),
                             ],
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 6,
                           ),
                           Container(
                             decoration: BoxDecoration(
@@ -163,12 +159,11 @@ class MoreScreen extends StatelessWidget {
                         ],
                       ),
                       onTap: () {
-                        // Get.back();
                         controller.intAppBar.value = index;
                         if (controller.intAppBar.value == 0)
                           Get.to(MyCompany());
                         else if (controller.intAppBar == 1)
-                          Get.to(TaxesScreen());
+                          Get.to(TaxList());
                         else if (controller.intAppBar == 2)
                           Get.to(ItemList());
                         else if (controller.intAppBar == 3)
@@ -177,7 +172,8 @@ class MoreScreen extends StatelessWidget {
                           Get.to(EmailMessage());
                         else if (controller.intAppBar == 5)
                           Get.to(LiveChat());
-                        else if (controller.intAppBar == 6) Get.to(About());
+                        else if (controller.intAppBar == 6)
+                          Get.to(About());
                       },
                     ),
                   );
