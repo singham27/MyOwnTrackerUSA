@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import '../Views/TaxList.dart';
+
 
 class EditItem extends StatelessWidget {
   EditItem({Key? key}) : super(key: key);
@@ -117,7 +119,7 @@ class EditItem extends StatelessWidget {
                     style: TextStylesProductSans.textStyles_16.apply(
                         color: ColorStyle.secondryColor, fontWeightDelta: 0)),
                 onTap: () {
-                  filters(context);
+                  Get.to(TaxList());
                 },
               ),
               SizedBox(
@@ -161,8 +163,6 @@ class EditItem extends StatelessWidget {
 }
 
 filter(context) {
-  // final controller = Get.put(HomeScreenController());
-
   return Get.dialog(Material(
       color: Colors.transparent,
       child: Column(
@@ -219,68 +219,3 @@ filter(context) {
       )));
 }
 
-filters(context) {
-  return Get.bottomSheet(Material(
-      color: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
-          height: 360,
-          padding: EdgeInsets.only(
-            left: 16,
-            right: 16,
-            bottom: 60,
-          ),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              )
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text('Add New Tax',
-                  textAlign: TextAlign.center,
-                  // controller.estimate1[index],
-                  style: TextStylesProductSans.textStyles_16
-                      .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-              SizedBox(
-                height: 20,
-              ),
-              TextFieldUnderline(
-                hintText: 'Item name',
-                textStyle: TextStylesProductSans.textStyles_16
-                    .apply(color: ColorStyle.black, fontWeightDelta: 0),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextFieldUnderline(
-
-                hintText: '0%',
-                keyboardType: TextInputType.number,
-                textStyle: TextStylesProductSans.textStyles_16
-                    .apply(color: ColorStyle.black, fontWeightDelta: 0),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              ElevatedButtonCustom(
-                height: 60,
-                text: "Save",
-                colorBG: ColorStyle.secondryColor,
-                colorText: ColorStyle.primaryColor,
-                width: MediaQuery.of(context).size.width,
-                onTap: () {
-                  Get.back();
-                },
-              ),
-            ],
-          ),
-        ),
-      )
-  )
-  );
-}

@@ -60,7 +60,7 @@ class Invoices extends StatelessWidget {
           text: "+  Create",
           colorBG:ColorStyle.secondryColor,
           colorText: ColorStyle.primaryColor,
-          width: 116,
+          width: 130,
           onTap: () {
             Get.to(EstimateCreate());
           },

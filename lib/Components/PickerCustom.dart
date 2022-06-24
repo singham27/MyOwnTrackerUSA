@@ -94,7 +94,7 @@ class PickerCustom {
                       top: 16, bottom: 16
                   ),
                   height: 1,
-                  color: Colors.red,
+                  color: ColorStyle.secondryColor
                 ),
                 InkWell(
                   child: Container(
@@ -104,7 +104,7 @@ class PickerCustom {
                     height: 44,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: ColorStyle.secondryColor,
                         borderRadius: BorderRadius.circular(25)
                     ),
                     alignment: Alignment.center,
