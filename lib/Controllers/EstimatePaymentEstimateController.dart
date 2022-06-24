@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EstimatePaymentEstimateController extends GetxController {
+class EstimateInvoicePaymentController extends GetxController {
 
-  RxInt intAppBar = 0.obs;
+  RxInt paymentMode = 0.obs;
+  RxString date = ''.obs;
 
-  RxList<String> payment = [
-    '\$ ','%','Full',
-  ].obs;
-
-  RxList<String> paymentMethod = [
-    'Cash','Check','Credit','Bank Transfer',
-  ].obs;
-
+  RxInt paymentMethod = 0.obs;
 
   reset() {
-    intAppBar.value = 0;
+    paymentMode.value = 0;
   }
 
 
