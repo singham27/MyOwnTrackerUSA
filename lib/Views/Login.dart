@@ -1,6 +1,7 @@
 import '../Components/AppBarStyle.dart';
 import '../Components/ElevatedButtonCustom.dart';
 import '../Components/TextFieldCustom.dart';
+import '../Controllers/LoginController.dart';
 import '../Styles/ColorStyle.dart';
 import '../Styles/ImageStyle.dart';
 import '../Styles/TextStyles.dart';
@@ -12,7 +13,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
+
+  final controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +55,7 @@ class Login extends StatelessWidget {
                 height: 10,
               ),
               TextFieldOutline(
+                controller: controller.emailController.value,
                 radiusBorder: 14,
                 hintText: 'Enter your email',
                 keyboardType: TextInputType.emailAddress,
@@ -77,6 +81,7 @@ class Login extends StatelessWidget {
                 height: 10,
               ),
               TextFieldPWDOutline(
+                  controller: controller.passwordController.value,
                 radiusBorder: 14,
                 hintText: 'Enter your password',
                 padding: EdgeInsets.only(
@@ -194,7 +199,7 @@ class Login extends StatelessWidget {
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
-                  Get.offAll(TabbarScreen());
+                  controller.login();
                 },
               ),
               SizedBox(

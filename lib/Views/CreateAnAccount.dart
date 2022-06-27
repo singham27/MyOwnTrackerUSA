@@ -1,6 +1,7 @@
 import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Components/TextFieldCustom.dart';
+import 'package:business_trackers/Controllers/SignUpController.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
@@ -12,7 +13,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class CreateAnAccount extends StatelessWidget {
-  const CreateAnAccount({Key? key}) : super(key: key);
+  CreateAnAccount({Key? key}) : super(key: key);
+
+  final controller = Get.put(SignUpController());
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +68,7 @@ class CreateAnAccount extends StatelessWidget {
                 height: 10,
               ),
               TextFieldOutline(
+                controller: controller.emailaddressController.value,
                 radiusBorder: 14,
                 hintText: 'Enter your email',
                 keyboardType: TextInputType.emailAddress,
@@ -165,7 +169,7 @@ class CreateAnAccount extends StatelessWidget {
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
-                  Get.to(CreatePassword());
+                  controller.validationEmail();
                 },
               ),
               SizedBox(
