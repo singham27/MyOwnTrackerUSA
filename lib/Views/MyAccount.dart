@@ -11,8 +11,12 @@ import 'package:get/utils.dart';
 import '../Components/PickerCustom.dart';
 import '../Controllers/MyAccountController.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import '../Utils/Constant.dart';
 import 'dart:io';
 import '../Views/Login.dart';
+
+
 
 class MyAccount extends StatelessWidget {
   MyAccount({Key? key}) : super(key: key);
@@ -30,6 +34,9 @@ class MyAccount extends StatelessWidget {
       onPressed: () {
         Get.back();
         Get.offAll(Login());
+
+        final storage = GetStorage();
+        storage.remove(kTOKEN);
       },
     );
     Widget continueButton = TextButton(
@@ -141,6 +148,7 @@ class MyAccount extends StatelessWidget {
                         height: 16,
                       ),
                       TextFieldUnderlinePrefixText(
+                        controller: controller.firstnameController.value,
                         prefixText: "First name",
                         hintText: "John",
                         textStyle: TextStylesProductSans.textStyles_16
@@ -150,6 +158,7 @@ class MyAccount extends StatelessWidget {
                         height: 16,
                       ),
                       TextFieldUnderlinePrefixText(
+                        controller: controller.lastnameController.value,
                         prefixText: "Last name",
                         hintText: "Deo",
                         textStyle: TextStylesProductSans.textStyles_16
@@ -159,6 +168,7 @@ class MyAccount extends StatelessWidget {
                         height: 16,
                       ),
                       TextFieldUnderlinePrefixText(
+                        controller: controller.emailController.value,
                         keyboardType: TextInputType.emailAddress,
                         prefixText: "Email",
                         hintText: "johndeo@gmail.com",
@@ -207,7 +217,7 @@ class MyAccount extends StatelessWidget {
                         colorText: ColorStyle.primaryColor,
                         width: MediaQuery.of(context).size.width,
                         onTap: () {
-                          // Get.to(ChooseYourIndustry());
+                          controller.validation();
                         },
                       ),
                     ],
@@ -217,3 +227,5 @@ class MyAccount extends StatelessWidget {
         ));
   }
 }
+
+

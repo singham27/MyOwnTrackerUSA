@@ -1,6 +1,7 @@
 import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Components/TextFieldCustom.dart';
+import 'package:business_trackers/Controllers/SignUpController.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
@@ -11,7 +12,10 @@ import 'package:get/get.dart';
 import 'package:business_trackers/Views/TabbarScreen.dart';
 
 class CreatePassword extends StatelessWidget {
-  const CreatePassword({Key? key}) : super(key: key);
+  CreatePassword({Key? key}) : super(key: key);
+
+  final controller = Get.put(SignUpController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +47,7 @@ class CreatePassword extends StatelessWidget {
                     height: 10,
                   ),
                   TextFieldPWDOutline(
+                    controller: controller.passwordController.value,
                     radiusBorder: 14,
                     hintText: 'Enter your password',
                     padding: EdgeInsets.only(
@@ -67,6 +72,7 @@ class CreatePassword extends StatelessWidget {
                     height: 10,
                   ),
                   TextFieldPWDOutline(
+                    controller: controller.confirmpasswordController.value,
                     radiusBorder: 14,
                     hintText: 'Enter your password',
                     padding: EdgeInsets.only(
@@ -86,8 +92,7 @@ class CreatePassword extends StatelessWidget {
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
-                  Get.to(TabbarScreen());
-                  // Get.to(ChooseYourIndustry());
+              controller.createpassword();
                 },
               ),
             ],
