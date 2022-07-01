@@ -1,10 +1,11 @@
 import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Controllers/ItemListController.dart';
+import 'package:business_trackers/Controllers/EditItemController.dart';
+import 'package:business_trackers/Models/ModelItemList.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:business_trackers/Views/EditItem.dart';
-import 'package:business_trackers/Views/PaymentSchedule.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,9 @@ import '../Styles/ImageStyle.dart';
 
 class ItemList extends StatelessWidget {
    ItemList({Key? key}) : super(key: key);
+
+   final controller = Get.put(ItemListController());
+   final controllerEditItem = Get.put(EditItemController());
 
    delete() {
      Widget cancelButton = TextButton(
@@ -68,8 +72,6 @@ class ItemList extends StatelessWidget {
      );
    }
 
-  final controller = Get.put(ItemListController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +90,8 @@ class ItemList extends StatelessWidget {
           colorBG: ColorStyle.secondryColor,
           colorText: ColorStyle.white,
           onTap: () {
-            Get.to(EditItem());
+            controllerEditItem.modelItemList.value = ModelItemList();
+            Get.to(EditItem(title: 'Add Item',));
           },
         ),
         body:  GetBuilder(
@@ -143,66 +146,72 @@ class ItemList extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: controller.arrModelItemList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          padding: EdgeInsets.only(
-                              left: 16, right: 16, top: 16, bottom: 16),
-                          alignment: Alignment.center,
-                          // height: 2,
-                          // width: 20,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                      controller.arrModelItemList[index].name.toString(),
-                                      style: TextStylesProductSans.textStyles_16
-                                          .apply(
-                                          color: ColorStyle.black,
-                                          fontWeightDelta: 0)),
-                                  Text(
-                                      '\$'+controller.arrModelItemList[index].valueAmount.toString(),
-                                      style: TextStylesProductSans.textStyles_16
-                                          .apply(
-                                          color: ColorStyle.black,
-                                          fontWeightDelta: 0)),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                        controller.arrModelItemList[index].description.toString(),
+                        return InkWell(
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                left: 16, right: 16, top: 16, bottom: 16),
+                            alignment: Alignment.center,
+                            // height: 2,
+                            // width: 20,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        controller.arrModelItemList[index].name.toString(),
                                         style: TextStylesProductSans.textStyles_16
                                             .apply(
                                             color: ColorStyle.black,
                                             fontWeightDelta: 0)),
-                                  ),
-                                  IconButton(
-                                    icon: Image.asset(
-                                      ImageStyle.delete,
-                                      height: 50,
+                                    Text(
+                                        '\$'+controller.arrModelItemList[index].valueAmount.toString(),
+                                        style: TextStylesProductSans.textStyles_16
+                                            .apply(
+                                            color: ColorStyle.black,
+                                            fontWeightDelta: 0)),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                          controller.arrModelItemList[index].description.toString(),
+                                          style: TextStylesProductSans.textStyles_16
+                                              .apply(
+                                              color: ColorStyle.black,
+                                              fontWeightDelta: 0)),
                                     ),
-                                    splashColor: Colors.red,
-                                    onPressed: () {
-                                      controller.itemID.value = controller.arrModelItemList[index].id!;
-                                      delete();
-                                    },
-                                  ),
-                                ],
-                              ),
+                                    IconButton(
+                                      icon: Image.asset(
+                                        ImageStyle.delete,
+                                        height: 50,
+                                      ),
+                                      splashColor: Colors.red,
+                                      onPressed: () {
+                                        controller.itemID.value = controller.arrModelItemList[index].id!;
+                                        delete();
+                                      },
+                                    ),
+                                  ],
+                                ),
 
-                            ],
+                              ],
+                            ),
+                            margin: EdgeInsets.only(top: 10),
+                            decoration: BoxDecoration(
+                                color: ColorStyle.blue,
+                                borderRadius: BorderRadius.circular(20)),
                           ),
-                          margin: EdgeInsets.only(top: 10),
-                          decoration: BoxDecoration(
-                              color: ColorStyle.blue,
-                              borderRadius: BorderRadius.circular(20)),
+                          onTap: () {
+                            controllerEditItem.modelItemList.value = controller.arrModelItemList[index];
+                            Get.to(EditItem(title: 'Edit Item',));
+                          },
                         );
                       }),
                 ),

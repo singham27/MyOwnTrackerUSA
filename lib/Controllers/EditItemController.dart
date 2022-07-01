@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../Controllers/ItemListController.dart';
 import '../Utils/API.dart';
 import '../Models/ModelTaxList.dart';
+import '../Models/ModelItemList.dart';
 import 'dart:convert';
 
 
@@ -21,6 +22,8 @@ class EditItemController extends GetxController {
   Rx<TextEditingController> rateController = TextEditingController().obs;
   Rx<TextEditingController> descriptionController = TextEditingController().obs;
 
+  Rx<ModelItemList> modelItemList = ModelItemList().obs;
+
   init() {
     Future.delayed(Duration(milliseconds: 100), () {
       reset();
@@ -33,10 +36,21 @@ class EditItemController extends GetxController {
     rateController.value.text = '';
     descriptionController.value.text = '';
 
-    dictTaxes.value = ModelTaxList(
-        name: '',
-        tax: 0
-    );
+    dictTaxes.value = ModelTaxList(name: '', tax: 0);
+
+    if(modelItemList.value.name != null) {
+      itemNameController.value.text = modelItemList.value.name!;
+      quantityController.value.text = modelItemList.value.quantity!;
+      rateController.value.text = modelItemList.value.rate!;
+
+      dictTaxes.value = ModelTaxList(
+          name: modelItemList.value.taxName,
+          tax: int.parse(modelItemList.value.taxValue!)
+      );
+      descriptionController.value.text = modelItemList.value.description!;
+    }
+
+    return;
   }
 
   validation() {
@@ -51,7 +65,11 @@ class EditItemController extends GetxController {
     } else if (descriptionController.value.text.isEmpty) {
       'Enter description'.showError();
     } else {
-      createItem();
+      if(modelItemList.value.name == null) {
+        createItem();
+      } else {
+        updateItem();
+      }
     }
   }
 
@@ -90,6 +108,57 @@ class EditItemController extends GetxController {
 
     final response =
         await API.instance.post(endPoint: 'createItem', params: params);
+
+    debugPrint(response.toString());
+
+    if (response != null &&
+        response.isNotEmpty &&
+        response['status'].toString() == '200') {
+      Get.back();
+      response['message'].toString().showSuccess();
+
+      controllerItemList.itemList();
+    } else {
+      response!['message'].toString().showError();
+    }
+  }
+
+  updateItem() async {
+    Get.focusScope!.unfocus();
+
+    final dictTax = {
+      'name': dictTaxes.value.name,
+      'tax': dictTaxes.value.tax,
+    };
+
+    final intQuantity = int.parse(quantityController.value.text.toString());
+    final intRate = int.parse(rateController.value.text.toString());
+    final intTax = int.parse(dictTaxes.value.tax.toString());
+
+    // debugPrint(intQuantity.toString());
+    // debugPrint(intRate.toString());
+    // debugPrint(intTax.toString());
+
+    final taxAmount = (intQuantity*intRate*intTax)/100;
+    // debugPrint(taxAmount.toString());
+
+    final valueAmount = (intQuantity*intRate)+taxAmount;
+    // debugPrint(valueAmount.toStringAsFixed(2));
+
+    final params = {
+      'itemID': modelItemList.value.id,
+      'name': itemNameController.value.text.toString(),
+      'quantity': quantityController.value.text.toString(),
+      'rate': rateController.value.text.toString(),
+      'tax': jsonEncode(dictTax),
+      'valueAmount': valueAmount.toStringAsFixed(2),
+      'description':descriptionController.value.text.toString(),
+    };
+
+    print(params);
+
+    final response =
+    await API.instance.post(endPoint: 'updateItem', params: params);
 
     debugPrint(response.toString());
 

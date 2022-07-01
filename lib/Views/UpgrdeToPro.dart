@@ -2,7 +2,6 @@ import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
-import 'package:business_trackers/Views/EditCotract.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

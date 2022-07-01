@@ -24,17 +24,11 @@ class Estimate extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: ColorStyle.white,
-        leadingWidth: 160,
-        leading: Row(
-          children: [
-            SizedBox(
-              width: 14,
-            ),
-            Text('Estimate',
-                style: TextStylesProductSans.textStyles_22
-                    .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-          ],
-        ),
+        leadingWidth: 0,
+        centerTitle: false,
+        title: Text('Estimate',
+            style: TextStylesProductSans.textStyles_22
+                .apply(color: ColorStyle.black, fontWeightDelta: 4)),
         actions: [
           InkWell(
             child: Container(

@@ -38,66 +38,77 @@ class EstimateDeclined extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Column(
+                      SizedBox(width: 6,),
+                      Expanded(child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-
                         children: [
-                          Text(
-                              'John Deo',
+                          Text('John Deo',
                               // controller.estimate1[index],
-                              style:  TextStylesProductSans.textStyles_16
-                                  .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                          SizedBox(height: 18,),
-                          Text(
-                              'June 12 Thu • #12345',
-
-                              style:  TextStylesProductSans.textStyles_16
-                                  .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-
-
-
+                              style: TextStylesProductSans.textStyles_14
+                                  .apply(
+                                  color: ColorStyle.black,
+                                  fontWeightDelta: 0)),
+                          SizedBox(
+                            height: 18,
+                          ),
+                          Text('June 12 Thu • #12345',
+                              style: TextStylesProductSans.textStyles_14
+                                  .apply(
+                                  color: ColorStyle.black,
+                                  fontWeightDelta: 0)),
                         ],
-                      ),
+                      )),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
-
                         children: [
-
-
-
-                          Text(
-                              '\$2,500.00',
-
-                              style:  TextStylesProductSans.textStyles_16
-                                  .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                          SizedBox(height: 18,),
-                          Container(
-                            child: Row(
-                              children: [
-                                InkWell(child:Image.asset(ImageStyle.Path475,height: 20,),onTap: (){},),
-                                Container(
-                                  width: 15,),
-                                InkWell(child: Container(
-                                  padding: EdgeInsets.only(left: 16,right: 16,top: 8,bottom: 8),
+                          Text('\$2,500.00',
+                              style: TextStylesProductSans.textStyles_14
+                                  .apply(
+                                  color: ColorStyle.black,
+                                  fontWeightDelta: 0)),
+                          SizedBox(
+                            height: 18,
+                          ),
+                          Row(
+                            children: [
+                              InkWell(
+                                child: Image.asset(
+                                  ImageStyle.Path475,
+                                  height: 20,
+                                ),
+                                onTap: () {},
+                              ),
+                              Container(
+                                width: 15,
+                              ),
+                              InkWell(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      left: 10,
+                                      right: 10,
+                                      top: 6,
+                                      bottom: 6),
                                   alignment: Alignment.center,
                                   // height: 2,
                                   // width: 20,
-                                  child: Text(
-                                      'INVOICED',
+                                  child: Text('INVOICED',
                                       // controller.estimate2[index],
-                                      style:  TextStylesProductSans.textStyles_12
-                                          .apply(color: ColorStyle.white, fontWeightDelta: 0)),
+                                      style: TextStylesProductSans
+                                          .textStyles_12
+                                          .apply(
+                                          color: ColorStyle.white,
+                                          fontWeightDelta: 0)),
                                   decoration: BoxDecoration(
                                       color: ColorStyle.grays,
-                                      borderRadius: BorderRadius.circular(6)
-                                  ),
-                                ),onTap: (){},)
-                              ],
-                            ),
-                          )
+                                      borderRadius:
+                                      BorderRadius.circular(6)),
+                                ),
+                                onTap: () {},
+                              )
+                            ],
+                          ),
                         ],
                       )
-
                     ],
                   ),
                   margin: EdgeInsets.only(top: 10),

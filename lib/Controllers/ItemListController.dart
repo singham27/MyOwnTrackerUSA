@@ -37,16 +37,6 @@ class ItemListController extends GetxController {
         debugPrint(dictTax.toString());
 
         ModelItemList model = ModelItemList(
-            // name: 'hello',
-            // quantity: 'hello',
-            // rate: 'hello',
-            // taxName: 'hello',
-            // taxValue: 'hello',
-            // valueAmount: 'hello',
-            // description: map['description'],
-            // id: map['_id'],
-            // createdTime: map['createdTime']
-
             name: map['name'],
             quantity: map['quantity'].toString(),
             rate: map['rate'].toString(),

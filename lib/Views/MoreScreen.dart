@@ -104,6 +104,7 @@ class MoreScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
                                 child: Image.asset(
@@ -120,29 +121,29 @@ class MoreScreen extends StatelessWidget {
                               SizedBox(
                                 width: 20,
                               ),
-                              Column(
+                              Expanded(child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      // 'My Account',
+                                    // 'My Account',
                                       controller.moreItem[index],
                                       style: TextStylesProductSans.textStyles_16
                                           .apply(
-                                              color: ColorStyle.black,
-                                              fontWeightDelta: 0)),
+                                          color: ColorStyle.black,
+                                          fontWeightDelta: 0)),
                                   SizedBox(
                                     height: 6,
                                   ),
                                   Text(
-                                      // 'johndeo@gmail.com',
+                                    // 'johndeo@gmail.com',
                                       controller.moreItem1[index],
                                       style: TextStylesProductSans.textStyles_14
                                           .apply(
-                                              color: ColorStyle.grey
-                                                  .withOpacity(.3),
-                                              fontWeightDelta: 0)),
+                                          color: ColorStyle.grey
+                                              .withOpacity(.3),
+                                          fontWeightDelta: 0)),
                                 ],
-                              ),
+                              ),)
                             ],
                           ),
                           SizedBox(
