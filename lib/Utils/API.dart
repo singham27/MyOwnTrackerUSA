@@ -7,14 +7,12 @@ import 'package:connectivity/connectivity.dart';
 import '../Utils/Constant.dart';
 import '../Utils/Global.dart';
 
-
-
 class API {
   API._privateConstructor();
+
   static final API instance = API._privateConstructor();
 
   final _kBaseURL = 'https://my-own-tracker-usa-backend.vercel.app/';
-
 
   Future<bool> _checkInternet() async {
     try {
@@ -46,46 +44,58 @@ class API {
     }
 
     final url = Uri.parse('${_kBaseURL}${endPoint}');
+
+    final headers = {
+      'Authorization': 'Bearer $kTOKENSAVED'
+    };
+
     try {
       showLoaderGetX();
-      final response = await http.get(url);
+      final response = await http.get(url, headers: headers);
       hideLoader();
-      debugPrint('Response status: ${response.statusCode}');
 
       final Map parsed = json.decode(response.body);
       return parsed as Map<String, dynamic>;
     } on Exception catch (exception) {
-      hideLoader();
-      debugPrint('Exception is:-'+exception.toString());
-      return null;
+      // hideLoader();
+      // debugPrint('Exception is:-' + exception.toString());
+      // return null;
     } catch (error) {
       hideLoader();
-      debugPrint('Error is:-'+error.toString());
+      debugPrint('Error is:-' + error.toString());
       return null;
     }
   }
 
-  Future<Map<String, dynamic>?> post({required String endPoint, required Map<String, dynamic> params}) async {
+  Future<Map<String, dynamic>?> post({ required String endPoint,
+      required Map<String, dynamic> params}) async {
     if (!await _checkInternet()) {
       return null;
     }
 
+    debugPrint('params params params params params');
+    debugPrint(params.toString());
+
     final url = Uri.parse('${_kBaseURL}${endPoint}');
     try {
       showLoaderGetX();
-      final response = await http.post(url, body: params);
+      final response = await http.post(url,
+          headers: {
+            'Authorization': 'Bearer $kTOKENSAVED'
+          },
+          body: params);
       hideLoader();
       debugPrint('Response status: ${response.statusCode}');
 
       final Map parsed = json.decode(response.body);
       return parsed as Map<String, dynamic>;
     } on Exception catch (exception) {
-      hideLoader();
-      debugPrint('Exception is:-'+exception.toString());
-      return null;
+      // hideLoader();
+      // debugPrint('Exception is:-' + exception.toString());
+      // return null;
     } catch (error) {
       hideLoader();
-      debugPrint('Error is:-'+error.toString());
+      debugPrint('Error is:-' + error.toString());
       return null;
     }
   }
@@ -111,13 +121,14 @@ class API {
     try {
       showLoaderGetX();
 
-      request.files.add(await http.MultipartFile.fromPath(fileParams, file.path));
+      request.files
+          .add(await http.MultipartFile.fromPath(fileParams, file.path));
       final response = await request.send();
 
       hideLoader();
 
-      print(response.stream);
-      print(response.statusCode);
+      // print(response.stream);
+      // print(response.statusCode);
 
       final res = await http.Response.fromStream(response);
       print(res.body);
@@ -126,20 +137,19 @@ class API {
       return parsed as Map<String, dynamic>;
     } on Exception catch (exception) {
       hideLoader();
-      debugPrint('Exception is:-'+exception.toString());
+      debugPrint('Exception is:-' + exception.toString());
       return null;
     } catch (error) {
       hideLoader();
-      debugPrint('Error is:-'+error.toString());
+      debugPrint('Error is:-' + error.toString());
       return null;
     }
   }
-
-
 }
 
 class APIEndPoints {
   APIEndPoints._privateConstructor();
+
   static final APIEndPoints instance = APIEndPoints._privateConstructor();
 
   final kTwilioSendCode = 'twilio/sendCode';

@@ -1,5 +1,5 @@
-
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
+import 'package:business_trackers/Controllers/AddTaxesController.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 
 class AddTaxes {
   static addTaxes(context) {
+    final controller = Get.put(AddTaxesController());
+
     return Get.bottomSheet(Material(
         color: Colors.transparent,
         child: SingleChildScrollView(
@@ -25,8 +27,7 @@ class AddTaxes {
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
-                )
-            ),
+                )),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -40,6 +41,7 @@ class AddTaxes {
                   height: 20,
                 ),
                 TextFieldUnderline(
+                  controller: controller.itemNameController.value,
                   hintText: 'Item name',
                   textStyle: TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 0),
@@ -48,7 +50,7 @@ class AddTaxes {
                   height: 16,
                 ),
                 TextFieldUnderline(
-
+                  controller: controller.gstController.value,
                   hintText: '0%',
                   keyboardType: TextInputType.number,
                   textStyle: TextStylesProductSans.textStyles_16
@@ -62,19 +64,15 @@ class AddTaxes {
                   text: "Save",
                   colorBG: ColorStyle.secondryColor,
                   colorText: ColorStyle.primaryColor,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   onTap: () {
-                    Get.back();
+                    // Get.back();
+                    controller.taxes();
                   },
                 ),
               ],
             ),
           ),
-        )
-    )
-    );
+        )));
   }
 }

@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import '../Styles/ColorStyle.dart';
 import 'package:get_storage/get_storage.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

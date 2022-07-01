@@ -8,16 +8,22 @@ import 'package:flutter/cupertino.dart';
 import '../Utils/Constant.dart';
 import '../Views/TabbarScreen.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
     Future.delayed(Duration(seconds: 2), () {
       final storage = GetStorage();
       final getToken = storage.read(kTOKEN);
-
-      print(getToken);
 
       if (getToken == null) {
         Get.to(() => OnBording());
@@ -28,7 +34,10 @@ class SplashScreen extends StatelessWidget {
         Get.to(TabbarScreen());
       }
     });
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorStyle.primaryColor,
       body: Center(
