@@ -93,7 +93,6 @@ class CreatePassword extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
               controller.createpassword();
-                  // Get.to(ChooseYourIndustry());
                 },
               ),
             ],

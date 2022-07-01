@@ -1,9 +1,10 @@
 import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Components/TextFieldCustom.dart';
+import 'package:business_trackers/Controllers/EditItemController.dart';
+import '../Controllers/ItemListController.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
-import 'package:business_trackers/Views/ItemList.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,8 @@ import '../Views/TaxList.dart';
 class EditItem extends StatelessWidget {
   EditItem({Key? key}) : super(key: key);
   bool isChecked = false;
+
+  final controller = Get.put(EditItemController());
 
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -47,6 +50,7 @@ class EditItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFieldUnderline(
+                controller: controller.itemNameController.value,
                 hintText: 'Item name',
                 textStyle: TextStylesProductSans.textStyles_16
                     .apply(color: ColorStyle.black, fontWeightDelta: 0),
@@ -55,6 +59,7 @@ class EditItem extends StatelessWidget {
                 height: 10,
               ),
               TextFieldUnderlinePrefixText(
+                controller: controller.quantityController.value,
                 keyboardType: TextInputType.number,
                 prefixText: 'Quantity',
                 colorBoder: ColorStyle.grey,
@@ -65,6 +70,7 @@ class EditItem extends StatelessWidget {
                 height: 10,
               ),
               TextFieldUnderlinePrefixText(
+                controller: controller.rateController.value,
                 keyboardType: TextInputType.number,
                 prefixText: 'Rate',
                 colorBoder: ColorStyle.grey,
@@ -135,11 +141,14 @@ class EditItem extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Text('Description',
+              Text(
+
+                  'Description',
                   // controller.estimate1[index],
                   style: TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 3)),
               TextFieldUnderline(
+                controller: controller.descriptionController.value,
                 hintText: 'Add notes',
                 maxLines: 6,
               ),
@@ -154,6 +163,7 @@ class EditItem extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
                   // Get.to(ItemList());
+                  controller.editItem();
                 },
               ),
             ],

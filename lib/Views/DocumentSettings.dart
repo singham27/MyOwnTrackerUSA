@@ -1,6 +1,7 @@
 import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Components/TextFieldCustom.dart';
+import 'package:business_trackers/Controllers/DocumentSettingsController.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:business_trackers/Views/EditCotract.dart';
@@ -9,7 +10,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class DocumentSettings extends StatelessWidget {
-  const DocumentSettings({Key? key}) : super(key: key);
+  DocumentSettings({Key? key}) : super(key: key);
+
+  final controller = Get.put(DocumentSettingsController());
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +77,7 @@ class DocumentSettings extends StatelessWidget {
                     height: 20,
                   ),
                   TextFieldUnderlinePrefixText(
+                    controller: controller.paymentTermsController.value,
                     prefixText: 'Payment Terms (days)',
                     hintText: '0',
                     keyboardType: TextInputType.number,
@@ -90,6 +94,7 @@ class DocumentSettings extends StatelessWidget {
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
+                  controller.validation();
                   // Get.to(ItemList());
                 },
               ),

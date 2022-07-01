@@ -81,7 +81,7 @@ class Login extends StatelessWidget {
                 height: 10,
               ),
               TextFieldPWDOutline(
-                controller: controller.passwordController.value,
+                  controller: controller.passwordController.value,
                 radiusBorder: 14,
                 hintText: 'Enter your password',
                 padding: EdgeInsets.only(

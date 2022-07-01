@@ -11,8 +11,12 @@ import 'package:get/utils.dart';
 import '../Components/PickerCustom.dart';
 import '../Controllers/MyAccountController.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import '../Utils/Constant.dart';
 import 'dart:io';
 import '../Views/Login.dart';
+
+
 
 class MyAccount extends StatelessWidget {
   MyAccount({Key? key}) : super(key: key);
@@ -30,6 +34,9 @@ class MyAccount extends StatelessWidget {
       onPressed: () {
         Get.back();
         Get.offAll(Login());
+
+        final storage = GetStorage();
+        storage.remove(kTOKEN);
       },
     );
     Widget continueButton = TextButton(
@@ -86,7 +93,9 @@ class MyAccount extends StatelessWidget {
         backgroundColor: ColorStyle.primaryColor,
         body: GetBuilder(
           init: MyAccountController(),
-          initState: (state) {},
+          initState: (state) {
+            controller.reset();
+          },
           builder: (auth) {
             return Obx(() => SingleChildScrollView(
                   padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -99,18 +108,30 @@ class MyAccount extends StatelessWidget {
                           child: Column(
                             children: [
                               if (controller.photo.value.path.isEmpty)
-                                Container(
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 54,
-                                      color: ColorStyle.white,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: ColorStyle.secondryColor,
-                                      borderRadius: BorderRadius.circular(80),
-                                    ),
-                                    height: 120,
-                                    width: 120)
+                                ClipRRect(
+                                borderRadius: BorderRadius.circular(60),
+                                child: Image.network(
+                                  controller.profilePicture.value,
+                                  height: 120,
+                                  width: 120,
+                                  fit: BoxFit.fill,
+                                  errorBuilder: ( context, exception, stackTrace) {
+                                    return Container(
+                                        child: Icon(
+                                          Icons.person,
+                                          size: 54,
+                                          color: ColorStyle.white,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: ColorStyle.secondryColor,
+                                          borderRadius: BorderRadius.circular(80),
+                                        ),
+                                        height: 120,
+                                        width: 120
+                                    );
+                                  },
+                                ),
+                              )
                               else
                                 ClipRRect(
                                     borderRadius: BorderRadius.circular(80),
@@ -210,8 +231,7 @@ class MyAccount extends StatelessWidget {
                         colorText: ColorStyle.primaryColor,
                         width: MediaQuery.of(context).size.width,
                         onTap: () {
-                          controller.myaccount();
-                          // Get.to(ChooseYourIndustry());
+                          controller.validation();
                         },
                       ),
                     ],
@@ -221,3 +241,5 @@ class MyAccount extends StatelessWidget {
         ));
   }
 }
+
+

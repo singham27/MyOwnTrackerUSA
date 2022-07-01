@@ -1,5 +1,6 @@
 
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
+import 'package:business_trackers/Controllers/AddTaxesController.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class AddTaxes {
+
+
   static addTaxes(context) {
+
+    final controller = Get.put(AddTaxesController());
+
     return Get.bottomSheet(Material(
         color: Colors.transparent,
         child: SingleChildScrollView(
@@ -39,16 +45,24 @@ class AddTaxes {
                 SizedBox(
                   height: 20,
                 ),
+
+
                 TextFieldUnderline(
+                  controller: controller.itemNameController.value,
                   hintText: 'Item name',
                   textStyle: TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 0),
                 ),
+
+
+
                 SizedBox(
                   height: 16,
                 ),
-                TextFieldUnderline(
 
+
+                TextFieldUnderline(
+                  controller: controller.gstController.value,
                   hintText: '0%',
                   keyboardType: TextInputType.number,
                   textStyle: TextStylesProductSans.textStyles_16
@@ -67,7 +81,8 @@ class AddTaxes {
                       .size
                       .width,
                   onTap: () {
-                    Get.back();
+                    // Get.back();
+                    controller.taxes();
                   },
                 ),
               ],

@@ -169,7 +169,7 @@ class CreateAnAccount extends StatelessWidget {
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
-                  controller.signUp();
+                  controller.validationEmail();
                 },
               ),
               SizedBox(

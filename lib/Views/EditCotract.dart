@@ -8,8 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../Controllers/EditCotractController.dart';
+
 class EditCotract extends StatelessWidget {
-  const EditCotract({Key? key}) : super(key: key);
+   EditCotract({Key? key}) : super(key: key);
+
+  final controller = Get.put(EditCotractController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +47,7 @@ class EditCotract extends StatelessWidget {
               Column(
                 children: [
                   TextFieldUnderline(
+                    controller: controller.genericContractController.value,
                     hintText: 'Generic Contract',
                     textStyle: TextStylesProductSans.textStyles_14
                         .apply(color: ColorStyle.black, fontWeightDelta: 0),
@@ -62,6 +67,7 @@ class EditCotract extends StatelessWidget {
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
+                  controller.validation();
                   // Get.to(ChooseYourIndustry());
                 },
               ),

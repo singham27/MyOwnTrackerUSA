@@ -30,7 +30,9 @@ class MyCompany extends StatelessWidget {
         backgroundColor: ColorStyle.primaryColor,
         body: GetBuilder(
           init: MyCompanyController(),
-          initState: (state) {},
+          initState: (state) {
+            controller.reset();
+          },
           builder: (auth) {
             return Obx(() => SingleChildScrollView(
                   padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -54,18 +56,28 @@ class MyCompany extends StatelessWidget {
                                         border: Border.all(
                                           color: ColorStyle.grey,
                                         )),
-                                    child: controller.photo.value.path.isEmpty
-                                        ? Image.asset(
-                                            ImageStyle.Group1727,
-                                          )
-                                        : ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image.file(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child:
+                                      controller.photo.value.path.isEmpty
+                                      // controller.logoURL.value.isNotEmpty
+                                          ? Image.network(
+                                              controller.logoURL.value,
+                                              fit: BoxFit.fill,
+                                              errorBuilder: (context, exception,
+                                                  stackTrace) {
+                                                return Container(
+                                                  child: Image.asset(
+                                                    ImageStyle.Group1727,
+                                                  ),
+                                                );
+                                              },
+                                            )
+                                          : Image.file(
                                               File(controller.photo.value.path),
                                               fit: BoxFit.fill,
                                             ),
-                                          ),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 16,
@@ -80,6 +92,7 @@ class MyCompany extends StatelessWidget {
                               onTap: () {
                                 PickerCustom.imagePicker((file) {
                                   controller.photo.value = file;
+                                  controller.uploadImage(file, 1);
                                 });
                               },
                             ),
@@ -88,6 +101,7 @@ class MyCompany extends StatelessWidget {
                               style: TextStylesProductSans.textStyles_16.apply(
                                   color: ColorStyle.black, fontWeightDelta: 4)),
                           TextFieldUnderline(
+                            controller: controller.companyNameController.value,
                             hintText: 'Company name',
                             textStyle:
                                 TextStylesProductSans.textStyles_14.apply(
@@ -98,6 +112,7 @@ class MyCompany extends StatelessWidget {
                             height: 10,
                           ),
                           TextFieldUnderline(
+                            controller: controller.phoneController.value,
                             hintText: 'Phone',
                             keyboardType: TextInputType.number,
                             textStyle:
@@ -109,77 +124,8 @@ class MyCompany extends StatelessWidget {
                             height: 10,
                           ),
                           TextFieldUnderline(
-                            hintText: 'Company address #1',
-                            textStyle:
-                                TextStylesProductSans.textStyles_14.apply(
-                              color: ColorStyle.black,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldUnderline(
-                            hintText: 'Company address #2',
-                            textStyle:
-                                TextStylesProductSans.textStyles_14.apply(
-                              color: ColorStyle.black,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldUnderline(
-                            hintText: 'City',
-                            textStyle:
-                                TextStylesProductSans.textStyles_14.apply(
-                              color: ColorStyle.black,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldUnderline(
-                            hintText: 'State/Province',
-                            textStyle:
-                                TextStylesProductSans.textStyles_14.apply(
-                              color: ColorStyle.black,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldUnderline(
-                            hintText: 'Zip/Postal Code',
-                            textStyle:
-                                TextStylesProductSans.textStyles_14.apply(
-                              color: ColorStyle.black,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldUnderline(
-                            hintText: 'Business #',
-                            textStyle:
-                                TextStylesProductSans.textStyles_14.apply(
-                              color: ColorStyle.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Additional Information',
-                              style: TextStylesProductSans.textStyles_16.apply(
-                                  color: ColorStyle.black, fontWeightDelta: 4)),
-                          SizedBox(
-                            height: 12,
-                          ),
-                          TextFieldUnderline(
+                            controller: controller.phoneSecondController.value,
+                            keyboardType: TextInputType.number,
                             hintText: 'Phone #2',
                             textStyle:
                                 TextStylesProductSans.textStyles_14.apply(
@@ -190,7 +136,66 @@ class MyCompany extends StatelessWidget {
                             height: 10,
                           ),
                           TextFieldUnderline(
-                            hintText: 'Website',
+                            controller:
+                                controller.companyAddressController.value,
+                            hintText: 'Company address #1',
+                            textStyle:
+                                TextStylesProductSans.textStyles_14.apply(
+                              color: ColorStyle.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFieldUnderline(
+                            controller:
+                                controller.companyAddressSecondController.value,
+                            hintText: 'Company address #2',
+                            textStyle:
+                                TextStylesProductSans.textStyles_14.apply(
+                              color: ColorStyle.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFieldUnderline(
+                            controller: controller.cityController.value,
+                            hintText: 'City',
+                            textStyle:
+                                TextStylesProductSans.textStyles_14.apply(
+                              color: ColorStyle.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFieldUnderline(
+                            controller: controller.stateController.value,
+                            hintText: 'State/Province',
+                            textStyle:
+                                TextStylesProductSans.textStyles_14.apply(
+                              color: ColorStyle.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFieldUnderline(
+                            controller: controller.postalCodeController.value,
+                            keyboardType: TextInputType.number,
+                            hintText: 'Zip/Postal Code',
+                            textStyle:
+                                TextStylesProductSans.textStyles_14.apply(
+                              color: ColorStyle.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFieldUnderline(
+                            controller: controller.businessController.value,
+                            hintText: 'Business #',
                             textStyle:
                                 TextStylesProductSans.textStyles_14.apply(
                               color: ColorStyle.black,
@@ -215,12 +220,28 @@ class MyCompany extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               if (controller.docLicence.value.path.isEmpty)
-                              Text('Licence Document',
-                                  // controller.estimate1[index],
-                                  style: TextStylesProductSans.textStyles_16
-                                      .apply(
-                                          color: ColorStyle.black,
-                                          fontWeightDelta: 0))
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(6),
+                                  child: Image.network(
+                                    controller.docLicenceURL.value,
+                                    fit: BoxFit.fill,
+                                    width: 60,
+                                    height: 60,
+                                    frameBuilder: (context, child, intValue, boolValue) {
+                                      return child;
+                                    },
+                                    errorBuilder:
+                                        (context, exception, stackTrace) {
+                                          return Text('Licence Document',
+                                          // controller.estimate1[index],
+                                          style: TextStylesProductSans
+                                              .textStyles_16
+                                              .apply(
+                                              color: ColorStyle.black,
+                                              fontWeightDelta: 0));
+                                    },
+                                  ),
+                                )
                               else
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(6),
@@ -233,18 +254,21 @@ class MyCompany extends StatelessWidget {
                                 ),
                               InkWell(
                                 child: Text(
-                                    controller.docLicence.value.path.isEmpty ? '+ ADD'  : '- Remove',
-                                    // controller.estimate1[index],
+                                    controller.docLicenceURL.value.isEmpty && controller.docLicence.value.path.isEmpty
+                                        ? '+ ADD'
+                                        : '- Remove',
                                     style: TextStylesProductSans.textStyles_16
                                         .apply(
                                             color: ColorStyle.secondryColor,
                                             fontWeightDelta: 0)),
                                 onTap: () {
-                                  if (controller.docLicence.value.path.isEmpty) {
+                                  if (controller.docLicenceURL.value.isEmpty && controller.docLicence.value.path.isEmpty) {
                                     PickerCustom.imagePicker((file) {
                                       controller.docLicence.value = file;
+                                      controller.uploadImage(file, 2);
                                     });
                                   } else {
+                                    controller.docLicenceURL.value = '';
                                     controller.docLicence.value = File('');
                                   }
                                 },
@@ -268,12 +292,27 @@ class MyCompany extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               if (controller.docInsurance.value.path.isEmpty)
-                                Text('Insurance Document',
-                                    // controller.estimate1[index],
-                                    style: TextStylesProductSans.textStyles_16
-                                        .apply(
-                                        color: ColorStyle.black,
-                                        fontWeightDelta: 0))
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(6),
+                                  child: Image.network(
+                                    controller.docInsuranceURL.value,
+                                    fit: BoxFit.fill,
+                                    width: 60,
+                                    height: 60,
+                                    frameBuilder: (context, child, intValue, boolValue) {
+                                      return child;
+                                    },
+                                    errorBuilder:
+                                        (context, exception, stackTrace) {
+                                      return Text('Insurance Document',
+                                          style: TextStylesProductSans
+                                              .textStyles_16
+                                              .apply(
+                                              color: ColorStyle.black,
+                                              fontWeightDelta: 0));
+                                    },
+                                  ),
+                                )
                               else
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(6),
@@ -284,21 +323,23 @@ class MyCompany extends StatelessWidget {
                                     height: 60,
                                   ),
                                 ),
-
                               InkWell(
                                 child: Text(
-                                    controller.docInsurance.value.path.isEmpty ? '+ ADD'  : '- Remove',
-                                    // controller.estimate1[index],
+                                    controller.docInsurance.value.path.isEmpty && controller.docInsuranceURL.value.isEmpty
+                                        ? '+ ADD'
+                                        : '- Remove',
                                     style: TextStylesProductSans.textStyles_16
                                         .apply(
                                             color: ColorStyle.secondryColor,
                                             fontWeightDelta: 0)),
                                 onTap: () {
-                                  if (controller.docInsurance.value.path.isEmpty) {
+                                  if (controller.docInsurance.value.path.isEmpty && controller.docInsuranceURL.value.isEmpty) {
                                     PickerCustom.imagePicker((file) {
                                       controller.docInsurance.value = file;
+                                      controller.uploadImage(file, 3);
                                     });
                                   } else {
+                                    controller.docInsuranceURL.value = '';
                                     controller.docInsurance.value = File('');
                                   }
                                 },
@@ -335,6 +376,8 @@ class MyCompany extends StatelessWidget {
                               SizedBox(width: 10),
                               Expanded(
                                 child: TextFieldUnderline(
+                                  controller:
+                                      controller.websiteURLController.value,
                                   hintText: 'Paste Website URL here',
                                   textStyle:
                                       TextStylesProductSans.textStyles_14.apply(
@@ -356,6 +399,8 @@ class MyCompany extends StatelessWidget {
                               SizedBox(width: 10),
                               Expanded(
                                 child: TextFieldUnderline(
+                                  controller: controller
+                                      .googleBusinessURLController.value,
                                   hintText: 'Paste Google Business URL here',
                                   textStyle:
                                       TextStylesProductSans.textStyles_14.apply(
@@ -377,6 +422,8 @@ class MyCompany extends StatelessWidget {
                               SizedBox(width: 10),
                               Expanded(
                                 child: TextFieldUnderline(
+                                  controller:
+                                      controller.facebookURLController.value,
                                   hintText: 'Paste Facebook URL here',
                                   textStyle:
                                       TextStylesProductSans.textStyles_14.apply(
@@ -398,6 +445,8 @@ class MyCompany extends StatelessWidget {
                               SizedBox(width: 10),
                               Expanded(
                                 child: TextFieldUnderline(
+                                  controller:
+                                      controller.InstagramURLController.value,
                                   hintText: 'Paste Instagram URL here',
                                   textStyle:
                                       TextStylesProductSans.textStyles_14.apply(
@@ -419,6 +468,7 @@ class MyCompany extends StatelessWidget {
                         colorText: ColorStyle.primaryColor,
                         width: MediaQuery.of(context).size.width,
                         onTap: () {
+                          controller.validation();
                           // Get.to(ChooseYourIndustry());
                         },
                       ),
