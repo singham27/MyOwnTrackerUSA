@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import '../Styles/ColorStyle.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setSystemUIOverlayStyle(
@@ -17,6 +19,7 @@ void main() {
     DeviceOrientation.portraitUp,
   ]);
 
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
