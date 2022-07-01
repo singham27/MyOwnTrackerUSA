@@ -93,7 +93,9 @@ class MyAccount extends StatelessWidget {
         backgroundColor: ColorStyle.primaryColor,
         body: GetBuilder(
           init: MyAccountController(),
-          initState: (state) {},
+          initState: (state) {
+            controller.reset();
+          },
           builder: (auth) {
             return Obx(() => SingleChildScrollView(
                   padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -106,18 +108,30 @@ class MyAccount extends StatelessWidget {
                           child: Column(
                             children: [
                               if (controller.photo.value.path.isEmpty)
-                                Container(
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 54,
-                                      color: ColorStyle.white,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: ColorStyle.secondryColor,
-                                      borderRadius: BorderRadius.circular(80),
-                                    ),
-                                    height: 120,
-                                    width: 120)
+                                ClipRRect(
+                                borderRadius: BorderRadius.circular(60),
+                                child: Image.network(
+                                  controller.profilePicture.value,
+                                  height: 120,
+                                  width: 120,
+                                  fit: BoxFit.fill,
+                                  errorBuilder: ( context, exception, stackTrace) {
+                                    return Container(
+                                        child: Icon(
+                                          Icons.person,
+                                          size: 54,
+                                          color: ColorStyle.white,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: ColorStyle.secondryColor,
+                                          borderRadius: BorderRadius.circular(80),
+                                        ),
+                                        height: 120,
+                                        width: 120
+                                    );
+                                  },
+                                ),
+                              )
                               else
                                 ClipRRect(
                                     borderRadius: BorderRadius.circular(80),

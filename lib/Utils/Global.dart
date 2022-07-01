@@ -44,6 +44,10 @@ showLoaderGetX() {
   );
 }
 
+hideLoader() {
+  Navigator.pop(Get.context!);
+}
+
 extension SnackBar on String {
   showError() {
     Get.snackbar(
@@ -64,6 +68,3 @@ extension SnackBar on String {
   }
 }
 
-hideLoader() {
-  Navigator.pop(Get.context!);
-}

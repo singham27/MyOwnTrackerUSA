@@ -49,6 +49,7 @@ class EditClient extends StatelessWidget {
                       style: TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
                   SizedBox(height: 16,),
+
                   TextFieldUnderline(
                     hintText: 'Client name',
                     padding: EdgeInsets.only(

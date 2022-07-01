@@ -41,7 +41,8 @@ class SignUpController extends GetxController {
 
   void signup() async {
     Get.focusScope!.unfocus();
-    final response = await API.instance.post(endPoint: 'signup', params: {
+    final response = await API.instance.post(endPoint: 'signup',
+        params: {
       'profilePicture': ' ',
       'name': ' ',
       'email': emailaddressController.value.text,
