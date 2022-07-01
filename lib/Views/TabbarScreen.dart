@@ -5,7 +5,7 @@ import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:business_trackers/Views/Clients.dart';
 import 'package:business_trackers/Views/Estimate.dart';
 import 'package:business_trackers/Views/ForgotPassword.dart';
-import 'package:business_trackers/Views/InvoicesActive.dart';
+import 'package:business_trackers/Views/Invoices.dart';
 import 'package:business_trackers/Views/MoreScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,9 +22,8 @@ class TabbarScreen extends StatelessWidget {
 
   final arrBody = [
     Estimate(),
-    InvoicesActive(),
+    Invoices(),
     Clients(),
-    InvoicesActive(),
     MoreScreen(),
   ];
 

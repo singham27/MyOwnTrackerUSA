@@ -2,7 +2,7 @@ import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
-import 'package:business_trackers/Views/EditCotract.dart';
+import 'package:business_trackers/Views/EditContract.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,6 @@ class UpgrdeToPro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         backgroundColor: ColorStyle.primaryColor,
         body: SingleChildScrollView(
           padding: EdgeInsets.only(left: 20,right: 20,),
@@ -24,7 +23,9 @@ class UpgrdeToPro extends StatelessWidget {
               SizedBox(height: 60,),
              InkWell(
                child:  Image.asset(ImageStyle.Group1718,height: 34,),
-               onTap: (){},
+               onTap: (){
+                 Get.back();
+               },
              ),
               SizedBox(height: 40,),
               Text(
@@ -170,18 +171,15 @@ class UpgrdeToPro extends StatelessWidget {
               child:    InkWell(
                 child:   Text(
                     "I'LL UPDRAGE LATER",
-
-                    // controller.estimate1[index],
                     style:  TextStylesProductSans.textStyles_16
                         .apply(color: ColorStyle.secondryColor, fontWeightDelta: 3)),
-                onTap: (){},
+                onTap: (){
+                  Get.back();
+                },
               ),
 
 
             )
-
-
-
             ],
           ),
         )

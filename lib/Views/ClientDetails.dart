@@ -82,16 +82,20 @@ class ClientDetails extends StatelessWidget {
               SizedBox(height: 15,),
               Text(
                   'Address',
-                  // controller.estimate1[index],
                   style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 4)),
               SizedBox(height: 16,),
-              TextField (
-                decoration: InputDecoration(
-                    hintText: 'Address #1'
-                ),
+              Text(
+                  '100 \nabc street \nabc city abc 123456',
+                  // controller.estimate1[index],
+                  style:  TextStylesProductSans.textStyles_16
+                      .apply(color: ColorStyle.black, )),
+              SizedBox(height: 27,),
+              Container(
+                height: 1,
+                color: ColorStyle.hex('#BBB7C4'),
               ),
-              SizedBox(height: 19,),
+              SizedBox(height: 16,),
               Text(
                   'Notes',
                   // controller.estimate1[index],
