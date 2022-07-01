@@ -20,17 +20,21 @@ class Invoices extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: ColorStyle.white,
-          leadingWidth: 150,
-          leading: Row(
-            children: [
-              SizedBox(
-                width: 14,
-              ),
-              Text('Invoices',
-                  style: TextStylesProductSans.textStyles_24
-                      .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-            ],
-          ),
+          leadingWidth: 0,
+          title: Text('Invoices',
+              style: TextStylesProductSans.textStyles_24
+                  .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+          centerTitle: false,
+          // leading: Row(
+          //   children: [
+          //     SizedBox(
+          //       width: 14,
+          //     ),
+          //     Text('Invoices',
+          //         style: TextStylesProductSans.textStyles_24
+          //             .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+          //   ],
+          // ),
           actions: [
             InkWell(
               child: Container(

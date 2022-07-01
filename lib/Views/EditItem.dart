@@ -13,7 +13,8 @@ import '../Views/TaxList.dart';
 
 
 class EditItem extends StatelessWidget {
-  EditItem({Key? key}) : super(key: key);
+  String title;
+  EditItem({Key? key, required this.title}) : super(key: key);
   bool isChecked = false;
 
   final controller = Get.put(EditItemController());
@@ -24,7 +25,7 @@ class EditItem extends StatelessWidget {
         backgroundColor: ColorStyle.primaryColor,
         appBar: AppBarStyless(
           overlayStyle: SystemUiOverlayStyle.dark,
-          title: 'Edit Item',
+          title: this.title,
           leading: BackButton(
             color: ColorStyle.black,
           ),
