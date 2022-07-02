@@ -1,17 +1,17 @@
+
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:business_trackers/Controllers/EstimateController.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:business_trackers/Views/EstimateApproved.dart';
 import 'package:business_trackers/Views/EstimateDeclined.dart';
 import 'package:business_trackers/Views/EstimatePending.dart';
-import 'package:business_trackers/Views/Estimated.dart';
 import 'package:business_trackers/Views/EstimateCreate.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-
-import '../Components/AppBarStyle.dart';
 import '../Components/ElevatedButtonCustom.dart';
+import '../Utils/Global.dart';
+
 
 class Estimate extends StatelessWidget {
   Estimate({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class Estimate extends StatelessWidget {
                 colorBG: ColorStyle.black,
                 colorText: ColorStyle.primaryColor,
                 onTap: () {
-                  // Get.to(NewEstimate());
+                  share();
                 },
               ),
             ),

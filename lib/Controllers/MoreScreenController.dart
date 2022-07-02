@@ -10,16 +10,15 @@ class MoreScreenController extends GetxController {
     ImageStyle.Group3135,
     ImageStyle.Group3136,
     ImageStyle.Group3137,
-    ImageStyle.Group3138,
     ImageStyle.Group3139,
   ].obs;
+
   RxList<String> moreItem = [
     'My Company',
     'Taxes',
     'Items',
     'Document Settings',
     'Email Messages',
-    'Help',
     'About',
   ].obs;
 
@@ -29,7 +28,6 @@ class MoreScreenController extends GetxController {
     'Add or manage items',
     'Contract and Payment settings',
     'Edit your email message',
-    'Chat with us',
     'About company and terms',
   ].obs;
   reset() {

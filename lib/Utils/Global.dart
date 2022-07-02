@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 
 import '../Styles/ColorStyle.dart';
@@ -68,3 +69,21 @@ extension SnackBar on String {
   }
 }
 
+share() async {
+  await FlutterShare.share(
+      title: 'Example share',
+      text: 'Example share text',
+      linkUrl: 'https://flutter.dev/',
+      chooserTitle: 'Example Chooser Title'
+  );
+}
+
+goToAnotherScreen(Widget page) {
+  GetPage(
+    name: "/second",
+    page: () => page,
+    transition: Transition.rightToLeft,
+    transitionDuration: Duration(milliseconds: 400),
+    curve: Curves.fastOutSlowIn,
+  );
+}

@@ -11,11 +11,21 @@ import 'package:get_storage/get_storage.dart';
 
 
 class SignUpController extends GetxController {
-  Rx<TextEditingController> emailaddressController =
-      TextEditingController().obs;
+  Rx<TextEditingController> emailaddressController = TextEditingController().obs;
   Rx<TextEditingController> passwordController = TextEditingController().obs;
-  Rx<TextEditingController> confirmpasswordController =
-      TextEditingController().obs;
+  Rx<TextEditingController> confirmpasswordController = TextEditingController().obs;
+
+  init() {
+    Future.delayed(Duration(microseconds: 100), () {
+      reset();
+    });
+  }
+
+  reset() {
+    emailaddressController.value.text = '';
+    passwordController.value.text = '';
+    confirmpasswordController.value.text = '';
+  }
 
   validationEmail() {
     if (emailaddressController.value.text.isEmpty) {
@@ -64,6 +74,8 @@ class SignUpController extends GetxController {
       kUSERIDSAVED = dictUser['_id'].toString();
 
       Get.to(TabbarScreen());
+
+      reset();
     } else {
       response!['message'].toString().showError();
     }

@@ -14,8 +14,9 @@ import '../Controllers/NewEstimateController.dart';
 import '../Views/PaymentSchedule.dart';
 import '../Components/SwitchCustom.dart';
 
+
 class EstimateCreate extends StatelessWidget {
-  EstimateCreate({Key? key}) : super(key: key);
+   EstimateCreate({Key? key}) : super(key: key);
   final controller = Get.put(NewEstimateController());
 
   @override
@@ -30,344 +31,345 @@ class EstimateCreate extends StatelessWidget {
         ),
         backgroundColor: ColorStyle.primaryColor,
         body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+          padding: EdgeInsets.only(left: 20,right: 20,bottom: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Client',
+              Text(
+                  'Client',
                   // controller.estimate1[index],
-                  style: TextStylesProductSans.textStyles_16
+                  style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(
-                height: 22,
-              ),
+               SizedBox(height: 22,),
               InkWell(
-                child: Container(
-                  padding: EdgeInsets.only(
-                    top: 12,
-                    bottom: 12,
-                  ),
+                child:  Container(
+                  padding: EdgeInsets.only(top: 12,bottom: 12,),
                   alignment: Alignment.center,
-                  child: Text('+  Add Client',
+                  child: Text(
+                      '+  Add Client',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16.apply(
-                          color: ColorStyle.secondryColor, fontWeightDelta: 2)),
+                      style:  TextStylesProductSans.textStyles_16
+                          .apply(color: ColorStyle.secondryColor, fontWeightDelta: 2)),
                   decoration: BoxDecoration(
-                      border: Border.all(color: ColorStyle.secondryColor),
-                      borderRadius: BorderRadius.circular(8)),
+                      border: Border.all(
+                          color: ColorStyle.secondryColor
+                      ),
+                      borderRadius: BorderRadius.circular(8)
+                  ),
                 ),
-                onTap: () {
-                  Get.to(EditClient());
+                onTap: (){
+                  Get.to(EditClient(title: 'Add Client',));
                 },
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20,),
               Container(
                 height: 1,
                 alignment: Alignment.center,
+
                 decoration: BoxDecoration(
                     color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)),
-              ),
-              SizedBox(
-                height: 26,
-              ),
-              Text('Description',
-                  // controller.estimate1[index],
-                  style: TextStylesProductSans.textStyles_16
-                      .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(
-                height: 22,
-              ),
-              InkWell(
-                child: Container(
-                  padding: EdgeInsets.only(
-                    top: 12,
-                    bottom: 12,
-                  ),
-                  alignment: Alignment.center,
-                  child: Text('+  Add Line Item',
-                      // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16.apply(
-                          color: ColorStyle.secondryColor, fontWeightDelta: 2)),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: ColorStyle.secondryColor),
-                      borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8)
                 ),
-                onTap: () {
-                  Get.to(ItemList());
+              ),
+              SizedBox(height: 26,),
+              Text(
+                  'Description',
+                  // controller.estimate1[index],
+                  style:  TextStylesProductSans.textStyles_16
+                      .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+              SizedBox(height: 22,),
+              InkWell(
+                child:  Container(
+                  padding: EdgeInsets.only(top: 12,bottom: 12,),
+                  alignment: Alignment.center,
+                  child: Text(
+                      '+  Add Line Item',
+                      // controller.estimate1[index],
+                      style:  TextStylesProductSans.textStyles_16
+                          .apply(color: ColorStyle.secondryColor, fontWeightDelta: 2)),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: ColorStyle.secondryColor
+                      ),
+                      borderRadius: BorderRadius.circular(8)
+                  ),
+                ),
+                onTap: (){
+                  Get.to( ItemList());
                 },
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Subtotal',
+                  Text(
+                      'Subtotal',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text('\$0.00',
+                  Text(
+                      '\$0.00',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                 ],
               ),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Tax',
+                  Text(
+                      'Tax',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text('\$0.00',
+                  Text(
+                      '\$0.00',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                 ],
               ),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total Amount',
+                  Text(
+                      'Total Amount',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text('\$0.00',
+                  Text(
+                      '\$0.00',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20,),
               Container(
                 height: 1,
                 alignment: Alignment.center,
+
                 decoration: BoxDecoration(
                     color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8)
+                ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Text('Payment Options',
+              SizedBox(height: 15,),
+              Text(
+                  'Payment Options',
                   // controller.estimate1[index],
-                  style: TextStylesProductSans.textStyles_16
+                  style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Payment Schedule',
+                  Text(
+                      'Payment Schedule',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  InkWell(
-                    child: Text('+ ADD',
-                        // controller.estimate1[index],
-                        style: TextStylesProductSans.textStyles_16.apply(
-                            color: ColorStyle.secondryColor,
-                            fontWeightDelta: 0)),
-                    onTap: () {
-                      Get.to(PaymentSchedule());
-                    },
-                  )
+                 InkWell(
+                   child:  Text(
+                     '+ ADD',
+                     // controller.estimate1[index],
+                     style:  TextStylesProductSans.textStyles_16
+                         .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),
+                   onTap: (){
+                     Get.to(PaymentSchedule());
+                   },)
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20,),
               Container(
                 height: 1,
                 alignment: Alignment.center,
+
                 decoration: BoxDecoration(
                     color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8)
+                ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Text('Notes for Client ',
+              SizedBox(height: 15,),
+              Text(
+                  'Notes for Client ',
                   // controller.estimate1[index],
-                  style: TextStylesProductSans.textStyles_16
+                  style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(
-                height: 8,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                    border: InputBorder.none, hintText: 'Add Notes'),
-              ),
-              SizedBox(
-                height: 80,
-              ),
+              SizedBox(height: 8,),
+              TextField (
+            decoration: InputDecoration(
+                border: InputBorder.none,
+
+                hintText: 'Add Notes'
+            ),
+          ),
+              SizedBox(height: 80,),
               Container(
                 height: 1,
                 alignment: Alignment.center,
+
                 decoration: BoxDecoration(
                     color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8)
+                ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Text('Contract & Signature',
+              SizedBox(height: 15,),
+              Text(
+                  'Contract & Signature',
                   // controller.estimate1[index],
-                  style: TextStylesProductSans.textStyles_16
+                  style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Contact',
+                  Text(
+                      'Contact',
                       // controller.estimate[index],
-                      style: TextStylesProductSans.textStyles_16),
+                      style:  TextStylesProductSans.textStyles_16
+
+                  ),
                   InkWell(
-                    child: Text('Generic Contract ',
+                    child: Text(
+                        'Generic Contract ',
                         // controller.estimate[index],
-                        style: TextStylesProductSans.textStyles_16
-                            .apply(color: ColorStyle.secondryColor)),
-                    onTap: () {
-                      Get.to(EditCotract(isShowDelete: false,));
+                        style:  TextStylesProductSans.textStyles_16.apply(
+                            color: ColorStyle.secondryColor
+                        )
+
+                    ),
+                    onTap: (){
+                      Get.to(EditCotract(isShowDelete: true,));
                     },
                   )
                 ],
               ),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Container(
                 height: 1,
                 alignment: Alignment.center,
+
                 decoration: BoxDecoration(
                     color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8)
+                ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Text('Signature',
+              SizedBox(height: 15,),
+              Text(
+                  'Signature',
                   // controller.estimate1[index],
-                  style: TextStylesProductSans.textStyles_16
+                  style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Client Signature',
+                  Text(
+                      'Client Signature',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                   // InkWell(child:  Image.asset(ImageStyle.Group1709,height: 20,),onTap: (){},)
-                  SwitchCustom()
+                  SwitchCustom(
+                    onChanged: (value) {
+                      print(value);
+                    },
+                  )
                 ],
               ),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Container(
                 height: 1,
                 alignment: Alignment.center,
+
                 decoration: BoxDecoration(
                     color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8)
+                ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Text('Document Info',
+              SizedBox(height: 15,),
+
+              Text(
+                  'Document Info',
                   // controller.estimate1[index],
-                  style: TextStylesProductSans.textStyles_16
+                  style:  TextStylesProductSans.textStyles_16
                       .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Estimate #',
+                  Text(
+                      'Estimate #',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text('1',
+                  Text(
+                      '1',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                 ],
               ),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Container(
                 height: 1,
                 alignment: Alignment.center,
+
                 decoration: BoxDecoration(
                     color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8)
+                ),
               ),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Date',
+                  Text(
+                      'Date',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text('Thursday, 16 June 2022',
+                  Text(
+                      'Thursday, 16 June 2022',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                 ],
               ),
-              SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('PO',
+                  Text(
+                      'PO',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text('00000',
+                  Text(
+                      '00000',
                       // controller.estimate1[index],
-                      style: TextStylesProductSans.textStyles_16
+                      style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.grey, fontWeightDelta: 0)),
                 ],
               ),
-              SizedBox(
-                height: 30,
-              ),
-              ElevatedButtonCustom(
-                height: 60,
+              SizedBox(height: 30,),
+          ElevatedButtonCustom(
+            height: 60,
                 text: "Save",
-                colorBG: ColorStyle.grays,
+                colorBG:ColorStyle.grays,
                 colorText: ColorStyle.primaryColor,
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
                   // Get.to(ChooseYourIndustry());
                 },
               ),
+
             ],
           ),
-        ));
+        )
+    );
   }
 }

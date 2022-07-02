@@ -1,5 +1,9 @@
 class ImageStyle {
   static const String baseImage = "assets/Images/";
+
+  static const String onboarding_1 = baseImage + "onboarding_1.png";
+  static const String onboarding_2 = baseImage + "onboarding_2.png";
+  static const String onboarding_3 = baseImage + "onboarding_3.png";
   static const String Image3 = baseImage + "Image3.png";
   static const String Group21 = baseImage + "Group21.png";
   static const String Group20 = baseImage + "Group20.png";

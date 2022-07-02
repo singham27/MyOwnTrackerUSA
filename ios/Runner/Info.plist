@@ -64,12 +64,17 @@
             </dict>
         </dict>
     </dict>
-    
-    
+
     <key>NSCameraUsageDescription</key>
     <string>This app needs your camera permisson to complete your profile and company profile</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>This app needs your photo library permisson to complete your profile and company profile</string>
-    
+
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>sms</string>
+      <string>tel</string>
+    </array>
+
 </dict>
 </plist>
