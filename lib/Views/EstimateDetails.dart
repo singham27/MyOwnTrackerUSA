@@ -10,24 +10,15 @@ import '../Components/ElevatedButtonCustom.dart';
 import '../Styles/ColorStyle.dart';
 import '../Styles/ImageStyle.dart';
 import '../Styles/TextStyles.dart';
-import 'package:flutter_share/flutter_share.dart';
 import '../Views/EstimateCreate.dart';
 import '../Views/PaymentList.dart';
+import '../Utils/Global.dart';
 
 
 class EstimateDetails extends StatelessWidget {
   EstimateDetails({Key? key}) : super(key: key);
 
   final controller = Get.put(EstimateDetailsController());
-
-   share() async {
-    await FlutterShare.share(
-        title: 'Example share',
-        text: 'Example share text',
-        linkUrl: 'https://flutter.dev/',
-        chooserTitle: 'Example Chooser Title'
-    );
-  }
 
   bottomSheetSend() {
     return Get.bottomSheet(Material(
@@ -83,7 +74,6 @@ class EstimateDetails extends StatelessWidget {
                           if (index == 2) {
                             Get.to(PaymentList());
                           } else if (index == 5) {
-                            Get.back();
                             share();
                           }
                         },

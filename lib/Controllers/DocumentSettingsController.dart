@@ -67,6 +67,7 @@ class DocumentSettingsController extends GetxController {
         isShowDelete.value = true;
       }
 
+      genericText.value = modelGenericContract.name!;
       genericController.value.text = modelGenericContract.name!;
       paymentdaysController.value.text = modelGenericContract.days!;
     } else {

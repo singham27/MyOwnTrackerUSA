@@ -172,9 +172,10 @@ class MoreScreen extends StatelessWidget {
                         else if (controller.intAppBar == 4)
                           Get.to(EmailMessage());
                         else if (controller.intAppBar == 5)
-                          Get.to(LiveChat());
-                        else if (controller.intAppBar == 6)
                           Get.to(About());
+                        //   Get.to(LiveChat());
+                        // else if (controller.intAppBar == 6)
+                        //   Get.to(About());
                       },
                     ),
                   );

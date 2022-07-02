@@ -14,6 +14,17 @@ class LoginController extends GetxController {
   Rx<TextEditingController> emailController = TextEditingController().obs;
   Rx<TextEditingController> passwordController = TextEditingController().obs;
 
+  init() {
+    Future.delayed(Duration(microseconds: 100), () {
+      reset();
+    });
+  }
+
+  reset() {
+    emailController.value.text = '';
+    passwordController.value.text = '';
+  }
+
   login() {
     if (emailController.value.text.isEmpty) {
       'Enter your email'.showError();
@@ -51,6 +62,8 @@ class LoginController extends GetxController {
       storage.write(kUSERID, kUSERIDSAVED);
 
       Get.to(TabbarScreen());
+
+      reset();
     } else {
       response!['message'].toString().showError();
     }

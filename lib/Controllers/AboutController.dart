@@ -8,8 +8,8 @@ class AboutController extends GetxController {
     'About Us',
     'Privacy Policy',
     'Terms of Service',
-    'Your Feedack',
-    'App Version',
+    'Call IT Support',
+    'App Version (1.0.0)',
   ].obs;
   reset() {
     intAppBar.value = 0;

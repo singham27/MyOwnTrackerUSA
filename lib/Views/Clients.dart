@@ -2,13 +2,15 @@ import 'package:business_trackers/Views/ClientDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Components/ElevatedButtonCustom.dart';
+import '../Controllers/ClientsController.dart';
 import '../Styles/ColorStyle.dart';
 import '../Styles/ImageStyle.dart';
 import '../Styles/TextStyles.dart';
 import '../Views/EditClient.dart';
 
 class Clients extends StatelessWidget {
-  const Clients({Key? key}) : super(key: key);
+   Clients({Key? key}) : super(key: key);
+  final controller = Get.put(ClientsController());
 
   @override
   Widget build(BuildContext context) {
@@ -66,49 +68,67 @@ class Clients extends StatelessWidget {
             colorText: ColorStyle.primaryColor,
             width: 95,
             onTap: () {
-              Get.to(EditClient());
+              Get.to(EditClient( title: 'Add Client',));
             },
           ),
         ),
-        body: ListView.builder(
-            itemCount: 14,
-            padding: EdgeInsets.only(
-                left: 16,
-                right: 16,
-                bottom: 80
-            ),
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                child:  Container(
-                  padding: EdgeInsets.only(left:15,top: 20,bottom: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          'ABC Company Pvt. Ltd.',
-                          style:  TextStylesProductSans.textStyles_15
-                              .apply(color: ColorStyle.black,)),
-                      SizedBox(
-                        height: 10,),
-                      Text(
-                          'johndeo@gmail.com',
-                          style:  TextStylesProductSans.textStyles_14
-                              .apply(color: ColorStyle.black,)),
-                    ],
-                  ),
-                  margin: EdgeInsets.only(top: 10),
-                  decoration: BoxDecoration(
-                      color: ColorStyle.blue,
-                      borderRadius: BorderRadius.circular(20)
-                  ),
+        body: GetBuilder(
+          init: ClientsController(),
+          initState: (state) {
+            controller.reset();
+          },
+          builder: (auth) {
+            return Obx(() =>  ListView.builder(
+                itemCount: controller.arrModelClient.length,
+                padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    bottom: 80
                 ),
-                onTap: () {
-                  Get.to(ClientDetails());
-                },
-              );
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    child:  Container(
+                      padding: EdgeInsets.only(left:15,top: 20,bottom: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            // 'ABC Company Pvt. Ltd.',
+                              controller.arrModelClient[index].name!,
+                              style:  TextStylesProductSans.textStyles_15
+                                  .apply(color: ColorStyle.black,)),
+                          SizedBox(
+                            height: 10,),
+                          Text(
+                            // 'johndeo@gmail.com',
 
-            }),
-    );
+                              controller.arrModelClient[index].email!,
+                              style:  TextStylesProductSans.textStyles_14
+                                  .apply(color: ColorStyle.black,)),
+                        ],
+                      ),
+                      margin: EdgeInsets.only(top: 10),
+                      decoration: BoxDecoration(
+                          color: ColorStyle.blue,
+                          borderRadius: BorderRadius.circular(20)
+                      ),
+                    ),
+                    onTap: () {
+                      Get.to(ClientDetails(
+                        modelClient: controller.arrModelClient[index],
+                      ))!.then((value) {
+                        if (value.toString() == 'true') {
+                          controller.reset();
+                        }
+                      });
+                    },
+                  );
+                }),);
+          },
+        ));
+
+
+
   }
 }

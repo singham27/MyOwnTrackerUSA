@@ -493,6 +493,7 @@ class TextFieldUnderline extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       maxLines: maxLines,
+      minLines: 1,
       decoration: InputDecoration(
           fillColor: colorFill,
           contentPadding: padding,
