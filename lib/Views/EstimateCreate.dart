@@ -1,23 +1,51 @@
 import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
+import 'package:business_trackers/Components/TextFieldCustom.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
-import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
-import 'package:business_trackers/Views/EditClient.dart';
-import 'package:business_trackers/Views/EditContract.dart';
+import 'package:business_trackers/Views/Clients.dart';
+import 'package:business_trackers/Views/DocumentSettings.dart';
 import 'package:business_trackers/Views/ItemList.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import '../Controllers/NewEstimateController.dart';
+import '../Controllers/EstimateCreateController.dart';
 import '../Views/PaymentSchedule.dart';
 import '../Components/SwitchCustom.dart';
+import '../Components/PickerCustom.dart';
 
 
 class EstimateCreate extends StatelessWidget {
    EstimateCreate({Key? key}) : super(key: key);
-  final controller = Get.put(NewEstimateController());
+   final controller = Get.put(EstimateCreateController());
+
+   double subTotal() {
+     double amount = 0.0;
+     for (int i = 0; i<controller.arrSelectedItem.length; i++) {
+       amount += double.parse(controller.arrSelectedItem[i].rate.toString());
+     }
+
+     return amount;
+   }
+
+   tax() {
+     double amount = 0.0;
+     for (int i = 0; i<controller.arrSelectedItem.length; i++) {
+       amount += double.parse(controller.arrSelectedItem[i].taxValue.toString());
+     }
+
+     return amount;
+   }
+
+   totalAmount() {
+     double amount = 0.0;
+     for (int i = 0; i<controller.arrSelectedItem.length; i++) {
+       amount += double.parse(controller.arrSelectedItem[i].valueAmount.toString());
+     }
+
+     return amount;
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -27,348 +55,461 @@ class EstimateCreate extends StatelessWidget {
           title: 'New Estimate',
           leading: BackButton(
             color: ColorStyle.black,
+            onPressed: () {
+              Get.back();
+              controller.refresh();
+            },
           ),
         ),
         backgroundColor: ColorStyle.primaryColor,
-        body: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 20,right: 20,bottom: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                  'Client',
-                  // controller.estimate1[index],
-                  style:  TextStylesProductSans.textStyles_16
-                      .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-               SizedBox(height: 22,),
-              InkWell(
-                child:  Container(
-                  padding: EdgeInsets.only(top: 12,bottom: 12,),
-                  alignment: Alignment.center,
-                  child: Text(
-                      '+  Add Client',
+        body: GetBuilder(
+          init: EstimateCreateController(),
+          initState: (state) {
+
+          },
+          builder: (auth) {
+            return Obx(()=>SingleChildScrollView(
+              padding: EdgeInsets.only(left: 20,right: 20,bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      'Client',
                       // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.secondryColor, fontWeightDelta: 2)),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: ColorStyle.secondryColor
+                          .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+                  SizedBox(height: 22,),
+                  if (controller.selectedClient.value.name == null)
+                    InkWell(
+                      child:  Container(
+                        padding: EdgeInsets.only(top: 12,bottom: 12,),
+                        alignment: Alignment.center,
+                        child: Text(
+                            '+  Add Client',
+                            style:  TextStylesProductSans.textStyles_16
+                                .apply(color: ColorStyle.secondryColor, fontWeightDelta: 2)),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: ColorStyle.secondryColor
+                            ),
+                            borderRadius: BorderRadius.circular(8)
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(8)
-                  ),
-                ),
-                onTap: (){
-                  Get.to(EditClient(title: 'Add Client',));
-                },
-              ),
-              SizedBox(height: 20,),
-              Container(
-                height: 1,
-                alignment: Alignment.center,
-
-                decoration: BoxDecoration(
-                    color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)
-                ),
-              ),
-              SizedBox(height: 26,),
-              Text(
-                  'Description',
-                  // controller.estimate1[index],
-                  style:  TextStylesProductSans.textStyles_16
-                      .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(height: 22,),
-              InkWell(
-                child:  Container(
-                  padding: EdgeInsets.only(top: 12,bottom: 12,),
-                  alignment: Alignment.center,
-                  child: Text(
-                      '+  Add Line Item',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.secondryColor, fontWeightDelta: 2)),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: ColorStyle.secondryColor
-                      ),
-                      borderRadius: BorderRadius.circular(8)
-                  ),
-                ),
-                onTap: (){
-                  Get.to( ItemList());
-                },
-              ),
-              SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      'Subtotal',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text(
-                      '\$0.00',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                ],
-              ),
-              SizedBox(height: 15,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      'Tax',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text(
-                      '\$0.00',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                ],
-              ),
-              SizedBox(height: 15,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      'Total Amount',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text(
-                      '\$0.00',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                ],
-              ),
-              SizedBox(height: 20,),
-              Container(
-                height: 1,
-                alignment: Alignment.center,
-
-                decoration: BoxDecoration(
-                    color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)
-                ),
-              ),
-              SizedBox(height: 15,),
-              Text(
-                  'Payment Options',
-                  // controller.estimate1[index],
-                  style:  TextStylesProductSans.textStyles_16
-                      .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(height: 15,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      'Payment Schedule',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                 InkWell(
-                   child:  Text(
-                     '+ ADD',
-                     // controller.estimate1[index],
-                     style:  TextStylesProductSans.textStyles_16
-                         .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),
-                   onTap: (){
-                     Get.to(PaymentSchedule());
-                   },)
-                ],
-              ),
-              SizedBox(height: 20,),
-              Container(
-                height: 1,
-                alignment: Alignment.center,
-
-                decoration: BoxDecoration(
-                    color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)
-                ),
-              ),
-              SizedBox(height: 15,),
-              Text(
-                  'Notes for Client ',
-                  // controller.estimate1[index],
-                  style:  TextStylesProductSans.textStyles_16
-                      .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(height: 8,),
-              TextField (
-            decoration: InputDecoration(
-                border: InputBorder.none,
-
-                hintText: 'Add Notes'
-            ),
-          ),
-              SizedBox(height: 80,),
-              Container(
-                height: 1,
-                alignment: Alignment.center,
-
-                decoration: BoxDecoration(
-                    color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)
-                ),
-              ),
-              SizedBox(height: 15,),
-              Text(
-                  'Contract & Signature',
-                  // controller.estimate1[index],
-                  style:  TextStylesProductSans.textStyles_16
-                      .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(height: 15,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      'Contact',
-                      // controller.estimate[index],
-                      style:  TextStylesProductSans.textStyles_16
-
-                  ),
-                  InkWell(
-                    child: Text(
-                        'Generic Contract ',
-                        // controller.estimate[index],
-                        style:  TextStylesProductSans.textStyles_16.apply(
-                            color: ColorStyle.secondryColor
-                        )
-
+                      onTap: (){
+                        Get.to(Clients(isFromEstimate: true))!
+                            .then((value) {
+                          controller.selectedClient.value = value;
+                        });
+                      },
+                    )
+                  else
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                              controller.selectedClient.value.name.toString(),
+                              style:  TextStylesProductSans.textStyles_16
+                                  .apply(color: ColorStyle.black, fontWeightDelta: 2)),
+                        ),
+                        InkWell(
+                          child: Text(
+                              'Edit Client',
+                              style:  TextStylesProductSans.textStyles_16
+                                  .apply(color: ColorStyle.secondryColor, fontWeightDelta: 2)),
+                          onTap: () {
+                            Get.to(Clients(isFromEstimate: true))!
+                                .then((value) {
+                              print(value);
+                            });
+                          },
+                        ),
+                      ],
                     ),
-                    onTap: (){
-                      Get.to(EditCotract(isShowDelete: true,));
+                  SizedBox(height: 20,),
+                  Container(
+                    height: 1,
+                    alignment: Alignment.center,
+
+                    decoration: BoxDecoration(
+                        color: ColorStyle.grey.withOpacity(.3),
+                        borderRadius: BorderRadius.circular(8)
+                    ),
+                  ),
+                  SizedBox(height: 16,),
+                  Text(
+                      'Description',
+                      // controller.estimate1[index],
+                      style:  TextStylesProductSans.textStyles_16
+                          .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+                  if (controller.arrSelectedItem.isNotEmpty)
+                  Column(
+                    children: [
+                      SizedBox(height: 10,),
+                      ListView.separated(
+                        itemCount: controller.arrSelectedItem.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        separatorBuilder: (context, index) {
+                          return Container(
+                            height: 1,
+                            color: ColorStyle.grey,
+                            margin: EdgeInsets.only(
+                              top: 10,
+                              bottom: 10,
+                            ),
+                          );
+                        },
+                        itemBuilder: (context, index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(child: Text(
+                                      controller.arrSelectedItem[index].name.toString(),
+                                      style:  TextStylesProductSans.textStyles_16
+                                          .apply(color: ColorStyle.black,))),
+                                  Row(
+                                    children: [
+                                      Text(
+                                          controller.arrSelectedItem[index].quantity.toString()+'x ',
+                                          style:  TextStylesProductSans.textStyles_14
+                                              .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),
+                                      Text(
+                                          '\$'+controller.arrSelectedItem[index].rate.toString(),
+                                          style:  TextStylesProductSans.textStyles_14
+                                              .apply(color: ColorStyle.black,)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                  controller.arrSelectedItem[index].description.toString(),
+                                  style:  TextStylesProductSans.textStyles_14
+                                      .apply(color: ColorStyle.grey,)),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+                  InkWell(
+                    child:  Container(
+                      padding: EdgeInsets.only(top: 12,bottom: 12,),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: ColorStyle.secondryColor
+                          ),
+                          borderRadius: BorderRadius.circular(8)
+                      ),
+                      child: Text(
+                          controller.arrSelectedItem.isEmpty ?
+                          '+ Add Line Item'
+                          : 'Organize Line Item',
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.secondryColor, fontWeightDelta: 2)),
+                    ),
+                    onTap: () {
+                      Get.to( ItemList(isFromEstimate: true))!
+                      .then((value) {
+                        controller.arrSelectedItem.value = value;
+                      });
                     },
-                  )
-                ],
-              ),
-              SizedBox(height: 15,),
-              Container(
-                height: 1,
-                alignment: Alignment.center,
+                  ),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'Subtotal',
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                      Text(
+                          '\$'+subTotal().toStringAsFixed(2),
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'Tax',
+                          // controller.estimate1[index],
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                      Text(
+                          '\$'+tax().toStringAsFixed(2),
+                          // controller.estimate1[index],
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'Total Amount',
+                          // controller.estimate1[index],
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                      Text(
+                          '\$'+totalAmount().toStringAsFixed(2),
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
+                    height: 1,
+                    alignment: Alignment.center,
 
-                decoration: BoxDecoration(
-                    color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)
-                ),
-              ),
-              SizedBox(height: 15,),
-              Text(
-                  'Signature',
-                  // controller.estimate1[index],
-                  style:  TextStylesProductSans.textStyles_16
-                      .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(height: 15,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                    decoration: BoxDecoration(
+                        color: ColorStyle.grey.withOpacity(.3),
+                        borderRadius: BorderRadius.circular(8)
+                    ),
+                  ),
+                  SizedBox(height: 15,),
                   Text(
-                      'Client Signature',
+                      'Payment Options',
                       // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  // InkWell(child:  Image.asset(ImageStyle.Group1709,height: 20,),onTap: (){},)
-                  SwitchCustom(
-                    onChanged: (value) {
-                      print(value);
+                          .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+                  SizedBox(height: 15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'Payment Schedule',
+                          // controller.estimate1[index],
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                      InkWell(
+                        child:  Text(
+                            controller.paymentSchedule.value.isEmpty
+                            ? '+ Add' : 'Edit',
+                            style:  TextStylesProductSans.textStyles_16
+                                .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),
+                        onTap: (){
+                          Get.to(PaymentSchedule())!
+                          .then((value) {
+                            print(value);
+                            controller.paymentSchedule.value = value;
+                          });
+                        },)
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
+                    height: 1,
+                    alignment: Alignment.center,
+
+                    decoration: BoxDecoration(
+                        color: ColorStyle.grey.withOpacity(.3),
+                        borderRadius: BorderRadius.circular(8)
+                    ),
+                  ),
+                  SizedBox(height: 15,),
+                  Text(
+                      'Notes for Client ',
+                      // controller.estimate1[index],
+                      style:  TextStylesProductSans.textStyles_16
+                          .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+                  SizedBox(height: 8,),
+                  TextField (
+                    controller: controller.txtNotes.value,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+
+                        hintText: 'Add Notes'
+                    ),
+                  ),
+                  SizedBox(height: 80,),
+                  Container(
+                    height: 1,
+                    alignment: Alignment.center,
+
+                    decoration: BoxDecoration(
+                        color: ColorStyle.grey.withOpacity(.3),
+                        borderRadius: BorderRadius.circular(8)
+                    ),
+                  ),
+                  SizedBox(height: 15,),
+                  Text(
+                      'Contract & Signature',
+                      // controller.estimate1[index],
+                      style:  TextStylesProductSans.textStyles_16
+                          .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+                  SizedBox(height: 15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'Contact',
+                          // controller.estimate[index],
+                          style:  TextStylesProductSans.textStyles_16
+
+                      ),
+                      InkWell(
+                        child: Text(
+                            controller.genericContract.value.isEmpty ?
+                            'Generic Contract' : controller.genericContract.value['name'].toString(),
+                            style:  TextStylesProductSans.textStyles_16.apply(
+                                color: ColorStyle.secondryColor
+                            )
+                        ),
+                        onTap: (){
+                          Get.to(DocumentSettings(isFromEstimate: true))!
+                          .then((value) {
+                            controller.genericContract.value = value;
+                          });
+                        },
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  Container(
+                    height: 1,
+                    alignment: Alignment.center,
+
+                    decoration: BoxDecoration(
+                        color: ColorStyle.grey.withOpacity(.3),
+                        borderRadius: BorderRadius.circular(8)
+                    ),
+                  ),
+                  SizedBox(height: 15,),
+                  Text(
+                      'Signature',
+                      // controller.estimate1[index],
+                      style:  TextStylesProductSans.textStyles_16
+                          .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+                  SizedBox(height: 15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'Client Signature',
+                          // controller.estimate1[index],
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                      // InkWell(child:  Image.asset(ImageStyle.Group1709,height: 20,),onTap: (){},)
+                      SwitchCustom(
+                        onChanged: (value) {
+                          print(value);
+                        },
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  Container(
+                    height: 1,
+                    alignment: Alignment.center,
+
+                    decoration: BoxDecoration(
+                        color: ColorStyle.grey.withOpacity(.3),
+                        borderRadius: BorderRadius.circular(8)
+                    ),
+                  ),
+                  SizedBox(height: 15,),
+
+                  Text(
+                      'Document Info',
+                      // controller.estimate1[index],
+                      style:  TextStylesProductSans.textStyles_16
+                          .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+                  SizedBox(height: 15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'Estimate #',
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                      Expanded(
+                        child: TextField(
+                          controller: controller.txtEstimate.value,
+                            style: TextStylesProductSans.textStyles_16.apply(color: ColorStyle.black, fontWeightDelta: 0),
+                          textAlign: TextAlign.right,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.all(0),
+                            hintText: 'Type info ...',
+                            hintStyle: TextStylesProductSans.textStyles_16.apply(color: ColorStyle.grey, fontWeightDelta: 0),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  Container(
+                    height: 1,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: ColorStyle.grey.withOpacity(.3),
+                        borderRadius: BorderRadius.circular(8)
+                    ),
+                  ),
+                  SizedBox(height: 15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'Date',
+                          // controller.estimate1[index],
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                      InkWell(
+                        child: Text(
+                            controller.date.value,
+                            style:  TextStylesProductSans.textStyles_16.apply(
+                                color: (controller.date.value == 'Pick a date') ? ColorStyle.grey : ColorStyle.black,
+                                fontWeightDelta: 0
+                            )),
+                        onTap: () async {
+                          controller.date.value = await PickerCustom.datePicker('E, dd MMMM yyyy');
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'PO',
+                          style:  TextStylesProductSans.textStyles_16
+                              .apply(color: ColorStyle.black, fontWeightDelta: 0)),
+                      Expanded(
+                        child: TextFieldUnderlinePrefixText(
+                          controller: controller.txtPO.value,
+                          textStyle: TextStylesProductSans.textStyles_15.apply(color: ColorStyle.black, fontWeightDelta: 0),
+                          prefixText: '',
+                          hintText: '0000',
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 30,),
+                  ElevatedButtonCustom(
+                    height: 60,
+                    text: "Save",
+                    colorBG:ColorStyle.secondryColor,
+                    colorText: ColorStyle.white,
+                    width: MediaQuery.of(context).size.width,
+                    onTap: () {
+                      controller.validation();
                     },
-                  )
+                  ),
                 ],
               ),
-              SizedBox(height: 15,),
-              Container(
-                height: 1,
-                alignment: Alignment.center,
-
-                decoration: BoxDecoration(
-                    color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)
-                ),
-              ),
-              SizedBox(height: 15,),
-
-              Text(
-                  'Document Info',
-                  // controller.estimate1[index],
-                  style:  TextStylesProductSans.textStyles_16
-                      .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-              SizedBox(height: 15,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      'Estimate #',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text(
-                      '1',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                ],
-              ),
-              SizedBox(height: 15,),
-              Container(
-                height: 1,
-                alignment: Alignment.center,
-
-                decoration: BoxDecoration(
-                    color: ColorStyle.grey.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(8)
-                ),
-              ),
-              SizedBox(height: 15,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      'Date',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text(
-                      'Thursday, 16 June 2022',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                ],
-              ),
-              SizedBox(height: 15,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      'PO',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.black, fontWeightDelta: 0)),
-                  Text(
-                      '00000',
-                      // controller.estimate1[index],
-                      style:  TextStylesProductSans.textStyles_16
-                          .apply(color: ColorStyle.grey, fontWeightDelta: 0)),
-                ],
-              ),
-              SizedBox(height: 30,),
-          ElevatedButtonCustom(
-            height: 60,
-                text: "Save",
-                colorBG:ColorStyle.grays,
-                colorText: ColorStyle.primaryColor,
-                width: MediaQuery.of(context).size.width,
-                onTap: () {
-                  // Get.to(ChooseYourIndustry());
-                },
-              ),
-
-            ],
-          ),
+            ));
+          },
         )
     );
   }
