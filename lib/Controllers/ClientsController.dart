@@ -10,6 +10,7 @@ class ClientsController extends GetxController {
   final controller = Get.put(EditClientController());
   RxBool testing = false.obs;
   RxList<ModelClient> arrModelClient = <ModelClient>[].obs;
+  RxList<bool> arrSelectedIndex = <bool>[].obs;
 
   reset() {
     Future.delayed(Duration(microseconds: 100), () {
@@ -22,8 +23,6 @@ class ClientsController extends GetxController {
       endPoint: 'readClient',
     );
 
-    // debugPrint(response.toString());
-
     if (response != null &&
         response.isNotEmpty &&
         response['status'].toString() == '200') {
@@ -32,7 +31,7 @@ class ClientsController extends GetxController {
 
       print(listData);
 
-
+      arrSelectedIndex.clear();
       arrModelClient.clear();
 
       for (Map mapData in listData) {
@@ -66,6 +65,7 @@ class ClientsController extends GetxController {
         );
 
         arrModelClient.add(modelClient);
+        arrSelectedIndex.add(false);
       }
     } else {
       response!['message'].toString().showError();

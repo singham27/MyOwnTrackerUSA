@@ -2,7 +2,7 @@ import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Controllers/ItemListController.dart';
 import 'package:business_trackers/Controllers/EditItemController.dart';
-import 'package:business_trackers/Models/ModelItemList.dart';
+import 'package:business_trackers/Models/ModelItem.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:business_trackers/Views/EditItem.dart';
@@ -13,10 +13,13 @@ import 'package:get/get.dart';
 import '../Styles/ImageStyle.dart';
 
 class ItemList extends StatelessWidget {
-  ItemList({Key? key}) : super(key: key);
+  bool isFromEstimate;
+  ItemList({Key? key, this.isFromEstimate = false}) : super(key: key);
 
   final controller = Get.put(ItemListController());
   final controllerEditItem = Get.put(EditItemController());
+
+  List<ModelItem> arrSelectedItems = [];
 
   delete() {
     Widget cancelButton = TextButton(
@@ -74,6 +77,31 @@ class ItemList extends StatelessWidget {
         leading: BackButton(
           color: ColorStyle.black,
         ),
+        trailings: [
+          Row(
+            children: [
+              if (isFromEstimate)
+                IconButton(
+                  icon: Icon(
+                    Icons.check_circle_sharp,
+                    color: ColorStyle.secondryColor,
+                    size: 30,
+                  ),
+                  onPressed: () {
+
+                    arrSelectedItems.clear();
+                    for (int i = 0; i<controller.arrSelectedItem.length; i++) {
+                      if (controller.arrSelectedItem[i]) {
+                        arrSelectedItems.add(controller.arrModelItemList[i]);
+                      }
+                    }
+
+                    Get.back(result: arrSelectedItems);
+                  },
+                ),
+            ],
+          )
+        ],
       ),
       floatingActionButton: ElevatedButtonCustom(
         width: 160,
@@ -82,7 +110,7 @@ class ItemList extends StatelessWidget {
         colorBG: ColorStyle.secondryColor,
         colorText: ColorStyle.white,
         onTap: () {
-          controllerEditItem.modelItemList.value = ModelItemList();
+          controllerEditItem.modelItemList.value = ModelItem();
           Get.to(EditItem(
             title: 'Add Item',
           ));
@@ -91,7 +119,11 @@ class ItemList extends StatelessWidget {
       body: GetBuilder(
         init: ItemListController(),
         initState: (state) {
-          controller.reset();
+          if (isFromEstimate) {
+            if (controller.arrSelectedItem.length == 0) {
+              controller.reset();
+            }
+          }
         },
         builder: (auth) {
           return Obx(() => Column(
@@ -130,16 +162,19 @@ class ItemList extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10)),
                   ),
                   Expanded(
-                    child: ListView.builder(
+                    child: ListView.separated(
                         padding: EdgeInsets.only(
                             left: 20, right: 20, top: 16, bottom: 80),
                         shrinkWrap: true,
-                        itemCount: controller.arrModelItemList.length,
+                        itemCount: controller.arrSelectedItem.length,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return SizedBox(height: 16,);
+                        },
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             child: Container(
                               padding: EdgeInsets.only(
-                                left: 16,
+                                // left: 16,
                                 right: 16,
                                 top: 10,
                                 bottom: 10,
@@ -149,9 +184,35 @@ class ItemList extends StatelessWidget {
                                   color: ColorStyle.blue,
                                   borderRadius: BorderRadius.circular(20)),
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
+                                  if (isFromEstimate)
+                                    InkWell(
+                                      child: Container(
+                                        child: Icon(
+                                          Icons.check_circle_sharp,
+                                          color: controller.arrSelectedItem[index] ? ColorStyle.secondryColor : ColorStyle.grey.withOpacity(0.6),
+                                          size: 28,
+                                        ),
+                                        padding: EdgeInsets.only(
+                                          left: 6,
+                                          right: 10,
+                                          bottom: 6
+                                        ),
+                                      ),
+                                      onTap: () {
+
+                                        for (int i = 0; i <controller.arrSelectedItem.length; i++) {
+                                         if (index == i) {
+                                           controller.arrSelectedItem[i] = !controller.arrSelectedItem[i];
+                                         }
+                                        }
+                                      },
+                                    )
+                                  else
+                                    SizedBox(width: 16,),
                                   Expanded(
                                       child: Column(
                                     crossAxisAlignment:
@@ -234,7 +295,9 @@ class ItemList extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            onTap: () {},
+                            onTap: () {
+
+                            },
                           );
                         }),
                   ),

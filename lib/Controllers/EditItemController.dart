@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../Controllers/ItemListController.dart';
 import '../Utils/API.dart';
 import '../Models/ModelTaxList.dart';
-import '../Models/ModelItemList.dart';
+import '../Models/ModelItem.dart';
 import 'dart:convert';
 
 
@@ -22,7 +22,7 @@ class EditItemController extends GetxController {
   Rx<TextEditingController> rateController = TextEditingController().obs;
   Rx<TextEditingController> descriptionController = TextEditingController().obs;
 
-  Rx<ModelItemList> modelItemList = ModelItemList().obs;
+  Rx<ModelItem> modelItemList = ModelItem().obs;
 
   init() {
     Future.delayed(Duration(milliseconds: 100), () {

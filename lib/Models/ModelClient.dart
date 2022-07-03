@@ -39,4 +39,47 @@ class ModelClient {
       this.service_state_Province,
       this.service_zip_Postal_Code,
       this.notes});
+
+  ModelClient toModel(Map<String, dynamic> map) {
+    return ModelClient(
+        id: map['id'],
+        name: map['name'],
+        email: map['email'],
+        mobileNumber: map['mobileNumber'],
+        homeNumber: map['homeNumber'],
+        billing_address_1: map['billing_address_1'],
+        billing_address_2: map['billing_address_2'],
+        billing_city: map['billing_city'],
+        billing_state_Province: map['billing_state_Province'],
+        billing_zip_Postal_Code: map['billing_zip_Postal_Code'],
+        service_address_1: map['service_address_1'],
+        service_address_2: map['service_address_2'],
+        service_city: map['service_city'],
+        service_state_Province: map['service_state_Province'],
+        service_zip_Postal_Code: map['service_zip_Postal_Code'],
+        notes: map['notes'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'mobileNumber': mobileNumber,
+      'homeNumber': homeNumber,
+
+      'billing_address_1': billing_address_1,
+      'billing_address_2': billing_address_2,
+      'billing_city': billing_city,
+      'billing_state_Province': billing_state_Province,
+      'billing_zip_Postal_Code': billing_zip_Postal_Code,
+
+      'service_address_1': service_address_1,
+      'service_address_2': service_address_2,
+      'service_city': service_city,
+      'service_state_Province': service_state_Province,
+      'service_zip_Postal_Code': service_zip_Postal_Code,
+    };
+  }
 }

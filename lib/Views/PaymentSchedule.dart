@@ -30,22 +30,42 @@ class PaymentSchedule extends StatelessWidget {
         ),
         floatingActionButton: Container(
           margin: EdgeInsets.only(left: 30, bottom: 30),
-          child: ElevatedButtonCustom(
+          child:
+          ElevatedButtonCustom(
             height: 60,
             text: "Save",
             colorBG: ColorStyle.secondryColor,
             colorText: ColorStyle.primaryColor,
             width: MediaQuery.of(context).size.width,
             onTap: () {
-              Get.to(UpgrdeToPro());
+              Get.focusScope!.unfocus();
+
+              List<Map<String, dynamic>> arrPaymentSchedule = [];
+
+              for (int i = 0; i<controller.arrPaymentName.length; i++) {
+                final mapPayments = {
+                  'payment_name': controller.arrPaymentName[i].value.text,
+                  'payment_amount': controller.arrPaymentAmount[i].value.text,
+                };
+
+                arrPaymentSchedule.add(mapPayments);
+              }
+
+              final mapPaymentSchedule = {
+                'payment_Type': (controller.selectedPaymentMode.value == 0) ? '%' : '\$',
+                'payment_List': arrPaymentSchedule
+              };
+
+              // debugPrint(mapPaymentSchedule.toString());
+
+              Get.back(result: mapPaymentSchedule);
             },
           ),
         ),
         body: GetBuilder(
           init: PaymentScheduleController(),
           initState: (state) {
-            controller.reset();
-            print(controller.selectedPaymentMode.value);
+            controller.init();
           },
           builder: (authController) {
             return Obx(()=>SingleChildScrollView(
@@ -138,7 +158,7 @@ class PaymentSchedule extends StatelessWidget {
                   ListView.separated(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 30),
                       shrinkWrap: true,
-                      itemCount: 4,
+                      itemCount: controller.arrPaymentAmount.length,
                       physics: NeverScrollableScrollPhysics(),
                       separatorBuilder: (BuildContext context, int index) {
                         return SizedBox(height: 16,);
@@ -157,6 +177,7 @@ class PaymentSchedule extends StatelessWidget {
                                             style: TextStylesProductSans.textStyles_13.apply(
                                                 color: ColorStyle.grey, fontWeightDelta: 0)),
                                         TextFieldUnderline(
+                                          controller: controller.arrPaymentName[index],
                                           hintText: '',
                                           textStyle: TextStylesProductSans.textStyles_16
                                               .apply(color: ColorStyle.black, fontWeightDelta: 0),
@@ -174,6 +195,7 @@ class PaymentSchedule extends StatelessWidget {
                                             style: TextStylesProductSans.textStyles_13.apply(
                                                 color: ColorStyle.grey, fontWeightDelta: 0)),
                                         TextFieldUnderline(
+                                          controller: controller.arrPaymentAmount[index],
                                           hintText: '',
                                           padding: EdgeInsets.all(0),
                                           keyboardType: TextInputType.number,
@@ -185,6 +207,8 @@ class PaymentSchedule extends StatelessWidget {
                                 ),
                               ],
                             )),
+
+                            if (index != 0)
                             InkWell(
                               child: Container(
                                 child: Icon(Icons.delete, color: ColorStyle.hex('#FF8989'),),
@@ -194,7 +218,7 @@ class PaymentSchedule extends StatelessWidget {
                                 ),
                               ),
                               onTap: () {
-
+                                controller.removePayment(index);
                               },
                             )
                           ],
@@ -221,7 +245,7 @@ class PaymentSchedule extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8)),
                     ),
                     onTap: () {
-                      // Get.to( EditItem());
+                      controller.addPayment();
                     },
                   ),
                 ],
