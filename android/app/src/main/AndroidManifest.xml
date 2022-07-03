@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.business_trackers">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <queries>
         <!-- If your app checks for SMS support -->
         <intent>
