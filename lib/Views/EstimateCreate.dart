@@ -20,33 +20,6 @@ class EstimateCreate extends StatelessWidget {
    EstimateCreate({Key? key}) : super(key: key);
    final controller = Get.put(EstimateCreateController());
 
-   double subTotal() {
-     double amount = 0.0;
-     for (int i = 0; i<controller.arrSelectedItem.length; i++) {
-       amount += double.parse(controller.arrSelectedItem[i].rate.toString());
-     }
-
-     return amount;
-   }
-
-   tax() {
-     double amount = 0.0;
-     for (int i = 0; i<controller.arrSelectedItem.length; i++) {
-       amount += double.parse(controller.arrSelectedItem[i].taxValue.toString());
-     }
-
-     return amount;
-   }
-
-   totalAmount() {
-     double amount = 0.0;
-     for (int i = 0; i<controller.arrSelectedItem.length; i++) {
-       amount += double.parse(controller.arrSelectedItem[i].valueAmount.toString());
-     }
-
-     return amount;
-   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -228,7 +201,7 @@ class EstimateCreate extends StatelessWidget {
                           style:  TextStylesProductSans.textStyles_16
                               .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                       Text(
-                          '\$'+subTotal().toStringAsFixed(2),
+                          '\$'+controller.subTotal().toStringAsFixed(2),
                           style:  TextStylesProductSans.textStyles_16
                               .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                     ],
@@ -243,7 +216,7 @@ class EstimateCreate extends StatelessWidget {
                           style:  TextStylesProductSans.textStyles_16
                               .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                       Text(
-                          '\$'+tax().toStringAsFixed(2),
+                          '\$'+controller.tax().toStringAsFixed(2),
                           // controller.estimate1[index],
                           style:  TextStylesProductSans.textStyles_16
                               .apply(color: ColorStyle.black, fontWeightDelta: 0)),
@@ -259,7 +232,7 @@ class EstimateCreate extends StatelessWidget {
                           style:  TextStylesProductSans.textStyles_16
                               .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                       Text(
-                          '\$'+totalAmount().toStringAsFixed(2),
+                          '\$'+controller.totalAmount().toStringAsFixed(2),
                           style:  TextStylesProductSans.textStyles_16
                               .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                     ],
@@ -321,25 +294,17 @@ class EstimateCreate extends StatelessWidget {
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
                   SizedBox(height: 8,),
-                  TextField (
+                  TextFieldUnderline(
                     controller: controller.txtNotes.value,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-
-                        hintText: 'Add Notes'
+                    maxLines: 6,
+                    textStyle: TextStylesProductSans.textStyles_16
+                        .apply(color: ColorStyle.black),
+                      hintText: 'Add Notes',
+                    padding: EdgeInsets.only(
+                      bottom: 10
                     ),
                   ),
-                  SizedBox(height: 80,),
-                  Container(
-                    height: 1,
-                    alignment: Alignment.center,
-
-                    decoration: BoxDecoration(
-                        color: ColorStyle.grey.withOpacity(.3),
-                        borderRadius: BorderRadius.circular(8)
-                    ),
-                  ),
-                  SizedBox(height: 15,),
+                  SizedBox(height: 16),
                   Text(
                       'Contract & Signature',
                       // controller.estimate1[index],
