@@ -17,7 +17,7 @@
     </queries>
 
    <application
-        android:label="business_trackers"
+        android:label="MyOwnTrackerUSA"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
        android:usesCleartextTraffic="true">

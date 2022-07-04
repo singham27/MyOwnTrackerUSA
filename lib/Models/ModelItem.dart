@@ -37,16 +37,27 @@ class ModelItem {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'quantity': quantity,
       'rate': rate,
       'taxName': taxName,
       'taxValue': taxValue,
       'description': description,
-      'id': id,
       'createdTime': createdTime,
       'valueAmount': valueAmount,
     };
+  }
+
+  List<Map<String, dynamic>> listModelToListMap(List<ModelItem> listModel) {
+    List<Map<String, dynamic>> array = [];
+
+    for (ModelItem modelItem in listModel) {
+      array.add(modelItem.toMap());
+    }
+
+    print(array);
+    return array;
   }
 
 }

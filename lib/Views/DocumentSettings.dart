@@ -36,7 +36,7 @@ class DocumentSettings extends StatelessWidget {
                 onPressed: () {
                   final mapGenericContacts = {
                     'name': controller.genericText.value,
-                    'days': controller.paymentdaysController.value,
+                    'days': controller.paymentdaysController.value.text,
                   };
                   Get.back(result: mapGenericContacts);
                 },
