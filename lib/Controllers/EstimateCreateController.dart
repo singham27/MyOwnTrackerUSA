@@ -125,7 +125,7 @@ class EstimateCreateController extends GetxController {
     print(response);
 
     if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
-      Get.back();
+      Get.back(result: true);
       response['message'].toString().showSuccess();
       refresh();
     } else {
