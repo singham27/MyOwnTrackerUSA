@@ -78,7 +78,12 @@ class Estimate extends StatelessWidget {
                 colorBG: ColorStyle.secondryColor,
                 colorText: ColorStyle.primaryColor,
                 onTap: () {
-                  Get.to(EstimateCreate());
+                  Get.to(EstimateCreate())!
+                  .then((value) {
+                    if (value.toString() == 'true') {
+                      controller.reset();
+                    }
+                  });
                 },
               ),
             ),
@@ -88,7 +93,7 @@ class Estimate extends StatelessWidget {
       body: GetBuilder(
         init: EstimateController(),
         initState: (state) {
-
+          controller.reset();
         },
         builder: (auth) {
           return Obx(()=>Column(
