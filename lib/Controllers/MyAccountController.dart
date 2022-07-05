@@ -9,6 +9,8 @@ class MyAccountController extends GetxController {
   Rx<File> photo = File('').obs;
   RxString  profilePicture = ''.obs;
 
+  RxString emailOutSide = ''.obs;
+
   Rx<TextEditingController> firstnameController = TextEditingController().obs;
   Rx<TextEditingController> lastnameController = TextEditingController().obs;
   Rx<TextEditingController> emailController = TextEditingController().obs;
@@ -16,7 +18,7 @@ class MyAccountController extends GetxController {
   reset() {
     Future.delayed(Duration(milliseconds: 100), () {
       refresh();
-      readCompany();
+      readProfile();
     });
   }
 
@@ -41,7 +43,7 @@ class MyAccountController extends GetxController {
     }
   }
 
-  readCompany() async {
+  readProfile() async {
     final response = await API.instance.get(endPoint: 'readProfile');
     print(response);
 
@@ -53,7 +55,9 @@ class MyAccountController extends GetxController {
 
       String firstName = '';
       String lastName = '';
+
       final arrName = name.split(' ');
+
       if (arrName.length>0) {
         firstName = arrName[0];
       }
@@ -65,6 +69,8 @@ class MyAccountController extends GetxController {
       firstnameController.value.text = firstName;
       lastnameController.value.text = lastName;
       emailController.value.text = email;
+
+      emailOutSide.value = email;
     } else {
       response!['message'].toString().showError();
     }

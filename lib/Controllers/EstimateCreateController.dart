@@ -24,28 +24,35 @@ class EstimateCreateController extends GetxController {
   double subTotal() {
     double amount = 0.0;
     for (int i = 0; i<arrSelectedItem.length; i++) {
-      amount += double.parse(arrSelectedItem[i].rate.toString());
+      final priceItem = double.parse(arrSelectedItem[i].quantity.toString())*double.parse(arrSelectedItem[i].rate.toString());
+      amount += priceItem;
     }
 
     return amount;
+  }
+
+  taxTotal() {
+    double tax = 0.0;
+    for (int i = 0; i<arrSelectedItem.length; i++) {
+      tax += double.parse(arrSelectedItem[i].taxValue.toString());
+    }
+
+    return tax;
   }
 
   tax() {
-    double amount = 0.0;
+    double tax = 0.0;
     for (int i = 0; i<arrSelectedItem.length; i++) {
-      amount += double.parse(arrSelectedItem[i].taxValue.toString());
+      tax += double.parse(arrSelectedItem[i].taxValue.toString());
     }
 
-    return amount;
+    final taxPrice = (subTotal()*tax)/100;
+
+    return taxPrice;
   }
 
   totalAmount() {
-    double amount = 0.0;
-    for (int i = 0; i<arrSelectedItem.length; i++) {
-      amount += double.parse(arrSelectedItem[i].valueAmount.toString());
-    }
-
-    return amount;
+    return subTotal()+tax();
   }
 
   RxList<String> estimate = [

@@ -41,146 +41,166 @@ class MoreScreen extends StatelessWidget {
           left: 16,
           right: 16,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InkWell(
-              child: Container(
-                padding:
-                    EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 20),
-                child: Row(
-                  children: [
-                    Container(
-                        child: Icon(
-                          Icons.person,
-                          size: 30,
-                          color: ColorStyle.secondryColor,
-                        ),
-                        decoration: BoxDecoration(
-                          color: ColorStyle.white,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        height: 50,
-                        width: 50),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+        child: GetBuilder(
+          init: MoreScreenController(),
+          initState: (state) {
+            controller.reset();
+          },
+          builder: (auth) {
+            return Obx(()=>Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  child: Container(
+                    padding:
+                    EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 12),
+                    child: Row(
                       children: [
-                        Text('My Account',
-                            style: TextStylesProductSans.textStyles_16.apply(
-                                color: ColorStyle.white, fontWeightDelta: 4)),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        Text('johndeo@gmail.com',
-                            style: TextStylesProductSans.textStyles_14.apply(
-                                color: ColorStyle.white, fontWeightDelta: 4)),
-                      ],
-                    )
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  color: ColorStyle.secondryColor,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-              onTap: () {
-                Get.to(MyAccount());
-              },
-            ),
-            SizedBox(height: 16,),
-            ListView.builder(
-                padding: EdgeInsets.only(bottom: 10),
-                shrinkWrap: true,
-                itemCount: controller.images1.length,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: EdgeInsets.only(
-                        left: 16, right: 16, bottom: 16),
-                    child: InkWell(
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Image.asset(
-                                  controller.images1[index],
-                                  height: 50,
-                                ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(60),
+                          child: Image.network(
+                            controller.controllerMyAccount.profilePicture.value,
+                            height: 64,
+                            width: 64,
+                            fit: BoxFit.fill,
+                            errorBuilder: ( context, exception, stackTrace) {
+                              return Container(
+                                height: 64,
+                                width: 64,
                                 decoration: BoxDecoration(
-                                  color: ColorStyle.hex('#F2EBFF'),
+                                  color: ColorStyle.white,
                                   borderRadius: BorderRadius.circular(50),
                                 ),
-                                // height: 50,
-                                // width: 50
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Expanded(child: Column(
+                                child: Icon(
+                                  Icons.person,
+                                  size: 30,
+                                  color: ColorStyle.secondryColor,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('My Account',
+                                style: TextStylesProductSans.textStyles_16.apply(
+                                    color: ColorStyle.white, fontWeightDelta: 4)),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                                controller.controllerMyAccount.emailOutSide.value,
+                                style: TextStylesProductSans.textStyles_14.apply(
+                                    color: ColorStyle.white, fontWeightDelta: 4)),
+                          ],
+                        )
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                      color: ColorStyle.secondryColor,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  onTap: () {
+                    Get.to(MyAccount());
+                  },
+                ),
+                SizedBox(height: 16,),
+                ListView.builder(
+                    padding: EdgeInsets.only(bottom: 10),
+                    shrinkWrap: true,
+                    itemCount: controller.images1.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        padding: EdgeInsets.only(
+                            left: 16, right: 16, bottom: 16),
+                        child: InkWell(
+                          child: Column(
+                            children: [
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    // 'My Account',
-                                      controller.moreItem[index],
-                                      style: TextStylesProductSans.textStyles_16
-                                          .apply(
-                                          color: ColorStyle.black,
-                                          fontWeightDelta: 0)),
-                                  SizedBox(
-                                    height: 6,
+                                  Container(
+                                    child: Image.asset(
+                                      controller.images1[index],
+                                      height: 50,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: ColorStyle.hex('#F2EBFF'),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    // height: 50,
+                                    // width: 50
                                   ),
-                                  Text(
-                                    // 'johndeo@gmail.com',
-                                      controller.moreItem1[index],
-                                      style: TextStylesProductSans.textStyles_14
-                                          .apply(
-                                          color: ColorStyle.grey
-                                              .withOpacity(.3),
-                                          fontWeightDelta: 0)),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Expanded(child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        // 'My Account',
+                                          controller.moreItem[index],
+                                          style: TextStylesProductSans.textStyles_16
+                                              .apply(
+                                              color: ColorStyle.black,
+                                              fontWeightDelta: 0)),
+                                      SizedBox(
+                                        height: 6,
+                                      ),
+                                      Text(
+                                        // 'johndeo@gmail.com',
+                                          controller.moreItem1[index],
+                                          style: TextStylesProductSans.textStyles_14
+                                              .apply(
+                                              color: ColorStyle.grey
+                                                  .withOpacity(.3),
+                                              fontWeightDelta: 0)),
+                                    ],
+                                  ),)
                                 ],
-                              ),)
+                              ),
+                              SizedBox(
+                                height: 6,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: ColorStyle.grey,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                height: 1,
+                                // width: 50
+                              ),
                             ],
                           ),
-                          SizedBox(
-                            height: 6,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: ColorStyle.grey,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            height: 1,
-                            // width: 50
-                          ),
-                        ],
-                      ),
-                      onTap: () {
-                        controller.intAppBar.value = index;
-                        if (controller.intAppBar.value == 0)
-                          Get.to(MyCompany());
-                        else if (controller.intAppBar == 1)
-                          Get.to(TaxList());
-                        else if (controller.intAppBar == 2)
-                          Get.to(ItemList());
-                        else if (controller.intAppBar == 3)
-                          Get.to(DocumentSettings());
-                        else if (controller.intAppBar == 4)
-                          Get.to(EmailMessage());
-                        else if (controller.intAppBar == 5)
-                          Get.to(About());
-                        //   Get.to(LiveChat());
-                        // else if (controller.intAppBar == 6)
-                        //   Get.to(About());
-                      },
-                    ),
-                  );
-                }),
-          ],
+                          onTap: () {
+                            if (index == 0)
+                              Get.to(MyCompany());
+                            else if (index == 1)
+                              Get.to(TaxList());
+                            else if (index == 2)
+                              Get.to(ItemList());
+                            else if (index == 3)
+                              Get.to(DocumentSettings());
+                            else if (index == 4)
+                              Get.to(EmailMessage());
+                            else if (index == 5)
+                              Get.to(About());
+                            //   Get.to(LiveChat());
+                            // else if (controller.intAppBar == 6)
+                            //   Get.to(About());
+                          },
+                        ),
+                      );
+                    }),
+              ],
+            ));
+          },
         ),
       ),
     );

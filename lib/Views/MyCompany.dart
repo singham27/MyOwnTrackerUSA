@@ -60,7 +60,6 @@ class MyCompany extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       child:
                                       controller.photo.value.path.isEmpty
-                                      // controller.logoURL.value.isNotEmpty
                                           ? Image.network(
                                               controller.logoURL.value,
                                               fit: BoxFit.fill,
@@ -105,6 +104,16 @@ class MyCompany extends StatelessWidget {
                             hintText: 'Company name',
                             textStyle:
                                 TextStylesProductSans.textStyles_14.apply(
+                              color: ColorStyle.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFieldUnderline(
+                            controller: controller.companyEmailController.value,
+                            hintText: 'Company e-mail Id',
+                            textStyle: TextStylesProductSans.textStyles_14.apply(
                               color: ColorStyle.black,
                             ),
                           ),

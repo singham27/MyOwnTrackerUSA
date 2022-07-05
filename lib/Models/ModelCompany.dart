@@ -7,6 +7,7 @@ class ModelCompany {
   String? name = '';
   String? phone_1 = '';
   String? phone_2 = '';
+  String? email = '';
   String? address_1 = '';
   String? address_2 = '';
   String? city = '';
@@ -27,6 +28,7 @@ class ModelCompany {
     this.name,
     this.phone_1,
     this.phone_2,
+    this.email,
     this.address_1,
     this.address_2,
     this.city,
@@ -38,8 +40,5 @@ class ModelCompany {
     this.googleBusinessURL,
     this.facebookURL,
     this.InstagramURL,
-
-
-
   });
 }

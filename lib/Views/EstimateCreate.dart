@@ -211,13 +211,11 @@ class EstimateCreate extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                          'Tax',
-                          // controller.estimate1[index],
+                          'Tax '+'(${controller.taxTotal().toStringAsFixed(2)} %)',
                           style:  TextStylesProductSans.textStyles_16
                               .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                       Text(
                           '\$'+controller.tax().toStringAsFixed(2),
-                          // controller.estimate1[index],
                           style:  TextStylesProductSans.textStyles_16
                               .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                     ],

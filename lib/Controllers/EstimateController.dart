@@ -19,20 +19,6 @@ class EstimateController extends GetxController {
     'Declined',
   ].obs;
 
-  RxList<String> estimate1 = [
-    'Estimate #12345',
-    'John Deo',
-    'Abc Company ',
-    'Estimate #12345',
-  ].obs;
-
-  RxList<String> estimate2 = [
-    'DRAFT',
-    'ISSUED',
-    'ISSUED',
-    'DRAFT',
-  ].obs;
-
   reset() {
     Future.delayed(Duration(microseconds: 100), () {
       intAppBar.value = 0;

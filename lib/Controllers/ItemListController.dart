@@ -33,10 +33,7 @@ class ItemListController extends GetxController {
       arrSelectedItem.clear();
 
       for (Map<String, dynamic> map in response['data']) {
-        // debugPrint(map['tax'].toString());
-
         final dictTax = Map<String, dynamic>.from(map['tax']);
-        debugPrint(dictTax.toString());
 
         ModelItem model = ModelItem(
             name: map['name'],

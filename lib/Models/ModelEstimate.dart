@@ -28,8 +28,8 @@ class ModelEstimate {
 
   Client? client;
   List<Item>? items;
-  int? subTotal;
-  int? tax;
+  double? subTotal;
+  double? tax;
   double? amountTotal;
   PaymentSchedule? paymentSchedule;
   String? notes;
@@ -44,8 +44,8 @@ class ModelEstimate {
   factory ModelEstimate.fromJson(Map<String, dynamic> json) => ModelEstimate(
     client: Client.fromJson(json["client"]),
     items: List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
-    subTotal: json["subTotal"],
-    tax: json["tax"],
+    subTotal: json["subTotal"].toDouble(),
+    tax: json["tax"].toDouble(),
     amountTotal: json["amountTotal"].toDouble(),
     paymentSchedule: PaymentSchedule.fromJson(json["paymentSchedule"]),
     notes: json["notes"],

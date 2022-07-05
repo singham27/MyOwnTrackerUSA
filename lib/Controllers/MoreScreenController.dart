@@ -1,9 +1,13 @@
 
 import 'package:business_trackers/Styles/ImageStyle.dart';
 import 'package:get/get.dart';
+import '../Controllers/MyAccountController.dart';
+
+
 
 class MoreScreenController extends GetxController {
-  RxInt intAppBar = 0.obs;
+  final controllerMyAccount  = Get.put(MyAccountController());
+
   RxList<String> images1 = <String>[
     ImageStyle.Group3134,
     ImageStyle.Group3140,
@@ -30,8 +34,16 @@ class MoreScreenController extends GetxController {
     'Edit your email message',
     'About company and terms',
   ].obs;
+
   reset() {
-    intAppBar.value = 0;
+    Future.delayed(Duration(microseconds: 100), () {
+      controllerMyAccount.refresh();
+      readProfile();
+    });
+  }
+
+  readProfile() {
+    controllerMyAccount.readProfile();
   }
 
 }

@@ -152,16 +152,15 @@ class Estimate extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 20),
                 child: Text('June 2022',
-                    // controller.estimate1[index],
                     style: TextStylesProductSans.textStyles_16
                         .apply(color: ColorStyle.black, fontWeightDelta: 2)),
               ),
               if (controller.intAppBar.value == 0)
-                Expanded(child: EstimatePending())
+                Expanded(child: EstimatePending(arrModelEstimate: controller.arrModelEstimate.value,))
               else if (controller.intAppBar.value == 1)
-                Expanded(child: EstimateApproved())
+                Expanded(child: EstimateApproved(arrModelEstimate: controller.arrModelEstimate.value,))
               else if (controller.intAppBar.value == 2)
-                  Expanded(child: EstimateDeclined()),
+                  Expanded(child: EstimateDeclined(arrModelEstimate: controller.arrModelEstimate.value,)),
               Container(
                 padding: EdgeInsets.only(
                   left: 20,
