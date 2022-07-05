@@ -123,6 +123,8 @@ class ItemList extends StatelessWidget {
             if (controller.arrSelectedItem.length == 0) {
               controller.reset();
             }
+          } else {
+            controller.reset();
           }
         },
         builder: (auth) {

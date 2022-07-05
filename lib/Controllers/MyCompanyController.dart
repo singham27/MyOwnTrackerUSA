@@ -1,3 +1,5 @@
+
+
 import 'package:business_trackers/Utils/Global.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,11 @@ class MyCompanyController extends GetxController {
   RxString docLicenceURL = ''.obs;
   RxString docInsuranceURL = ''.obs;
 
+  RxString nameOutSide = ''.obs;
+  RxString emailOutSide = ''.obs;
+
   Rx<TextEditingController> companyNameController = TextEditingController().obs;
+  Rx<TextEditingController> companyEmailController = TextEditingController().obs;
   Rx<TextEditingController> phoneController = TextEditingController().obs;
   Rx<TextEditingController> phoneSecondController = TextEditingController().obs;
   Rx<TextEditingController> companyAddressController =
@@ -51,6 +57,7 @@ class MyCompanyController extends GetxController {
     docInsuranceURL.value = '';
 
     companyNameController.value.text = '';
+    companyEmailController.value.text = '';
     phoneController.value.text = '';
     phoneSecondController.value.text = '';
     companyAddressController.value.text = '';
@@ -63,11 +70,18 @@ class MyCompanyController extends GetxController {
     googleBusinessURLController.value.text = '';
     facebookURLController.value.text = '';
     InstagramURLController.value.text = '';
+
+    nameOutSide.value = '';
+    emailOutSide.value = '';
   }
 
   validation() {
     if (companyNameController.value.text.isEmpty) {
       'Enter your company name'.showError();
+    } if (companyEmailController.value.text.isEmpty) {
+      'Enter your company e-mail Id'.showError();
+    } else if (!GetUtils.isEmail(companyEmailController.value.text)) {
+      'Enter a valid e-mail Id'.showError();
     } else if (phoneController.value.text.isEmpty) {
       'Enter  phone'.showError();
     } else if (phoneSecondController.value.text.isEmpty) {
@@ -114,7 +128,9 @@ class MyCompanyController extends GetxController {
       'logo': logoURL.value,
       'licenceDoc': docLicenceURL.value,
       'insuranceDoc': docInsuranceURL.value,
+
       'name': companyNameController.value.text,
+      'email': companyEmailController.value.text,
       'phone_1': phoneController.value.text,
       'phone_2': phoneSecondController.value.text,
       'address_1': companyAddressController.value.text,
@@ -123,6 +139,7 @@ class MyCompanyController extends GetxController {
       'state_Province': stateController.value.text,
       'zip_Postal_Code': postalCodeController.value.text,
       'business': businessController.value.text,
+
       'websiteURL': websiteURLController.value.text,
       'googleBusinessURL': googleBusinessURLController.value.text,
       'facebookURL': facebookURLController.value.text,
@@ -132,8 +149,6 @@ class MyCompanyController extends GetxController {
     debugPrint(params.toString());
 
     final response = await API.instance.post(endPoint: 'createCompany', params: params);
-
-    print(response);
 
     if (response != null &&
         response.isNotEmpty &&
@@ -165,8 +180,11 @@ class MyCompanyController extends GetxController {
         insuranceDoc: licence_Insurance['insuranceDoc'].toString(),
 
         name: basicInfo['name'].toString(),
+        email: basicInfo['email'].toString(),
+
         phone_1: basicInfo['phone_1'].toString(),
         phone_2: basicInfo['phone_2'].toString(),
+
         address_1: basicInfo['address_1'].toString(),
         address_2: basicInfo['address_2'].toString(),
         city: basicInfo['city'].toString(),
@@ -181,6 +199,7 @@ class MyCompanyController extends GetxController {
       );
 
       companyNameController.value.text = modelCompany.name!;
+      companyEmailController.value.text = modelCompany.email!;
       phoneController.value.text = modelCompany.phone_1!;
       phoneSecondController.value.text = modelCompany.phone_2!;
       companyAddressController.value.text = modelCompany.address_1!;
@@ -199,9 +218,8 @@ class MyCompanyController extends GetxController {
       docLicenceURL.value = modelCompany.licenceDoc!;
       docInsuranceURL.value = modelCompany.insuranceDoc!;
 
-      debugPrint(logoURL.value.toString());
-      debugPrint(docLicenceURL.value.toString());
-      debugPrint(docInsuranceURL.value.toString());
+      nameOutSide.value = modelCompany.name!;
+      emailOutSide.value = modelCompany.email!;
     } else {
       response!['message'].toString().showError();
     }

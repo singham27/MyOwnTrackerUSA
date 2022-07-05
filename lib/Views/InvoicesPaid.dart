@@ -86,7 +86,7 @@ class InvoicesPaid extends StatelessWidget {
                     )
                 ),
                 onTap: () {
-                  Get.to(EstimateDetails());
+                  // Get.to(EstimateDetails());
                 },
               );
 

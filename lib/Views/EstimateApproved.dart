@@ -2,13 +2,15 @@ import '../Controllers/EstimateApprovedController.dart';
 import '../Styles/ColorStyle.dart';
 import '../Styles/ImageStyle.dart';
 import '../Styles/TextStyles.dart';
-import '../Views/PaymentAdd.dart';
+import '../Views/EstimateDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../Models/ModelEstimate.dart';
 
 class EstimateApproved extends StatelessWidget {
-  EstimateApproved({Key? key}) : super(key: key);
+  List<ModelEstimate> arrModelEstimate;
+  EstimateApproved({Key? key, required this.arrModelEstimate}) : super(key: key);
   final controller = Get.put(EstimateApprovedController());
 
   @override
@@ -18,7 +20,7 @@ class EstimateApproved extends StatelessWidget {
         body: ListView.builder(
             padding: EdgeInsets.only(left: 20, right: 20, bottom: 16),
             shrinkWrap: true,
-            itemCount: 14,
+            itemCount: arrModelEstimate.length,
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
                 child: Container(
@@ -44,8 +46,8 @@ class EstimateApproved extends StatelessWidget {
                       Expanded(child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('John Deo',
-                              // controller.estimate1[index],
+                          Text(
+                              arrModelEstimate[index].client!.name.toString(),
                               style: TextStylesProductSans.textStyles_14
                                   .apply(
                                   color: ColorStyle.black,
@@ -53,7 +55,8 @@ class EstimateApproved extends StatelessWidget {
                           SizedBox(
                             height: 18,
                           ),
-                          Text('June 12 Thu • #12345',
+                          Text(
+                              arrModelEstimate[index].date!.toString(),
                               style: TextStylesProductSans.textStyles_14
                                   .apply(
                                   color: ColorStyle.black,
@@ -63,7 +66,8 @@ class EstimateApproved extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text('\$2,500.00',
+                          Text(
+                              '\$ '+arrModelEstimate[index].amountTotal!.toString(),
                               style: TextStylesProductSans.textStyles_14
                                   .apply(
                                   color: ColorStyle.black,
@@ -119,7 +123,7 @@ class EstimateApproved extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)),
                 ),
                 onTap: () {
-                  Get.to(PaymentAdd());
+                  Get.to(EstimateDetails(modelEstimate: arrModelEstimate[index], ));
                 },
               );
             }));

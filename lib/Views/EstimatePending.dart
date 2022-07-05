@@ -5,9 +5,13 @@ import '../Styles/TextStyles.dart';
 import '../Views/EstimateDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../Models/ModelEstimate.dart';
+
+
 
 class EstimatePending extends StatelessWidget {
-  EstimatePending({Key? key}) : super(key: key);
+  List<ModelEstimate> arrModelEstimate;
+  EstimatePending({Key? key, required this.arrModelEstimate}) : super(key: key);
   final controller = Get.put(EstimateApprovedController());
 
   @override
@@ -18,9 +22,10 @@ class EstimatePending extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: 20,
                 right: 20,
-                bottom: 16),
+                bottom: 16,
+            ),
             shrinkWrap: true,
-            itemCount: 14,
+            itemCount: arrModelEstimate.length,
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
                 child: Container(
@@ -46,8 +51,9 @@ class EstimatePending extends StatelessWidget {
                       Expanded(child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('John Deo',
-                              // controller.estimate1[index],
+                          Text(
+                              arrModelEstimate[index].client!.name.toString(),
+                              // 'John Deo',
                               style: TextStylesProductSans.textStyles_14
                                   .apply(
                                   color: ColorStyle.black,
@@ -55,7 +61,9 @@ class EstimatePending extends StatelessWidget {
                           SizedBox(
                             height: 18,
                           ),
-                          Text('June 12 Thu • #12345',
+                          Text(
+                              arrModelEstimate[index].date!.toString(),
+                              // 'June 12 Thu • #12345',
                               style: TextStylesProductSans.textStyles_14
                                   .apply(
                                   color: ColorStyle.black,
@@ -65,7 +73,8 @@ class EstimatePending extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text('\$2,500.00',
+                          Text(
+                              '\$ '+arrModelEstimate[index].amountTotal!.toString(),
                               style: TextStylesProductSans.textStyles_14
                                   .apply(
                                   color: ColorStyle.black,
@@ -122,7 +131,7 @@ class EstimatePending extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  Get.to(EstimateDetails());
+                  Get.to(EstimateDetails(modelEstimate: arrModelEstimate[index], ));
                 },
               );
             })

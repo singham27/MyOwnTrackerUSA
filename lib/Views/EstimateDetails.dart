@@ -13,10 +13,12 @@ import '../Styles/TextStyles.dart';
 import '../Views/EstimateCreate.dart';
 import '../Views/PaymentList.dart';
 import '../Utils/Global.dart';
+import '../Models/ModelEstimate.dart';
 
 
 class EstimateDetails extends StatelessWidget {
-  EstimateDetails({Key? key}) : super(key: key);
+  ModelEstimate modelEstimate;
+  EstimateDetails({Key? key, required this.modelEstimate}) : super(key: key);
 
   final controller = Get.put(EstimateDetailsController());
 
@@ -72,7 +74,7 @@ class EstimateDetails extends StatelessWidget {
                           Get.back();
 
                           if (index == 2) {
-                            Get.to(PaymentList());
+                            // Get.to(PaymentList());
                           } else if (index == 5) {
                             share();
                           }
@@ -112,6 +114,9 @@ class EstimateDetails extends StatelessWidget {
         ),
         body: GetBuilder(
           init: EstimateDetailsController(),
+          initState: (state) {
+            controller.onInit();
+          },
           builder: (auth) {
             return Obx(()=>SingleChildScrollView(
               padding: EdgeInsets.only(left: 20,right: 20,bottom: 20),
@@ -120,7 +125,6 @@ class EstimateDetails extends StatelessWidget {
                 children: [
                   Text(
                       'Estimate Status',
-                      // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 5)),
                   SizedBox(height: 20,),
@@ -222,7 +226,6 @@ class EstimateDetails extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(left: 15,right: 15,bottom: 15),
                     alignment: Alignment.center,
-                    // height: 185,
                     child: Column(
                       children: [
                         SizedBox(height: 15,),
@@ -273,7 +276,6 @@ class EstimateDetails extends StatelessWidget {
                     alignment: Alignment.center,
                     child:Text(
                         'ESTIMATE',
-                        // controller.estimate1[index],
                         style:  TextStylesProductSans.textStyles_10
                             .apply(color: ColorStyle.grey,)),
                   ),
@@ -281,7 +283,19 @@ class EstimateDetails extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(ImageStyle.Group1727,height: 55,),
+                      // Image.asset(ImageStyle.Group1727,height: 55,),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(6),
+                        child: Image.network(
+                          controller.controllerMyCompany.logoURL.value,
+                          height: 55,
+                          width: 55,
+                          fit: BoxFit.fill,
+                            errorBuilder: ( context, exception, stackTrace) {
+                            return Image.asset(ImageStyle.Group1727,height: 55,);
+                          }
+                        ),
+                      ),
                       Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -291,23 +305,12 @@ class EstimateDetails extends StatelessWidget {
                                 style:  TextStylesProductSans.textStyles_10
                                     .apply(color: ColorStyle.black,)),
                             Text(
-                                'John Deo',
-                                style:  TextStylesProductSans.textStyles_7
-                                    .apply(color: ColorStyle.black,)),
-                            Text(
-                                '100, abc stret',
-                                style:  TextStylesProductSans.textStyles_7
-                                    .apply(color: ColorStyle.black,)),
-                            Text(
-                                'abc city, abc, 123456',
-                                style:  TextStylesProductSans.textStyles_7
-                                    .apply(color: ColorStyle.black,)),
-                            Text(
-                                '0123 456 7890',
-                                style:  TextStylesProductSans.textStyles_7
-                                    .apply(color: ColorStyle.black,)),
-                            Text(
-                                '0123 456 7890',
+                                modelEstimate.client!.name.toString()
+                                    +'\n'+modelEstimate.client!.billingAddress1.toString()
+                                    +'\n'+modelEstimate.client!.billingAddress2.toString()
+                                    +'\n'+modelEstimate.client!.billingCity.toString()
+                                    +'\n'+modelEstimate.client!.billingStateProvince.toString()
+                                    +'\n'+modelEstimate.client!.billingZipPostalCode.toString(),
                                 style:  TextStylesProductSans.textStyles_7
                                     .apply(color: ColorStyle.black,)),
                           ],
@@ -325,11 +328,11 @@ class EstimateDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                                'ABC Company',
+                                controller.controllerMyCompany.nameOutSide.value,
                                 style:  TextStylesProductSans.textStyles_10
                                     .apply(color: ColorStyle.black,)),
                             Text(
-                                'Email : johndeo@gmail.com',
+                                'Email: '+controller.controllerMyCompany.emailOutSide.value,
                                 style:  TextStylesProductSans.textStyles_7
                                     .apply(color: ColorStyle.black,)),
                           ],
@@ -349,7 +352,7 @@ class EstimateDetails extends StatelessWidget {
                                     style:  TextStylesProductSans.textStyles_7
                                         .apply(color: ColorStyle.black,)),
                                 Text(
-                                    '1',
+                                    modelEstimate.estimateDocId.toString(),
                                     style:  TextStylesProductSans.textStyles_7
                                         .apply(color: ColorStyle.black,)),
                               ],
@@ -362,7 +365,7 @@ class EstimateDetails extends StatelessWidget {
                                     style:  TextStylesProductSans.textStyles_7
                                         .apply(color: ColorStyle.black,)),
                                 Text(
-                                    '16/06/2022',
+                                    modelEstimate.date.toString(),
                                     style:  TextStylesProductSans.textStyles_7
                                         .apply(color: ColorStyle.black,)),
                               ],
@@ -375,7 +378,7 @@ class EstimateDetails extends StatelessWidget {
                                     style:  TextStylesProductSans.textStyles_7
                                         .apply(color: ColorStyle.black,)),
                                 Text(
-                                    '1234567890',
+                                    modelEstimate.po.toString(),
                                     style:  TextStylesProductSans.textStyles_7
                                         .apply(color: ColorStyle.black,)),
                               ],
@@ -393,79 +396,83 @@ class EstimateDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                          'Description',
+                          'Items Description',
                           style:  TextStylesProductSans.textStyles_10
                               .apply(color: ColorStyle.black,)),
                       Text(
                           'Total',
                           style:  TextStylesProductSans.textStyles_10
                               .apply(color: ColorStyle.black,)),
-
-
                     ],
                   ),
-                  SizedBox(height: 4,),
+                  SizedBox(height: 16,),
                   Container(
                     height: 1,
                     color: ColorStyle.black,
                   ),
-                  SizedBox(height: 12,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                          'Solid',
-                          style:  TextStylesProductSans.textStyles_10
-                              .apply(color: ColorStyle.black,)),
-                      Text(
-                          '\$100.00',
-                          style:  TextStylesProductSans.textStyles_9
-                              .apply(color: ColorStyle.black,)),
-
-
-                    ],
+                  SizedBox(height: 10),
+                  ListView.separated(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: modelEstimate.items!.length,
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) {
+                      return Container(
+                        height: 1,
+                        color: ColorStyle.hex('#BBB7C4'),
+                        margin: EdgeInsets.only(
+                          top: 6,
+                          bottom: 6,
+                        ),
+                      );
+                    },
+                    itemBuilder: (context, index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  modelEstimate.items![index].name.toString(),
+                                  style:  TextStylesProductSans.textStyles_10
+                                      .apply(color: ColorStyle.black,)),
+                              Row(
+                                children: [
+                                  Text(
+                                      'QTY: '+modelEstimate.items![index].quantity.toString(),
+                                      style:  TextStylesProductSans.textStyles_9
+                                          .apply(color: ColorStyle.black,)),
+                                  Text(
+                                      ' | ',
+                                      style:  TextStylesProductSans.textStyles_9
+                                          .apply(color: ColorStyle.black,)),
+                                  Text(
+                                      '\$ '+modelEstimate.items![index].rate.toString(),
+                                      style:  TextStylesProductSans.textStyles_9
+                                          .apply(color: ColorStyle.black,)),
+                                ],
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 4,),
+                          Text(
+                              modelEstimate.items![index].description.toString(),
+                              style:  TextStylesProductSans.textStyles_8
+                                  .apply(color: ColorStyle.black,)),
+                        ],
+                      );
+                    },
                   ),
-                  SizedBox(height: 4,),
-                  Text(
-                      'Lorem ipsum',
-                      style:  TextStylesProductSans.textStyles_8
-                          .apply(color: ColorStyle.black,)),
-                  SizedBox(height: 8,),
+                  SizedBox(height: 10),
                   Container(
                     height: 1,
                     color: ColorStyle.hex('#BBB7C4'),
                   ),
-                  SizedBox(height: 8,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                          'Solid',
-                          style:  TextStylesProductSans.textStyles_10
-                              .apply(color: ColorStyle.black,)),
-                      Text(
-                          '\$100.00',
-                          style:  TextStylesProductSans.textStyles_9
-                              .apply(color: ColorStyle.black,)),
-
-
-                    ],
-                  ),
-                  SizedBox(height: 4,),
-                  Text(
-                      'Lorem ipsum',
-                      style:  TextStylesProductSans.textStyles_8
-                          .apply(color: ColorStyle.black,)),
-                  SizedBox(height: 9,),
-                  Container(
-                    height: 1,
-                    color: ColorStyle.hex('#BBB7C4'),
-                  ),
-                  SizedBox(height: 8,),
+                  SizedBox(height: 16,),
                   Container(
                     alignment: Alignment.centerRight,
                     child: Container(
-                      width: 120,
+                      width: MediaQuery.of(context).size.width/2.2,
                       child: Column(
                         mainAxisAlignment:MainAxisAlignment.end,
                         children: [
@@ -477,7 +484,7 @@ class EstimateDetails extends StatelessWidget {
                                   style:  TextStylesProductSans.textStyles_8
                                       .apply(color: ColorStyle.black,)),
                               Text(
-                                  '\$200.00',
+                                  '\$ '+modelEstimate.subTotal.toString(),
                                   style:  TextStylesProductSans.textStyles_7
                                       .apply(color: ColorStyle.black,)),
                             ],
@@ -492,11 +499,11 @@ class EstimateDetails extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                  'GST',
+                                  'Tax '+ '(${controller.taxCalcuation(modelEstimate.items!).toString()}%)',
                                   style:  TextStylesProductSans.textStyles_8
                                       .apply(color: ColorStyle.black,)),
                               Text(
-                                  '\$24.00',
+                                  '\$ '+controller.taxPriceCaluculation(modelEstimate),
                                   style:  TextStylesProductSans.textStyles_7
                                       .apply(color: ColorStyle.black,)),
                             ],
@@ -515,7 +522,7 @@ class EstimateDetails extends StatelessWidget {
                                   style:  TextStylesProductSans.textStyles_8
                                       .apply(color: ColorStyle.black,)),
                               Text(
-                                  '\$224.00',
+                                  '\$ '+modelEstimate.amountTotal.toString(),
                                   style:  TextStylesProductSans.textStyles_7
                                       .apply(color: ColorStyle.black,)),
                             ],
@@ -525,11 +532,11 @@ class EstimateDetails extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 18,),
+                  SizedBox(height: 10,),
                   Container(
                     alignment: Alignment.centerRight,
                     child: Container(
-                      width: 214,
+                      width: MediaQuery.of(context).size.width/2.2,
                       child: Column(
                         mainAxisAlignment:MainAxisAlignment.end,
                         children: [
@@ -546,51 +553,57 @@ class EstimateDetails extends StatelessWidget {
                             height: 1,
                             color: ColorStyle.black,
                           ),
-                          SizedBox(height: 7,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  '1st Payment (40%)',
-                                  style:  TextStylesProductSans.textStyles_8
-                                      .apply(color: ColorStyle.black,)),
-                              Text(
-                                  '\$100.00',
-                                  style:  TextStylesProductSans.textStyles_7
-                                      .apply(color: ColorStyle.black,)),
-                            ],
-                          ),
-                          SizedBox(height: 5,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  '2nd Payment (60%)',
-                                  style:  TextStylesProductSans.textStyles_8
-                                      .apply(color: ColorStyle.black,)),
-                              Text(
-                                  '\$124.00',
-                                  style:  TextStylesProductSans.textStyles_7
-                                      .apply(color: ColorStyle.black,)),
-                            ],
+                          SizedBox(height: 10,),
+
+                          ListView.separated(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: modelEstimate.paymentSchedule!.paymentList!.length,
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) {
+                              return Container(
+                                height: 1,
+                                color: ColorStyle.hex('#BBB7C4'),
+                                margin: EdgeInsets.only(
+                                  top: 6,
+                                  bottom: 6,
+                                ),
+                              );
+                            },
+                            itemBuilder: (context, index) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    // '1st Payment (40%)',
+                                      modelEstimate.paymentSchedule!.paymentList![index].paymentName.toString(),
+                                          // + '(${modelEstimate.paymentSchedule!.paymentType.toString()})',
+                                      style:  TextStylesProductSans.textStyles_8
+                                          .apply(color: ColorStyle.black,)),
+                                  Text(
+                                      '\$ '+modelEstimate.paymentSchedule!.paymentList![index].paymentAmount.toString(),
+                                      style:  TextStylesProductSans.textStyles_7
+                                          .apply(color: ColorStyle.black,)),
+                                ],
+                              );
+                            },
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 16,),
                   Container(
                     height: 1,
                     color: ColorStyle.hex('#BBB7C4'),
                   ),
-                  SizedBox(height: 5,),
+                  SizedBox(height: 10,),
                   Text(
                       'Notes',
                       style:  TextStylesProductSans.textStyles_10
                           .apply(color: ColorStyle.black,)),
-                  SizedBox(height: 7,),
+                  SizedBox(height: 10,),
                   Text(
-                      'Lorem Ipsum',
+                      modelEstimate.notes.toString(),
                       style:  TextStylesProductSans.textStyles_8
                           .apply(color: ColorStyle.black,)),
                   SizedBox(height: 30,),
@@ -612,11 +625,15 @@ class EstimateDetails extends StatelessWidget {
                               'John Deo',
                               style:  TextStylesProductSans.textStyles_8
                                   .apply(color: ColorStyle.black,)),
+                          Text(
+                              'Signed on: 17/06/2022',
+                              style:  TextStylesProductSans.textStyles_8
+                                  .apply(color: ColorStyle.black,)),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 67,),
+                  SizedBox(height: 40,),
                   Container(
                       alignment: Alignment.centerRight,
                       child: InkWell(
