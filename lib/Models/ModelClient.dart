@@ -61,6 +61,24 @@ class ModelClient {
     );
   }
 
+    factory ModelClient.fromJson(Map<String, dynamic> json) => ModelClient(
+    id: json["id"],
+    name: json["name"],
+    email: json["email"],
+    mobileNumber: json["mobileNumber"],
+    homeNumber: json["homeNumber"],
+    billing_address_1: json["billing_address_1"],
+    billing_address_2: json["billing_address_2"],
+    billing_city: json["billing_city"],
+    billing_state_Province: json["billing_state_Province"],
+    billing_zip_Postal_Code: json["billing_zip_Postal_Code"],
+    service_address_1: json["service_address_1"],
+      service_address_2: json["service_address_2"],
+    service_city: json["service_city"],
+    service_state_Province: json["service_state_Province"],
+    service_zip_Postal_Code: json["service_zip_Postal_Code"],
+  );
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

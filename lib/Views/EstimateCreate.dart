@@ -1,6 +1,8 @@
 import 'package:business_trackers/Components/AppBarStyle.dart';
 import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Components/TextFieldCustom.dart';
+import 'package:business_trackers/Models/ModelClient.dart';
+import 'package:business_trackers/Models/ModelEstimate.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:business_trackers/Views/Clients.dart';
@@ -17,15 +19,17 @@ import '../Components/PickerCustom.dart';
 
 
 class EstimateCreate extends StatelessWidget {
-   EstimateCreate({Key? key}) : super(key: key);
-   final controller = Get.put(EstimateCreateController());
+  String title;
+  ModelEstimate? estimate;
+  EstimateCreate({Key? key, required this.title, this.estimate}) : super(key: key);
+  final controller = Get.put(EstimateCreateController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarStyless(
           overlayStyle: SystemUiOverlayStyle.dark,
-          title: 'New Estimate',
+          title: title,
           leading: BackButton(
             color: ColorStyle.black,
             onPressed: () {
@@ -38,8 +42,19 @@ class EstimateCreate extends StatelessWidget {
         body: GetBuilder(
           init: EstimateCreateController(),
           initState: (state) {
+            if (estimate != null) {
+              controller.selectedClient.value = estimate!.client!;
+              controller.arrSelectedItem.value = estimate!.items!;
+              controller.paymentSchedule.value = estimate!.paymentSchedule!.toJson();
+              controller.genericContract.value = estimate!.contract!.toJson();
 
+              controller.txtNotes.value.text = estimate!.notes!;
+              controller.docID.value.text = estimate!.docID!;
+              controller.date.value = estimate!.date!;
+              controller.txtPO.value.text = estimate!.po!;
+            }
           },
+
           builder: (auth) {
             return Obx(()=>SingleChildScrollView(
               padding: EdgeInsets.only(left: 20,right: 20,bottom: 20),
@@ -48,7 +63,6 @@ class EstimateCreate extends StatelessWidget {
                 children: [
                   Text(
                       'Client',
-                      // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
                   SizedBox(height: 22,),
@@ -92,7 +106,7 @@ class EstimateCreate extends StatelessWidget {
                           onTap: () {
                             Get.to(Clients(isFromEstimate: true))!
                                 .then((value) {
-                              print(value);
+                              controller.selectedClient.value = value;
                             });
                           },
                         ),
@@ -115,58 +129,58 @@ class EstimateCreate extends StatelessWidget {
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
                   if (controller.arrSelectedItem.isNotEmpty)
-                  Column(
-                    children: [
-                      SizedBox(height: 10,),
-                      ListView.separated(
-                        itemCount: controller.arrSelectedItem.length,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        separatorBuilder: (context, index) {
-                          return Container(
-                            height: 1,
-                            color: ColorStyle.grey,
-                            margin: EdgeInsets.only(
-                              top: 10,
-                              bottom: 10,
-                            ),
-                          );
-                        },
-                        itemBuilder: (context, index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(child: Text(
-                                      controller.arrSelectedItem[index].name.toString(),
-                                      style:  TextStylesProductSans.textStyles_16
-                                          .apply(color: ColorStyle.black,))),
-                                  Row(
-                                    children: [
-                                      Text(
-                                          controller.arrSelectedItem[index].quantity.toString()+'x ',
-                                          style:  TextStylesProductSans.textStyles_14
-                                              .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),
-                                      Text(
-                                          '\$'+controller.arrSelectedItem[index].rate.toString(),
-                                          style:  TextStylesProductSans.textStyles_14
-                                              .apply(color: ColorStyle.black,)),
-                                    ],
-                                  ),
-                                ],
+                    Column(
+                      children: [
+                        SizedBox(height: 10,),
+                        ListView.separated(
+                          itemCount: controller.arrSelectedItem.length,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          separatorBuilder: (context, index) {
+                            return Container(
+                              height: 1,
+                              color: ColorStyle.grey,
+                              margin: EdgeInsets.only(
+                                top: 10,
+                                bottom: 10,
                               ),
-                              SizedBox(height: 10,),
-                              Text(
-                                  controller.arrSelectedItem[index].description.toString(),
-                                  style:  TextStylesProductSans.textStyles_14
-                                      .apply(color: ColorStyle.grey,)),
-                            ],
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                            );
+                          },
+                          itemBuilder: (context, index) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(child: Text(
+                                        controller.arrSelectedItem[index].name.toString(),
+                                        style:  TextStylesProductSans.textStyles_16
+                                            .apply(color: ColorStyle.black,))),
+                                    Row(
+                                      children: [
+                                        Text(
+                                            controller.arrSelectedItem[index].quantity.toString()+'x ',
+                                            style:  TextStylesProductSans.textStyles_14
+                                                .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),
+                                        Text(
+                                            '\$'+controller.arrSelectedItem[index].rate.toString(),
+                                            style:  TextStylesProductSans.textStyles_14
+                                                .apply(color: ColorStyle.black,)),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10,),
+                                Text(
+                                    controller.arrSelectedItem[index].description.toString(),
+                                    style:  TextStylesProductSans.textStyles_14
+                                        .apply(color: ColorStyle.grey,)),
+                              ],
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   SizedBox(height: 20,),
                   InkWell(
                     child:  Container(
@@ -181,13 +195,13 @@ class EstimateCreate extends StatelessWidget {
                       child: Text(
                           controller.arrSelectedItem.isEmpty ?
                           '+ Add Line Item'
-                          : 'Organize Line Item',
+                              : 'Organize Line Item',
                           style:  TextStylesProductSans.textStyles_16
                               .apply(color: ColorStyle.secondryColor, fontWeightDelta: 2)),
                     ),
                     onTap: () {
                       Get.to( ItemList(isFromEstimate: true))!
-                      .then((value) {
+                          .then((value) {
                         controller.arrSelectedItem.value = value;
                       });
                     },
@@ -263,13 +277,12 @@ class EstimateCreate extends StatelessWidget {
                       InkWell(
                         child:  Text(
                             controller.paymentSchedule.value.isEmpty
-                            ? '+ Add' : 'Edit',
+                                ? '+ Add' : 'Edit',
                             style:  TextStylesProductSans.textStyles_16
                                 .apply(color: ColorStyle.secondryColor, fontWeightDelta: 0)),
-                        onTap: (){
-                          Get.to(PaymentSchedule())!
-                          .then((value) {
-                            print(value);
+                        onTap: () {
+                          Get.to( PaymentSchedule(paymentSchedule: controller.paymentSchedule.value,))!
+                              .then((value) {
                             controller.paymentSchedule.value = value;
                           });
                         },)
@@ -288,7 +301,6 @@ class EstimateCreate extends StatelessWidget {
                   SizedBox(height: 15,),
                   Text(
                       'Notes for Client ',
-                      // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
                   SizedBox(height: 8,),
@@ -297,15 +309,14 @@ class EstimateCreate extends StatelessWidget {
                     maxLines: 6,
                     textStyle: TextStylesProductSans.textStyles_16
                         .apply(color: ColorStyle.black),
-                      hintText: 'Add Notes',
+                    hintText: 'Add Notes',
                     padding: EdgeInsets.only(
-                      bottom: 10
+                        bottom: 10
                     ),
                   ),
                   SizedBox(height: 16),
                   Text(
                       'Contract & Signature',
-                      // controller.estimate1[index],
                       style:  TextStylesProductSans.textStyles_16
                           .apply(color: ColorStyle.black, fontWeightDelta: 4)),
                   SizedBox(height: 15,),
@@ -313,10 +324,8 @@ class EstimateCreate extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                          'Contact',
-                          // controller.estimate[index],
+                          'Contract',
                           style:  TextStylesProductSans.textStyles_16
-
                       ),
                       InkWell(
                         child: Text(
@@ -328,7 +337,7 @@ class EstimateCreate extends StatelessWidget {
                         ),
                         onTap: (){
                           Get.to(DocumentSettings(isFromEstimate: true))!
-                          .then((value) {
+                              .then((value) {
                             controller.genericContract.value = value;
                           });
                         },
@@ -395,8 +404,8 @@ class EstimateCreate extends StatelessWidget {
                               .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                       Expanded(
                         child: TextField(
-                          controller: controller.txtEstimate.value,
-                            style: TextStylesProductSans.textStyles_16.apply(color: ColorStyle.black, fontWeightDelta: 0),
+                          controller: controller.docID.value,
+                          style: TextStylesProductSans.textStyles_16.apply(color: ColorStyle.black, fontWeightDelta: 0),
                           textAlign: TextAlign.right,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -466,7 +475,11 @@ class EstimateCreate extends StatelessWidget {
                     colorText: ColorStyle.white,
                     width: MediaQuery.of(context).size.width,
                     onTap: () {
-                      controller.validation();
+                      if (title.toLowerCase().contains('edit')) {
+                        controller.estimateID = estimate!.id!;
+                        controller.estimate = estimate;
+                      }
+                      controller.validation(title);
                     },
                   ),
                 ],
@@ -477,3 +490,4 @@ class EstimateCreate extends StatelessWidget {
     );
   }
 }
+

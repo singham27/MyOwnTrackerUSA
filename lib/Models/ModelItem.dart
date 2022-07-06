@@ -21,6 +21,18 @@ class ModelItem {
     this.createdTime,
   });
 
+    factory ModelItem.fromJson(Map<String, dynamic> json) => ModelItem(
+    id: json["id"],
+    name: json["name"],
+    quantity: json["quantity"],
+    rate: json["rate"],
+    taxName: json["taxName"],
+    taxValue: json["taxValue"],
+    description: json["description"],
+    createdTime: json["createdTime"],
+    valueAmount: json["valueAmount"],
+  );
+
   ModelItem toModel(Map<String, dynamic> map) {
     return ModelItem(
         name: map[name].toString(),
@@ -61,3 +73,4 @@ class ModelItem {
   }
 
 }
+

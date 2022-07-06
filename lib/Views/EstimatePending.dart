@@ -1,4 +1,7 @@
+
+
 import '../Controllers/EstimateApprovedController.dart';
+import '../Controllers/EstimateController.dart';
 import '../Styles/ColorStyle.dart';
 import '../Styles/ImageStyle.dart';
 import '../Styles/TextStyles.dart';
@@ -8,11 +11,11 @@ import 'package:get/get.dart';
 import '../Models/ModelEstimate.dart';
 
 
-
 class EstimatePending extends StatelessWidget {
   List<ModelEstimate> arrModelEstimate;
   EstimatePending({Key? key, required this.arrModelEstimate}) : super(key: key);
   final controller = Get.put(EstimateApprovedController());
+  final controllerEstimate = Get.put(EstimateController());
 
   @override
   Widget build(BuildContext context) {
@@ -84,39 +87,36 @@ class EstimatePending extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              InkWell(
-                                child: Image.asset(
-                                  ImageStyle.Path475,
-                                  height: 20,
-                                ),
-                                onTap: () {},
-                              ),
+                              // InkWell(
+                              //   child: Image.asset(
+                              //     ImageStyle.Path475,
+                              //     height: 20,
+                              //   ),
+                              //   onTap: () {},
+                              // ),
+                              // Container(
+                              //   width: 10,
+                              // ),
                               Container(
-                                width: 15,
-                              ),
-                              InkWell(
-                                child: Container(
-                                  padding: EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                      top: 6,
-                                      bottom: 6),
-                                  alignment: Alignment.center,
-                                  // height: 2,
-                                  // width: 20,
-                                  child: Text('INVOICED',
-                                      // controller.estimate2[index],
-                                      style: TextStylesProductSans
-                                          .textStyles_12
-                                          .apply(
-                                          color: ColorStyle.white,
-                                          fontWeightDelta: 0)),
-                                  decoration: BoxDecoration(
-                                      color: ColorStyle.grays,
-                                      borderRadius:
-                                      BorderRadius.circular(6)),
-                                ),
-                                onTap: () {},
+                                padding: EdgeInsets.only(
+                                    left: 6,
+                                    right: 6,
+                                    top: 5,
+                                    bottom: 5),
+                                alignment: Alignment.center,
+                                // height: 2,
+                                // width: 20,
+                                child: Text(
+                                    arrModelEstimate[index].states_name.toString(),
+                                    style: TextStylesProductSans
+                                        .textStyles_10
+                                        .apply(
+                                        color: ColorStyle.white,
+                                        fontWeightDelta: 0)),
+                                decoration: BoxDecoration(
+                                    color: ColorStyle.grays,
+                                    borderRadius:
+                                    BorderRadius.circular(6)),
                               )
                             ],
                           ),
@@ -131,7 +131,12 @@ class EstimatePending extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  Get.to(EstimateDetails(modelEstimate: arrModelEstimate[index], ));
+                  Get.to(EstimateDetails(
+                    title: 'Estimate',
+                    modelEstimate: arrModelEstimate[index],))!
+                  .then((value) {
+                    controllerEstimate.readEstimate();
+                  });
                 },
               );
             })

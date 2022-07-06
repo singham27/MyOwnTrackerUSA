@@ -1,17 +1,17 @@
 
-import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../Utils/API.dart';
 import '../Utils/Global.dart';
 import '../Models/ModelEstimate.dart';
-import 'dart:convert';
 
 
 class EstimateController extends GetxController {
   RxInt intAppBar = 0.obs;
-  RxList<ModelEstimate> arrModelEstimate = <ModelEstimate>[].obs;
+
+  RxList<ModelEstimate> arrEstimatePending = <ModelEstimate>[].obs;
+  RxList<ModelEstimate> arrEstimateApproved = <ModelEstimate>[].obs;
+  RxList<ModelEstimate> arrEstimateDeclined = <ModelEstimate>[].obs;
 
   RxList<String> estimate = [
     'Pending',
@@ -29,20 +29,28 @@ class EstimateController extends GetxController {
   readEstimate() async {
     try {
       final response = await API.instance.get(endPoint: 'readEstimate');
-      print(response!['status']);
-      print(response['data']);
 
       if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
-
         final arrData = List<Map<String, dynamic>>.from(response['data']);
-        arrModelEstimate.value = List<ModelEstimate>.from(arrData.map((x) => ModelEstimate.fromJson(x)));
 
+        arrEstimatePending.clear();
+        arrEstimateApproved.clear();
+        arrEstimateDeclined.clear();
+
+        for (Map<String, dynamic> map in arrData) {
+          if (map['states'].toString().toLowerCase() == 'pending') {
+            arrEstimatePending.add(ModelEstimate.fromJson(map));
+          } else if (map['states'].toString().toLowerCase() == 'approved') {
+            arrEstimateApproved.add(ModelEstimate.fromJson(map));
+          } else if (map['states'].toString().toLowerCase() == 'declined') {
+            arrEstimateDeclined.add(ModelEstimate.fromJson(map));
+          }
+        }
       } else {
-        response['message'].toString().showError();
+        response!['message'].toString().showError();
       }
     } catch (error) {
       error.toString().showError();
-      print(error.toString());
     }
   }
 

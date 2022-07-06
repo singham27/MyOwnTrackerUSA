@@ -1,20 +1,24 @@
+import 'package:business_trackers/Views/EstimateDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../Controllers/EstimateController.dart';
 import '../Styles/ColorStyle.dart';
-import '../Styles/ImageStyle.dart';
 import '../Styles/TextStyles.dart';
-import '../Views/EstimateDetails.dart';
+import 'EstimateCreate.dart';
+import '../Models/ModelEstimate.dart';
 
 class InvoicesPaid extends StatelessWidget {
-  InvoicesPaid({Key? key}) : super(key: key);
+  List<ModelEstimate> arrModelEstimate;
+  InvoicesPaid({Key? key, required this.arrModelEstimate}) : super(key: key);
 
+  final controllerEstimate = Get.put(EstimateController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorStyle.primaryColor,
         body: ListView.builder(
-            itemCount: 10,
+            itemCount: arrModelEstimate.length,
             shrinkWrap: true,
             padding: EdgeInsets.only(bottom: 80),
             itemBuilder: (BuildContext context, int index) {
@@ -58,16 +62,16 @@ class InvoicesPaid extends StatelessWidget {
                                     .apply(color: ColorStyle.black,)),
                             Row(
                               children: [
-                                InkWell(child:Image.asset(ImageStyle.Path475,height: 20,),onTap: (){},),
-                                SizedBox(
-                                  width: 15,),
+                                // InkWell(child:Image.asset(ImageStyle.Path475,height: 20,),onTap: (){},),
+                                // SizedBox(
+                                //   width: 15,),
                                 InkWell(
                                   child: Container(
-                                    padding: EdgeInsets.only(left: 25,right: 25,top: 8,bottom: 8),
+                                    padding: EdgeInsets.only(left: 6,right: 6,top: 5,bottom: 5),
                                     alignment: Alignment.center,
                                     child: Text(
                                         'PAID',
-                                        style:  TextStylesProductSans.textStyles_12
+                                        style:  TextStylesProductSans.textStyles_10
                                             .apply(color:
                                         ColorStyle.white
                                         )
@@ -86,10 +90,12 @@ class InvoicesPaid extends StatelessWidget {
                     )
                 ),
                 onTap: () {
-                  // Get.to(EstimateDetails());
+                  Get.to(EstimateDetails(title: 'Invoice',modelEstimate: arrModelEstimate[index]))!
+                      .then((value) {
+                    controllerEstimate.readEstimate();
+                  });;
                 },
               );
-
             })
     );
   }

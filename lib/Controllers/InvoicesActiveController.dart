@@ -1,8 +1,14 @@
-import 'package:flutter/material.dart';
+
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import '../Utils/API.dart';
+import '../Utils/Global.dart';
+import '../Models/ModelEstimate.dart';
 
 class InvoicesController extends GetxController {
 
+  RxList<ModelEstimate> arrInvoiceActive = <ModelEstimate>[].obs;
+  RxList<ModelEstimate> arrInvoicePaid = <ModelEstimate>[].obs;
 
   RxInt intAppBar = 0.obs;
 
@@ -11,27 +17,38 @@ class InvoicesController extends GetxController {
     'Paid',
   ].obs;
 
-
-  RxList<String> active = [
-    'DRAFT',
-    'PARTIAL',
-    'DRAFT',
-    'PARTIAL',
-    'DRAFT',
-    'PARTIAL',
-    'DRAFT',
-    'PARTIAL',
-    'DRAFT',
-    'PARTIAL',
-    'DRAFT',
-    'PARTIAL',
-  ].obs;
-
   reset() {
-    intAppBar.value = 0;
+    Future.delayed(Duration(microseconds: 100), () {
+      intAppBar.value = 0;
+      readEstimate();
+    });
   }
 
+  readEstimate() async {
+    try {
+      final response = await API.instance.get(endPoint: 'readInvoice');
 
+      if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
+        final arrData = List<Map<String, dynamic>>.from(response['data']);
 
+        arrInvoiceActive.clear();
+        arrInvoicePaid.clear();
+
+        for (Map<String, dynamic> map in arrData) {
+          debugPrint(map['docID'].toString());
+
+          if (map['states'].toString().toLowerCase() == 'pending') {
+            arrInvoiceActive.add(ModelEstimate.fromJson(map));
+          } else if (map['states'].toString().toLowerCase() == 'approved') {
+            arrInvoicePaid.add(ModelEstimate.fromJson(map));
+          }
+        }
+      } else {
+        response!['message'].toString().showError();
+      }
+    } catch (error) {
+      error.toString().showError();
+    }
+  }
 
 }
