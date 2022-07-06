@@ -13,7 +13,8 @@ import 'package:get/get.dart';
 import '../Components/TextFieldCustom.dart';
 
 class PaymentSchedule extends StatelessWidget {
-  PaymentSchedule({Key? key}) : super(key: key);
+  Map<String, dynamic> paymentSchedule;
+  PaymentSchedule({Key? key, this.paymentSchedule = const {}}) : super(key: key);
 
   final controller = Get.put(PaymentScheduleController());
 
@@ -66,6 +67,30 @@ class PaymentSchedule extends StatelessWidget {
           init: PaymentScheduleController(),
           initState: (state) {
             controller.init();
+
+            Future.delayed(Duration(microseconds: 200), () {
+              controller.arrPaymentName.clear();
+              controller.arrPaymentAmount.clear();
+
+              final payment_Type = paymentSchedule['payment_Type'].toString();
+              if (payment_Type == '%') {
+                controller.selectedPaymentMode.value = 0;
+              } else {
+                controller.selectedPaymentMode.value = 1;
+              }
+              final arrPaymentSchedule = List<Map<String, dynamic>>.from(paymentSchedule['payment_List']);
+              for (Map payment in arrPaymentSchedule) {
+                final txtPaymentName = TextEditingController();
+                txtPaymentName.text = payment['payment_name'].toString();
+                controller.arrPaymentName.add(txtPaymentName);
+
+                final txtPaymentAmount = TextEditingController();
+                txtPaymentAmount.text = payment['payment_amount'].toString();
+                controller.arrPaymentAmount.add(txtPaymentAmount);
+              }
+
+              print(controller.arrPaymentName.length);
+            });
           },
           builder: (authController) {
             return Obx(()=>SingleChildScrollView(
@@ -74,7 +99,8 @@ class PaymentSchedule extends StatelessWidget {
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    child: Text('100% Remaining ',
+                    child: Text(
+                        '100% Remaining ',
                         style: TextStylesProductSans.textStyles_16.apply(
                             color: ColorStyle.black, fontWeightDelta: 0)),
                   ),

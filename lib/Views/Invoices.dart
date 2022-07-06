@@ -36,27 +36,16 @@ class Invoices extends StatelessWidget {
           //   ],
           // ),
           actions: [
-            InkWell(
-              child: Container(
-                padding: EdgeInsets.only(
-                  left: 15,
-                  right: 15,
-                ),
-                alignment: Alignment.center,
-                // height: 38,
-                // width: 38,
-                child: Icon(
-                  Icons.search,
-                  color: ColorStyle.secondryColor,
-                ),
-                decoration: BoxDecoration(
-                    color: ColorStyle.secondryColor.withOpacity(.1),
-                    borderRadius: BorderRadius.circular(100)),
+            IconButton(
+              icon: Icon(
+                Icons.search,
+                color: ColorStyle.secondryColor,
+                size: 30,
               ),
-              onTap: () {},
+              onPressed: () {},
             ),
             SizedBox(
-              width: 10,
+              width: 16,
             )
           ],
         ),
@@ -66,15 +55,13 @@ class Invoices extends StatelessWidget {
           colorText: ColorStyle.primaryColor,
           width: 130,
           onTap: () {
-            Get.to(EstimateCreate());
+            Get.to(EstimateCreate(title: 'Create Invoice',));
           },
         ),
         body: GetBuilder(
           init: InvoicesController(),
           initState: (state) {
             controller.reset();
-
-            print(controller.intAppBar.value);
           },
           builder: (authController) {
             return Obx(
@@ -162,10 +149,14 @@ class Invoices extends StatelessWidget {
                     ),
                     if (controller.intAppBar.value == 0)
                       Expanded(
-                          child: InvoicesActive()
+                          child: InvoicesActive(
+                            arrModelEstimate: controller.arrInvoiceActive,
+                          )
                       ),
                      if (controller.intAppBar.value == 1)
-                      Expanded(child: InvoicesPaid())
+                      Expanded(child: InvoicesPaid(
+                        arrModelEstimate: controller.arrInvoicePaid,
+                      ))
                   ],
                 ),
               ),
