@@ -37,9 +37,9 @@ class InvoicesController extends GetxController {
         for (Map<String, dynamic> map in arrData) {
           debugPrint(map['docID'].toString());
 
-          if (map['states'].toString().toLowerCase() == 'pending') {
+          if (map['states'].toString().toLowerCase() == 'active') {
             arrInvoiceActive.add(ModelEstimate.fromJson(map));
-          } else if (map['states'].toString().toLowerCase() == 'approved') {
+          } else if (map['states'].toString().toLowerCase() == 'paid') {
             arrInvoicePaid.add(ModelEstimate.fromJson(map));
           }
         }

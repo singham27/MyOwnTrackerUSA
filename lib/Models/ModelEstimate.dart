@@ -229,11 +229,11 @@ class PaymentScheduled {
   });
 
   String? paymentType;
-  List<PaymentList>? paymentList;
+  List<PaymentLists>? paymentList;
 
   factory PaymentScheduled.fromJson(Map<String, dynamic> json) => PaymentScheduled(
     paymentType: json["payment_Type"],
-    paymentList: List<PaymentList>.from(json["payment_List"].map((x) => PaymentList.fromJson(x))),
+    paymentList: List<PaymentLists>.from(json["payment_List"].map((x) => PaymentLists.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -242,8 +242,8 @@ class PaymentScheduled {
   };
 }
 
-class PaymentList {
-  PaymentList({
+class PaymentLists {
+  PaymentLists({
     this.paymentName,
     this.paymentAmount,
   });
@@ -251,7 +251,7 @@ class PaymentList {
   String? paymentName;
   String? paymentAmount;
 
-  factory PaymentList.fromJson(Map<String, dynamic> json) => PaymentList(
+  factory PaymentLists.fromJson(Map<String, dynamic> json) => PaymentLists(
     paymentName: json["payment_name"],
     paymentAmount: json["payment_amount"],
   );

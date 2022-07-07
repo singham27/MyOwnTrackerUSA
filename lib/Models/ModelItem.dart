@@ -21,7 +21,7 @@ class ModelItem {
     this.createdTime,
   });
 
-    factory ModelItem.fromJson(Map<String, dynamic> json) => ModelItem(
+  factory ModelItem.fromJson(Map<String, dynamic> json) => ModelItem(
     id: json["id"],
     name: json["name"],
     quantity: json["quantity"],

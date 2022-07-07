@@ -7,6 +7,7 @@ import '../Models/ModelEstimate.dart';
 import '../Controllers/MyCompanyController.dart';
 import '../Utils/API.dart';
 import '../Utils/Global.dart';
+import 'dart:convert';
 
 
 class EstimateDetailsController extends GetxController {
@@ -85,6 +86,50 @@ class EstimateDetailsController extends GetxController {
 
     if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
       // Get.back(result: true);
+      response['message'].toString().showSuccess();
+    } else {
+      response!['message'].toString().showError();
+    }
+  }
+
+  updateEstimateStatesName(ModelEstimate estimate) async {
+    final params = {
+      'estimateID': estimate.id,
+      'states_name': 'Invoice',
+    };
+
+    final response = await API.instance.post(endPoint: 'updateEstimateStatesName', params: params);
+
+    if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
+      invoiceFromEstimate(estimate);
+    } else {
+      response!['message'].toString().showError();
+    }
+
+  }
+
+  invoiceFromEstimate(ModelEstimate estimate) async {
+    final params = {
+      'client': jsonEncode(estimate.client!.toMap()),
+      'items': jsonEncode(ModelItem().listModelToListMap(estimate.items!)),
+      'paymentSchedule': jsonEncode(estimate.paymentSchedule!.toJson()),
+      'contract': jsonEncode(estimate.contract!.toJson()),
+      'subTotal': estimate.tax.toString(),
+      'tax': estimate.tax.toString(),
+      'amountTotal': estimate.amountTotal.toString(),
+      'notes': estimate.notes.toString(),
+      'docID': estimate.docID.toString(),
+      'date': estimate.date.toString(),
+      'po': estimate.po.toString(),
+      'states': 'Pending',
+      // 'states': 'Active',
+      'states_name': 'Draft',
+    };
+
+    final response = await API.instance.post(endPoint: 'createInvoice', params: params);
+
+    if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
+      Get.back(result: true);
       response['message'].toString().showSuccess();
     } else {
       response!['message'].toString().showError();

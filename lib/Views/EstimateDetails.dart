@@ -1,4 +1,5 @@
 import 'package:business_trackers/Controllers/EstimateDetailsController.dart';
+import 'package:business_trackers/Controllers/PaymentAddController.dart';
 import 'package:business_trackers/Views/EstimateCreate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../Components/AppBarStyle.dart';
-import '../Components/ElevatedButtonCustom.dart';
 import '../Styles/ColorStyle.dart';
 import '../Styles/ImageStyle.dart';
 import '../Styles/TextStyles.dart';
@@ -22,6 +22,7 @@ class EstimateDetails extends StatelessWidget {
   EstimateDetails({Key? key, required this.modelEstimate, required this.title}) : super(key: key);
 
   final controller = Get.put(EstimateDetailsController());
+  final controllerPaymentAdd = Get.put(PaymentAddController());
 
   bottomSheetSend() {
     return showModalBottomSheet<dynamic>(
@@ -85,10 +86,28 @@ class EstimateDetails extends StatelessWidget {
                           ),
                           onTap: () {
                             Get.back();
-                            if (index == 2) {
-                              // Get.to(PaymentList());
-                            } else if (index == 6) {
-                              share();
+
+                            if (title.toLowerCase().contains('invoice')) {
+                              if (index == 0) {
+
+                              } else if (index == 1) {
+                                controllerPaymentAdd.invoiceID = modelEstimate.id;
+                                Get.to(PaymentList(invoice: modelEstimate,));
+                              } else if (index == 2) {
+
+                              } else if (index == 6) {
+                                share();
+                              }
+                            } else {
+                              if (index == 0) {
+
+                              } else if (index == 1) {
+                                controller.updateEstimateStatesName(modelEstimate);
+                              } else if (index == 2) {
+
+                              } else if (index == 6) {
+                                share();
+                              }
                             }
                           },
                         );
@@ -199,126 +218,131 @@ class EstimateDetails extends StatelessWidget {
                       Text('Estimate Status',
                           style: TextStylesProductSans.textStyles_16.apply(
                               color: ColorStyle.black, fontWeightDelta: 5)),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                          height: 40,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                    ),
-                                    // width:94,
-                                    // height: 40,
-                                    child: Text('PENDING',
-                                        style: TextStylesProductSans
-                                            .textStyles_14
-                                            .apply(
-                                                color: (controller
-                                                            .estimateStatus
-                                                            .value ==
-                                                        0)
-                                                    ? ColorStyle.white
-                                                    : ColorStyle.black,
-                                                fontWeightDelta: 2)),
-                                    decoration: BoxDecoration(
-                                        color:
-                                            (controller.estimateStatus.value ==
-                                                    0)
-                                                ? ColorStyle.secondryColor
-                                                : Colors.transparent,
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                            color: (controller
-                                                        .estimateStatus.value ==
-                                                    0)
-                                                ? Colors.transparent
-                                                : ColorStyle.black)),
-                                  ),
-                                  onTap: () {
-                                    controller.estimateStatus.value = 0;
-                                    controller.updateEstimateStates(modelEstimate.id.toString(), 'Pending');
-                                  }),
-                              InkWell(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                    ),
-                                    child: Text('APPROVED',
-                                        style: TextStylesProductSans
-                                            .textStyles_14
-                                            .apply(
-                                                color: (controller
-                                                            .estimateStatus
-                                                            .value ==
-                                                        1)
-                                                    ? ColorStyle.white
-                                                    : ColorStyle.black,
-                                                fontWeightDelta: 2)),
-                                    decoration: BoxDecoration(
-                                        color:
-                                            (controller.estimateStatus.value ==
-                                                    1)
-                                                ? ColorStyle.hex('#61C842')
-                                                : Colors.transparent,
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                            color: (controller
-                                                        .estimateStatus.value ==
-                                                    1)
-                                                ? Colors.transparent
-                                                : ColorStyle.black)),
-                                  ),
-                                  onTap: () {
-                                    controller.estimateStatus.value = 1;
-                                    controller.updateEstimateStates(modelEstimate.id.toString(), 'Approved');
-                                  }),
-                              InkWell(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                    ),
-                                    child: Text('DECLINED',
-                                        style: TextStylesProductSans
-                                            .textStyles_14
-                                            .apply(
-                                                color: (controller
-                                                            .estimateStatus
-                                                            .value ==
-                                                        2)
-                                                    ? ColorStyle.white
-                                                    : ColorStyle.black,
-                                                fontWeightDelta: 2)),
-                                    decoration: BoxDecoration(
-                                        color:
-                                            (controller.estimateStatus.value ==
-                                                    2)
-                                                ? ColorStyle.hex('#FF8989')
-                                                : Colors.transparent,
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                            color: (controller
-                                                        .estimateStatus.value ==
-                                                    2)
-                                                ? Colors.transparent
-                                                : ColorStyle.black)),
-                                  ),
-                                  onTap: () {
-                                    controller.estimateStatus.value = 2;
-                                    controller.updateEstimateStates(modelEstimate.id.toString(), 'Declined');
-                                  }),
-                            ],
-                          )),
+                      if (!title.toLowerCase().contains('invoice'))
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                                height: 40,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          padding: EdgeInsets.only(
+                                            left: 10,
+                                            right: 10,
+                                          ),
+                                          // width:94,
+                                          // height: 40,
+                                          child: Text('PENDING',
+                                              style: TextStylesProductSans
+                                                  .textStyles_14
+                                                  .apply(
+                                                  color: (controller
+                                                      .estimateStatus
+                                                      .value ==
+                                                      0)
+                                                      ? ColorStyle.white
+                                                      : ColorStyle.black,
+                                                  fontWeightDelta: 2)),
+                                          decoration: BoxDecoration(
+                                              color:
+                                              (controller.estimateStatus.value ==
+                                                  0)
+                                                  ? ColorStyle.secondryColor
+                                                  : Colors.transparent,
+                                              borderRadius: BorderRadius.circular(8),
+                                              border: Border.all(
+                                                  color: (controller
+                                                      .estimateStatus.value ==
+                                                      0)
+                                                      ? Colors.transparent
+                                                      : ColorStyle.black)),
+                                        ),
+                                        onTap: () {
+                                          controller.estimateStatus.value = 0;
+                                          controller.updateEstimateStates(modelEstimate.id.toString(), 'Pending');
+                                        }),
+                                    InkWell(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          padding: EdgeInsets.only(
+                                            left: 10,
+                                            right: 10,
+                                          ),
+                                          child: Text('APPROVED',
+                                              style: TextStylesProductSans
+                                                  .textStyles_14
+                                                  .apply(
+                                                  color: (controller
+                                                      .estimateStatus
+                                                      .value ==
+                                                      1)
+                                                      ? ColorStyle.white
+                                                      : ColorStyle.black,
+                                                  fontWeightDelta: 2)),
+                                          decoration: BoxDecoration(
+                                              color:
+                                              (controller.estimateStatus.value ==
+                                                  1)
+                                                  ? ColorStyle.hex('#61C842')
+                                                  : Colors.transparent,
+                                              borderRadius: BorderRadius.circular(8),
+                                              border: Border.all(
+                                                  color: (controller
+                                                      .estimateStatus.value ==
+                                                      1)
+                                                      ? Colors.transparent
+                                                      : ColorStyle.black)),
+                                        ),
+                                        onTap: () {
+                                          controller.estimateStatus.value = 1;
+                                          controller.updateEstimateStates(modelEstimate.id.toString(), 'Approved');
+                                        }),
+                                    InkWell(
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          padding: EdgeInsets.only(
+                                            left: 10,
+                                            right: 10,
+                                          ),
+                                          child: Text('DECLINED',
+                                              style: TextStylesProductSans
+                                                  .textStyles_14
+                                                  .apply(
+                                                  color: (controller
+                                                      .estimateStatus
+                                                      .value ==
+                                                      2)
+                                                      ? ColorStyle.white
+                                                      : ColorStyle.black,
+                                                  fontWeightDelta: 2)),
+                                          decoration: BoxDecoration(
+                                              color:
+                                              (controller.estimateStatus.value ==
+                                                  2)
+                                                  ? ColorStyle.hex('#FF8989')
+                                                  : Colors.transparent,
+                                              borderRadius: BorderRadius.circular(8),
+                                              border: Border.all(
+                                                  color: (controller
+                                                      .estimateStatus.value ==
+                                                      2)
+                                                      ? Colors.transparent
+                                                      : ColorStyle.black)),
+                                        ),
+                                        onTap: () {
+                                          controller.estimateStatus.value = 2;
+                                          controller.updateEstimateStates(modelEstimate.id.toString(), 'Declined');
+                                        }),
+                                  ],
+                                )),
+                          ],
+                        ),
                       SizedBox(
                         height: 20,
                       ),
@@ -373,8 +397,9 @@ class EstimateDetails extends StatelessWidget {
                       // SizedBox(height: 42,),
                       Container(
                         alignment: Alignment.center,
-                        child: Text('ESTIMATE',
-                            style: TextStylesProductSans.textStyles_10.apply(
+                        child: Text(
+                            title.toLowerCase().contains('invoice') ? 'INVOICE' : 'ESTIMATE',
+                            style: TextStylesProductSans.textStyles_12.apply(
                               color: ColorStyle.grey,
                             )),
                       ),

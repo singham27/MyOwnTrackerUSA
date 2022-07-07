@@ -74,7 +74,7 @@ class InvoicesActive extends StatelessWidget {
                                     padding: EdgeInsets.only(left: 6,right: 6,top: 5,bottom: 5),
                                     alignment: Alignment.center,
                                     child: Text(
-                                        'DRAFT',
+                                        arrModelEstimate[index].states_name!.toString(),
                                         style:  TextStylesProductSans.textStyles_10
                                             .apply(color: ColorStyle.white)
                                     ),
