@@ -7,21 +7,31 @@ import '../Utils/API.dart';
 import '../Utils/Global.dart';
 import 'dart:convert';
 import '../Models/ModelEstimate.dart';
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'EstimateDetailsController.dart';
 
 
 class EstimateCreateController extends GetxController {
   String estimateID = '';
   ModelEstimate? estimate;
 
+  RxBool isSwitchOn = false.obs;
+
   Rx<ModelClient>  selectedClient = ModelClient().obs;
   RxList<ModelItem> arrSelectedItem = <ModelItem>[].obs;
   RxMap<String, dynamic> paymentSchedule = <String, dynamic>{}.obs;
   RxMap<String, dynamic> genericContract = <String, dynamic>{}.obs;
+  Rx<Uint8List> imageDataSignature = Uint8List.fromList(''.codeUnits).obs;
+  RxMap<String, dynamic> signature = <String, dynamic>{}.obs;
 
   RxString date = 'Pick a date'.obs;
   Rx<TextEditingController> txtNotes = TextEditingController().obs;
   Rx<TextEditingController> docID = TextEditingController().obs;
   Rx<TextEditingController> txtPO = TextEditingController().obs;
+
+  final controller = Get.put(EstimateDetailsController());
 
   double subTotal() {
     double amount = 0.0;
@@ -110,6 +120,7 @@ class EstimateCreateController extends GetxController {
     Get.focusScope!.unfocus();
 
     final params = {
+      'signature': jsonEncode(signature.value),
       'client': jsonEncode(selectedClient.value.toMap()),
       'items': jsonEncode(ModelItem().listModelToListMap(arrSelectedItem.value)),
       'paymentSchedule': jsonEncode(paymentSchedule.value),
@@ -121,7 +132,7 @@ class EstimateCreateController extends GetxController {
       'docID': docID.value.text,
       'date': date.value,
       'po': txtPO.value.text,
-      'states': 'Pending',
+      'states': endPoint.toLowerCase().contains('estimate') ? 'Pending' : 'Active',
       'states_name': 'Draft',
     };
 
@@ -141,6 +152,7 @@ class EstimateCreateController extends GetxController {
 
     final params = {
       'estimateID': estimateID,
+      'signature': jsonEncode(signature.value),
       'client': jsonEncode(selectedClient.value.toMap()),
       'items': jsonEncode(ModelItem().listModelToListMap(arrSelectedItem.value)),
       'paymentSchedule': jsonEncode(paymentSchedule.value),
@@ -156,7 +168,7 @@ class EstimateCreateController extends GetxController {
       'states_name': estimate!.states_name.toString(),
     };
 
-    print(params);
+    // print(params);
 
     final response = await API.instance.post(endPoint: endPoint, params: params);
 
@@ -165,6 +177,25 @@ class EstimateCreateController extends GetxController {
       Get.back(result: true);
       response['message'].toString().showSuccess();
       refresh();
+    } else {
+      response!['message'].toString().showError();
+    }
+  }
+
+  uploadImage() async {
+    final response = await API.instance.postImageData(imageDataSignature.value);
+
+    if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
+      debugPrint(response['data'].toString());
+
+      final DateFormat format = DateFormat('dd/MM/yyyy');
+      final dateToday = format.format(DateTime.now());
+
+      signature.value = {
+        'image': response['data'].toString(),
+        'name': controller.controllerMyCompany.nameOutSide.value,
+        'date': dateToday
+      };
     } else {
       response!['message'].toString().showError();
     }

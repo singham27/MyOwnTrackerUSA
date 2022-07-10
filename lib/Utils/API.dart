@@ -6,6 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:connectivity/connectivity.dart';
 import '../Utils/Constant.dart';
 import '../Utils/Global.dart';
+import 'dart:typed_data';
+
+
 
 class API {
   API._privateConstructor();
@@ -145,6 +148,47 @@ class API {
       return null;
     }
   }
+
+  postImageData(Uint8List imageData) async {
+    if (!await _checkInternet()) {
+      return null;
+    }
+
+    final url = Uri.parse('${_kBaseURL}uploadImage');
+    final request = http.MultipartRequest('POST', url);
+
+    try {
+      showLoaderGetX();
+
+      // request.files.add(await http.MultipartFile.fromPath(fileParams, file.path));
+
+      request.files.add(http.MultipartFile.fromBytes('image', imageData));
+      final response = await request.send();
+
+      hideLoader();
+
+      // print(response.stream);
+      // print(response.statusCode);
+
+      final res = await http.Response.fromStream(response);
+      print(res.body);
+
+      final Map parsed = json.decode(res.body);
+      return parsed as Map<String, dynamic>;
+    } on Exception catch (exception) {
+      hideLoader();
+      debugPrint('Exception is:-' + exception.toString());
+      return null;
+    } catch (error) {
+      hideLoader();
+      debugPrint('Error is:-' + error.toString());
+      return null;
+    }
+
+  }
+
+
+
 }
 
 class APIEndPoints {

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:business_trackers/Controllers/EstimateDetailsController.dart';
 import 'package:business_trackers/Controllers/PaymentAddController.dart';
 import 'package:business_trackers/Views/EstimateCreate.dart';
@@ -14,6 +16,9 @@ import '../Views/EstimateCreate.dart';
 import '../Views/PaymentList.dart';
 import '../Utils/Global.dart';
 import '../Models/ModelEstimate.dart';
+import 'SignatureScreen.dart';
+
+
 
 class EstimateDetails extends StatelessWidget {
   String title;
@@ -88,8 +93,15 @@ class EstimateDetails extends StatelessWidget {
                             Get.back();
 
                             if (title.toLowerCase().contains('invoice')) {
-                              if (index == 0) {
+                              Get.to(SignatureScreen())!.then((value) {
+                                final dataImage = value as Uint8List;
+                                if (dataImage.length > 0) {
+                                  controller.imageDataSignature.value = value;
 
+                                  controller.uploadImage(controller.controllerMyCompany.nameOutSide.value, 'updateInvoiceSignature');
+                                }
+                              });
+                              if (index == 0) {
                               } else if (index == 1) {
                                 controllerPaymentAdd.invoiceID = modelEstimate.id;
                                 Get.to(PaymentList(invoice: modelEstimate,));
@@ -100,7 +112,14 @@ class EstimateDetails extends StatelessWidget {
                               }
                             } else {
                               if (index == 0) {
+                                Get.to(SignatureScreen())!.then((value) {
+                                  final dataImage = value as Uint8List;
 
+                                  if (dataImage.length > 0) {
+                                    controller.imageDataSignature.value = dataImage;
+                                    controller.uploadImage(controller.controllerMyCompany.nameOutSide.value, 'updateEstimateSignature');
+                                  }
+                                });
                               } else if (index == 1) {
                                 controller.updateEstimateStatesName(modelEstimate);
                               } else if (index == 2) {
@@ -127,7 +146,7 @@ class EstimateDetails extends StatelessWidget {
       ),
       onPressed: () {
         Get.back();
-        controller.deleteEstimate(modelEstimate.id.toString());
+        controller.deleteEstimate(modelEstimate.id.toString(), title.toLowerCase().contains('invoice') ? true : false);
       },
     );
     Widget continueButton = TextButton(
@@ -170,7 +189,7 @@ class EstimateDetails extends StatelessWidget {
     return Scaffold(
         appBar: AppBarStyless(
           overlayStyle: SystemUiOverlayStyle.dark,
-          title: '${title}#' + modelEstimate.docID.toString(),
+          title: '${title} #' + modelEstimate.docID.toString(),
           leading: BackButton(
             color: ColorStyle.black,
           ),
@@ -183,7 +202,7 @@ class EstimateDetails extends StatelessWidget {
               onPressed: () {
                 Get.to(EstimateCreate(
                   title: 'Edit ${title}',
-                  estimate: modelEstimate,
+                  estimate: controller.modelEstimate.value,
                 ));
               },
             ),
@@ -200,6 +219,8 @@ class EstimateDetails extends StatelessWidget {
         body: GetBuilder(
           init: EstimateDetailsController(),
           initState: (state) {
+            controller.modelEstimate.value = modelEstimate;
+
             controller.onInit();
             if (modelEstimate.states.toString().toLowerCase() == 'pending') {
               controller.estimateStatus.value = 0;
@@ -265,7 +286,7 @@ class EstimateDetails extends StatelessWidget {
                                         ),
                                         onTap: () {
                                           controller.estimateStatus.value = 0;
-                                          controller.updateEstimateStates(modelEstimate.id.toString(), 'Pending');
+                                          controller.updateEstimateStates(controller.modelEstimate.value.id.toString(), 'Pending');
                                         }),
                                     InkWell(
                                         child: Container(
@@ -301,7 +322,7 @@ class EstimateDetails extends StatelessWidget {
                                         ),
                                         onTap: () {
                                           controller.estimateStatus.value = 1;
-                                          controller.updateEstimateStates(modelEstimate.id.toString(), 'Approved');
+                                          controller.updateEstimateStates(controller.modelEstimate.value.id.toString(), 'Approved');
                                         }),
                                     InkWell(
                                         child: Container(
@@ -337,7 +358,7 @@ class EstimateDetails extends StatelessWidget {
                                         ),
                                         onTap: () {
                                           controller.estimateStatus.value = 2;
-                                          controller.updateEstimateStates(modelEstimate.id.toString(), 'Declined');
+                                          controller.updateEstimateStates(controller.modelEstimate.value.id.toString(), 'Declined');
                                         }),
                                   ],
                                 )),
@@ -434,22 +455,22 @@ class EstimateDetails extends StatelessWidget {
                                       color: ColorStyle.black,
                                     )),
                                 Text(
-                                    modelEstimate.client!.name.toString() +
+                                    controller.modelEstimate.value.client!.name.toString() +
                                         '\n' +
-                                        modelEstimate.client!.billing_address_1
+                                        controller.modelEstimate.value.client!.billing_address_1
                                             .toString() +
                                         '\n' +
-                                        modelEstimate.client!.billing_address_2
+                                        controller.modelEstimate.value.client!.billing_address_2
                                             .toString() +
                                         '\n' +
-                                        modelEstimate.client!.billing_city
+                                        controller.modelEstimate.value.client!.billing_city
                                             .toString() +
                                         '\n' +
-                                        modelEstimate
+                                        controller.modelEstimate.value
                                             .client!.billing_state_Province
                                             .toString() +
                                         '\n' +
-                                        modelEstimate
+                                        controller.modelEstimate.value
                                             .client!.billing_zip_Postal_Code
                                             .toString(),
                                     style: TextStylesProductSans.textStyles_7
@@ -505,7 +526,7 @@ class EstimateDetails extends StatelessWidget {
                                             .apply(
                                           color: ColorStyle.black,
                                         )),
-                                    Text(modelEstimate.docID.toString(),
+                                    Text(controller.modelEstimate.value.docID.toString(),
                                         style: TextStylesProductSans
                                             .textStyles_7
                                             .apply(
@@ -523,7 +544,7 @@ class EstimateDetails extends StatelessWidget {
                                             .apply(
                                           color: ColorStyle.black,
                                         )),
-                                    Text(modelEstimate.date.toString(),
+                                    Text(controller.modelEstimate.value.date.toString(),
                                         style: TextStylesProductSans
                                             .textStyles_7
                                             .apply(
@@ -541,7 +562,7 @@ class EstimateDetails extends StatelessWidget {
                                             .apply(
                                           color: ColorStyle.black,
                                         )),
-                                    Text(modelEstimate.po.toString(),
+                                    Text(controller.modelEstimate.value.po.toString(),
                                         style: TextStylesProductSans
                                             .textStyles_7
                                             .apply(
@@ -580,7 +601,7 @@ class EstimateDetails extends StatelessWidget {
                       SizedBox(height: 10),
                       ListView.separated(
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: modelEstimate.items!.length,
+                        itemCount: controller.modelEstimate.value.items!.length,
                         shrinkWrap: true,
                         separatorBuilder: (context, index) {
                           return Container(
@@ -601,7 +622,7 @@ class EstimateDetails extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                      modelEstimate.items![index].name
+                                      controller.modelEstimate.value.items![index].name
                                           .toString(),
                                       style: TextStylesProductSans.textStyles_10
                                           .apply(
@@ -611,7 +632,7 @@ class EstimateDetails extends StatelessWidget {
                                     children: [
                                       Text(
                                           'QTY: ' +
-                                              modelEstimate
+                                              controller.modelEstimate.value
                                                   .items![index].quantity
                                                   .toString(),
                                           style: TextStylesProductSans
@@ -627,7 +648,7 @@ class EstimateDetails extends StatelessWidget {
                                           )),
                                       Text(
                                           '\$ ' +
-                                              modelEstimate.items![index].rate
+                                              controller.modelEstimate.value.items![index].rate
                                                   .toString(),
                                           style: TextStylesProductSans
                                               .textStyles_9
@@ -642,7 +663,7 @@ class EstimateDetails extends StatelessWidget {
                                 height: 4,
                               ),
                               Text(
-                                  modelEstimate.items![index].description
+                                  controller.modelEstimate.value.items![index].description
                                       .toString(),
                                   style:
                                       TextStylesProductSans.textStyles_8.apply(
@@ -677,7 +698,7 @@ class EstimateDetails extends StatelessWidget {
                                         color: ColorStyle.black,
                                       )),
                                   Text(
-                                      '\$ ' + modelEstimate.subTotal.toString(),
+                                      '\$ ' + controller.modelEstimate.value.subTotal.toString(),
                                       style: TextStylesProductSans.textStyles_7
                                           .apply(
                                         color: ColorStyle.black,
@@ -700,7 +721,7 @@ class EstimateDetails extends StatelessWidget {
                                 children: [
                                   Text(
                                       'Tax ' +
-                                          '(${controller.taxCalcuation(modelEstimate.items!).toString()}%)',
+                                          '(${controller.taxCalcuation(controller.modelEstimate.value.items!).toString()}%)',
                                       style: TextStylesProductSans.textStyles_8
                                           .apply(
                                         color: ColorStyle.black,
@@ -708,7 +729,7 @@ class EstimateDetails extends StatelessWidget {
                                   Text(
                                       '\$ ' +
                                           controller.taxPriceCaluculation(
-                                              modelEstimate),
+                                              controller.modelEstimate.value),
                                       style: TextStylesProductSans.textStyles_7
                                           .apply(
                                         color: ColorStyle.black,
@@ -736,7 +757,7 @@ class EstimateDetails extends StatelessWidget {
                                       )),
                                   Text(
                                       '\$ ' +
-                                          modelEstimate.amountTotal.toString(),
+                                          controller.modelEstimate.value.amountTotal.toString(),
                                       style: TextStylesProductSans.textStyles_7
                                           .apply(
                                         color: ColorStyle.black,
@@ -781,7 +802,7 @@ class EstimateDetails extends StatelessWidget {
                               ),
                               ListView.separated(
                                 physics: NeverScrollableScrollPhysics(),
-                                itemCount: modelEstimate
+                                itemCount: controller.modelEstimate.value
                                     .paymentSchedule!.paymentList!.length,
                                 shrinkWrap: true,
                                 separatorBuilder: (context, index) {
@@ -801,7 +822,7 @@ class EstimateDetails extends StatelessWidget {
                                     children: [
                                       Text(
                                           // '1st Payment (40%)',
-                                          modelEstimate.paymentSchedule!
+                                          controller.modelEstimate.value.paymentSchedule!
                                               .paymentList![index].paymentName
                                               .toString(),
                                           // + '(${modelEstimate.paymentSchedule!.paymentType.toString()})',
@@ -812,7 +833,7 @@ class EstimateDetails extends StatelessWidget {
                                           )),
                                       Text(
                                           '\$ ' +
-                                              modelEstimate
+                                              controller.modelEstimate.value
                                                   .paymentSchedule!
                                                   .paymentList![index]
                                                   .paymentAmount
@@ -847,46 +868,56 @@ class EstimateDetails extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      Text(modelEstimate.notes.toString(),
+                      Text(controller.modelEstimate.value.notes.toString(),
                           style: TextStylesProductSans.textStyles_8.apply(
                             color: ColorStyle.black,
                           )),
                       SizedBox(
                         height: 30,
                       ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          width: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Image.asset(
-                                ImageStyle.Sign,
-                                height: 20,
-                              ),
-                              SizedBox(height: 10),
-                              Container(
-                                height: 1,
-                                color: ColorStyle.black,
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text('John Deo',
-                                  style:
-                                      TextStylesProductSans.textStyles_8.apply(
+                      // if (controller.imagePicture.value.isNotEmpty || controller.data.value.isNotEmpty)
+                      // if (modelEstimate.signature != null)
+                        // if (modelEstimate.signature!.image.toString().isNotEmpty || controller.data.value.isNotEmpty)
+                        if (controller.modelEstimate.value.signature != null || controller.imageDataSignature.value.isNotEmpty)
+                          Container(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              width: 100,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    child: controller.modelEstimate.value.signature != null
+                                        ? Image.network(
+                                      controller.modelEstimate.value.signature!.image.toString(),
+                                      fit: BoxFit.fill,
+                                    ) : Image.memory(controller.imageDataSignature.value),
+                                    height: 30,
+                                  ),
+                                  SizedBox(height: 10),
+                                  Container(
+                                    height: 1,
                                     color: ColorStyle.black,
-                                  )),
-                              Text('Signed on: 17/06/2022',
-                                  style:
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                      controller.modelEstimate.value.signature!.name.toString(),
+                                      style:
                                       TextStylesProductSans.textStyles_8.apply(
-                                    color: ColorStyle.black,
-                                  )),
-                            ],
+                                        color: ColorStyle.black,
+                                      )),
+                                  Text(
+                                      'Signed on: '+controller.modelEstimate.value.signature!.date.toString(),
+                                      style:
+                                      TextStylesProductSans.textStyles_8.apply(
+                                        color: ColorStyle.black,
+                                      )),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
                       SizedBox(
                         height: 40,
                       ),
@@ -900,11 +931,11 @@ class EstimateDetails extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('Send',
+                                  Text(
+                                      'Send',
                                       style: TextStylesProductSans.textStyles_15
-                                          .apply(
-                                        color: ColorStyle.white,
-                                      )),
+                                          .apply(color: ColorStyle.white,)
+                                  ),
                                   SizedBox(
                                     width: 11,
                                   ),

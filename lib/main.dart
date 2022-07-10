@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import '../Styles/ColorStyle.dart';
 import 'package:get_storage/get_storage.dart';
+import '../Views/SignatureScreen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: ColorStyle.secondryColor.toMaterialColor()
       ),
       home:  SplashScreen(),
+      // home: SignatureScreen(),
     );
   }
 }

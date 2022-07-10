@@ -1,6 +1,7 @@
 
 
 import 'package:business_trackers/Models/ModelItem.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../Models/ModelEstimate.dart';
@@ -8,12 +9,23 @@ import '../Controllers/MyCompanyController.dart';
 import '../Utils/API.dart';
 import '../Utils/Global.dart';
 import 'dart:convert';
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import '../Models/ModelEstimate.dart';
+import 'package:intl/intl.dart';
 
 
 class EstimateDetailsController extends GetxController {
   RxInt estimateStatus = 0.obs;
 
   final controllerMyCompany = Get.put(MyCompanyController());
+
+  Rx<Uint8List> imageDataSignature = Uint8List.fromList(''.codeUnits).obs;
+  RxMap<String, dynamic> signature = <String, dynamic>{}.obs;
+
+  RxString  imagePicture = ''.obs;
+
+  Rx<ModelEstimate> modelEstimate = ModelEstimate().obs;
 
   RxList<String> arrSendEstimate = [
     'Signature',
@@ -55,16 +67,17 @@ class EstimateDetailsController extends GetxController {
     return taxPrice.toStringAsFixed(2);
   }
 
-  deleteEstimate(String estimateID) async {
-    debugPrint(estimateID);
+  deleteEstimate(String id, bool isInvoice) async {
 
-    final params = {
-      'estimateID': estimateID,
+    final params = isInvoice ? {
+      'invoiceID': id,
+    } : {
+      'estimateID': id,
     };
 
-    debugPrint(params.toString());
+    final endPoint = isInvoice ? 'deleteInvoice' : 'deleteEstimate';
 
-    final response = await API.instance.post(endPoint: 'deleteEstimate', params: params);
+    final response = await API.instance.post(endPoint: endPoint, params: params);
 
     print(response);
 
@@ -121,8 +134,7 @@ class EstimateDetailsController extends GetxController {
       'docID': estimate.docID.toString(),
       'date': estimate.date.toString(),
       'po': estimate.po.toString(),
-      'states': 'Pending',
-      // 'states': 'Active',
+      'states': 'Active',
       'states_name': 'Draft',
     };
 
@@ -136,4 +148,47 @@ class EstimateDetailsController extends GetxController {
     }
   }
 
+  uploadImage(String name, String endPoint) async {
+    final response = await API.instance.postImageData(imageDataSignature.value);
+
+    if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
+      debugPrint(response['data'].toString());
+
+      final DateFormat format = DateFormat('dd/MM/yyyy');
+      final dateToday = format.format(DateTime.now());
+
+      signature.value = {
+        'image': response['data'].toString(),
+        'name': name,
+        'date': dateToday
+      };
+
+      updateEstimateSignature(endPoint);
+    } else {
+      response!['message'].toString().showError();
+    }
+  }
+
+  updateEstimateSignature(String endPoint) async {
+    Get.focusScope!.unfocus();
+
+    final params = {
+      'estimateID': modelEstimate.value.id,
+      'signature': jsonEncode(signature.value),
+    };
+
+    // final response = await API.instance.post(endPoint: 'updateEstimateSignature', params: params);
+    final response = await API.instance.post(endPoint: endPoint, params: params);
+
+    if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
+      response['message'].toString().showSuccess();
+      final dictData = Map<String, dynamic>.from(response['data']);
+      modelEstimate.value = ModelEstimate.fromJson(dictData);
+    } else {
+      response!['message'].toString().showError();
+    }
+  }
+
 }
+
+
