@@ -1,17 +1,20 @@
+
+
 import 'package:business_trackers/Views/EstimateDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Controllers/EstimateController.dart';
+import '../Controllers/InvoicesController.dart';
 import '../Styles/ColorStyle.dart';
 import '../Styles/TextStyles.dart';
-import 'EstimateCreate.dart';
 import '../Models/ModelEstimate.dart';
+
+
 
 class InvoicesPaid extends StatelessWidget {
   List<ModelEstimate> arrModelEstimate;
   InvoicesPaid({Key? key, required this.arrModelEstimate}) : super(key: key);
 
-  final controllerEstimate = Get.put(EstimateController());
+  final controllerInvoices = Get.put(InvoicesController());
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +45,11 @@ class InvoicesPaid extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                'John Deo',
+                                arrModelEstimate[index].client!.name.toString(),
                                 style:  TextStylesProductSans.textStyles_16
                                     .apply(color: ColorStyle.black,)),
                             Text(
-                                '\$100.00',
+                                '\$ '+arrModelEstimate[index].amountTotal!.toString(),
                                 style:  TextStylesProductSans.textStyles_16
                                     .apply(color: ColorStyle.black,)),
                           ],
@@ -57,7 +60,7 @@ class InvoicesPaid extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                'June 12 • #12345',
+                                arrModelEstimate[index].date!.toString(),
                                 style:  TextStylesProductSans.textStyles_16
                                     .apply(color: ColorStyle.black,)),
                             Row(
@@ -70,7 +73,7 @@ class InvoicesPaid extends StatelessWidget {
                                     padding: EdgeInsets.only(left: 6,right: 6,top: 5,bottom: 5),
                                     alignment: Alignment.center,
                                     child: Text(
-                                        'PAID',
+                                        arrModelEstimate[index].states_name!.toString(),
                                         style:  TextStylesProductSans.textStyles_10
                                             .apply(color:
                                         ColorStyle.white
@@ -92,8 +95,8 @@ class InvoicesPaid extends StatelessWidget {
                 onTap: () {
                   Get.to(EstimateDetails(title: 'Invoice',modelEstimate: arrModelEstimate[index]))!
                       .then((value) {
-                    controllerEstimate.readEstimate();
-                  });;
+                    controllerInvoices.readInvoice();
+                  });
                 },
               );
             })

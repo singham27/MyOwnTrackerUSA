@@ -141,15 +141,15 @@ class Estimate extends StatelessWidget {
                             );
                           }),
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text('June 2022',
-                          style: TextStylesProductSans.textStyles_16.apply(
-                              color: ColorStyle.black, fontWeightDelta: 2)),
-                    ),
+                    // SizedBox(
+                    //   height: 15,
+                    // ),
+                    // Container(
+                    //   padding: EdgeInsets.only(left: 20),
+                    //   child: Text('June 2022',
+                    //       style: TextStylesProductSans.textStyles_16.apply(
+                    //           color: ColorStyle.black, fontWeightDelta: 2)),
+                    // ),
                     if (controller.intAppBar.value == 0)
                       Expanded(
                           child: EstimatePending(

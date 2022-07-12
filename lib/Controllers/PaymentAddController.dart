@@ -65,7 +65,9 @@ class PaymentAddController extends GetxController {
   }
 
   validation(String invoiceID) {
-    if (txtPayment.value.text.isEmpty) {
+    if (txtPayment.value.text == '0' || txtPayment.value.text == '0.0') {
+      'Entered amount must greater than 0'.showError();
+    } else if (txtPayment.value.text.isEmpty) {
       'Enter some payment'.showError();
     } else if (paid.value > totalPayment.value) {
       'Entered payment must not be greater than Total Payment'.showError();
@@ -119,17 +121,17 @@ class PaymentAddController extends GetxController {
 
     print(params);
 
+    // updateInvoiceStates();
+    // return;
+
     final response = await API.instance.post(endPoint: 'createPayment', params: params);
 
     if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
       Get.back(result: true);
       response['message'].toString().showSuccess();
-      refresh();
     } else {
       response!['message'].toString().showError();
     }
-
-    refresh();
 
     updateInvoiceStates();
   }
@@ -140,9 +142,16 @@ class PaymentAddController extends GetxController {
       'states': (paid.value < totalPayment.value) ? 'Active' : 'Paid',
     };
 
-    print(params);
+    debugPrint(paid.value.toString());
+    debugPrint(totalPayment.value.toString());
+    debugPrint('params params params params params');
+    debugPrint(params.toString());
 
-    final response = await API.instance.post(endPoint: 'updateStates', params: params);
+    // updateInvoiceStatesName();
+    // return;
+
+
+    final response = await API.instance.post(endPoint: 'updateInvoiceStates', params: params);
 
     if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
       updateInvoiceStatesName();
@@ -157,12 +166,17 @@ class PaymentAddController extends GetxController {
       'states_name': (paid.value < totalPayment.value) ? 'Partial' : 'Paid',
     };
 
-    print(params);
+    debugPrint(paid.value.toString());
+    debugPrint(totalPayment.value.toString());
+
+    debugPrint('params params params params params');
+    debugPrint(params.toString());
+    // return;
 
     final response = await API.instance.post(endPoint: 'updateInvoiceStatesName', params: params);
 
     if (response != null && response.isNotEmpty && response['status'].toString() == '200') {
-
+      refresh();
     } else {
       response!['message'].toString().showError();
     }

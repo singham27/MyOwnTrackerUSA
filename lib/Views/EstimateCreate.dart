@@ -8,6 +8,7 @@ import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:business_trackers/Views/Clients.dart';
 import 'package:business_trackers/Views/DocumentSettings.dart';
 import 'package:business_trackers/Views/ItemList.dart';
+import 'package:business_trackers/Views/SignatureScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +17,9 @@ import '../Controllers/EstimateCreateController.dart';
 import '../Views/PaymentSchedule.dart';
 import '../Components/SwitchCustom.dart';
 import '../Components/PickerCustom.dart';
+import 'dart:typed_data';
+import 'package:intl/intl.dart';
+
 
 
 class EstimateCreate extends StatelessWidget {
@@ -43,6 +47,11 @@ class EstimateCreate extends StatelessWidget {
           init: EstimateCreateController(),
           initState: (state) {
             if (estimate != null) {
+              if (estimate!.signature != null) {
+                controller.signature.value = estimate!.signature!.toJson();
+                controller.isSwitchOn.value = true;
+              }
+
               controller.selectedClient.value = estimate!.client!;
               controller.arrSelectedItem.value = estimate!.items!;
               controller.paymentSchedule.value = estimate!.paymentSchedule!.toJson();
@@ -371,8 +380,27 @@ class EstimateCreate extends StatelessWidget {
                               .apply(color: ColorStyle.black, fontWeightDelta: 0)),
                       // InkWell(child:  Image.asset(ImageStyle.Group1709,height: 20,),onTap: (){},)
                       SwitchCustom(
+                        isSwitched: controller.isSwitchOn.value,
                         onChanged: (value) {
-                          print(value);
+                          Get.focusScope!.unfocus();
+
+                          controller.isSwitchOn.value = !controller.isSwitchOn.value;
+
+                          if (controller.isSwitchOn.value) {
+                            Get.to(SignatureScreen())!.then((valueBack) {
+                              if (valueBack == null) {
+                                controller.isSwitchOn.value = false;
+                                controller.signature.value = {};
+                              } else {
+                                final dataImage = valueBack as Uint8List;
+                                controller.imageDataSignature.value = dataImage;
+
+                                controller.uploadImage();
+                              }
+                            });
+                          } else {
+                            controller.signature.value = {};
+                          }
                         },
                       )
                     ],
