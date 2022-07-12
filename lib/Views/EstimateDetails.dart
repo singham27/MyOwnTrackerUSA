@@ -81,13 +81,13 @@ class EstimateDetails extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  Image.asset(
-                                    ImageStyle.Group1731,
-                                    height: 40,
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
+                                //   Image.asset(
+                                //     ImageStyle.Group1731,
+                                //     height: 40,
+                                //   ),
+                                //   SizedBox(
+                                //     width: 16,
+                                //   ),
                                   Text(
                                       title.toLowerCase().contains('invoice')
                                           ? controller.arrSendInvoice[index]
