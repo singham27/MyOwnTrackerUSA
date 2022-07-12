@@ -168,7 +168,7 @@ class EstimateCreateController extends GetxController {
       'states_name': estimate!.states_name.toString(),
     };
 
-    // print(params);
+    print(params);
 
     final response = await API.instance.post(endPoint: endPoint, params: params);
 

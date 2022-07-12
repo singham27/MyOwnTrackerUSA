@@ -5,7 +5,7 @@ import 'package:business_trackers/Components/ElevatedButtonCustom.dart';
 import 'package:business_trackers/Styles/ColorStyle.dart';
 import 'package:business_trackers/Styles/TextStyles.dart';
 import 'package:get/get.dart';
-import '../Controllers/InvoicesActiveController.dart';
+import '../Controllers/InvoicesController.dart';
 import '../Views/EstimateCreate.dart';
 
 class Invoices extends StatelessWidget {
@@ -55,7 +55,12 @@ class Invoices extends StatelessWidget {
           colorText: ColorStyle.primaryColor,
           width: 130,
           onTap: () {
-            Get.to(EstimateCreate(title: 'Create Invoice',));
+            Get.to(EstimateCreate(title: 'Create Invoice',))!
+            .then((value) {
+              if (value.toString() == 'true') {
+                controller.reset();
+              }
+            });
           },
         ),
         body: GetBuilder(
@@ -119,34 +124,34 @@ class Invoices extends StatelessWidget {
                             );
                           }),
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(
-                        bottom: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: ColorStyle.grey,
-                            width: 1
-                          )
-                        )
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                              'June 2022',
-                              style:  TextStylesProductSans.textStyles_16
-                                  .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-                          Text(
-                              '\$456.00',
-                              style:  TextStylesProductSans.textStyles_16
-                                  .apply(color: ColorStyle.black, fontWeightDelta: 4)),
-                        ],),
-                    ),
+                    // SizedBox(
+                    //   height: 16,
+                    // ),
+                    // Container(
+                    //   padding: EdgeInsets.only(
+                    //     bottom: 10,
+                    //   ),
+                    //   decoration: BoxDecoration(
+                    //     border: Border(
+                    //       bottom: BorderSide(
+                    //         color: ColorStyle.grey,
+                    //         width: 1
+                    //       )
+                    //     )
+                    //   ),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       Text(
+                    //           'June 2022',
+                    //           style:  TextStylesProductSans.textStyles_16
+                    //               .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+                    //       Text(
+                    //           '\$456.00',
+                    //           style:  TextStylesProductSans.textStyles_16
+                    //               .apply(color: ColorStyle.black, fontWeightDelta: 4)),
+                    //     ],),
+                    // ),
                     if (controller.intAppBar.value == 0)
                       Expanded(
                           child: InvoicesActive(

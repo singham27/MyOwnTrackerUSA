@@ -76,9 +76,6 @@ class API {
       return null;
     }
 
-    debugPrint('params params params params params');
-    debugPrint(params.toString());
-
     final url = Uri.parse('${_kBaseURL}${endPoint}');
     try {
       showLoaderGetX();

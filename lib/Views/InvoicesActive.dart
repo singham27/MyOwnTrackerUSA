@@ -1,6 +1,6 @@
 
 
-import '../Controllers/EstimateController.dart';
+import '../Controllers/InvoicesController.dart';
 import '../Styles/ColorStyle.dart';
 import '../Styles/TextStyles.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class InvoicesActive extends StatelessWidget {
   List<ModelEstimate> arrModelEstimate;
   InvoicesActive({Key? key, required this.arrModelEstimate}) : super(key: key);
 
-  final controllerEstimate = Get.put(EstimateController());
+  final controllerInvoices = Get.put(InvoicesController());
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +94,8 @@ class InvoicesActive extends StatelessWidget {
                 onTap: () {
                   Get.to(EstimateDetails(title: 'Invoice',modelEstimate: arrModelEstimate[index]))!
                       .then((value) {
-                    controllerEstimate.readEstimate();
-                  });;
+                    controllerInvoices.readInvoice();
+                  });
                 },
               );
 

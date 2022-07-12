@@ -6,7 +6,16 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import '../Styles/ColorStyle.dart';
 import 'package:get_storage/get_storage.dart';
-import '../Views/SignatureScreen.dart';
+
+
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import '../Utils/Global.dart';
 
 
 void main() async {
@@ -37,7 +46,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: ColorStyle.secondryColor.toMaterialColor()
       ),
       home:  SplashScreen(),
-      // home: SignatureScreen(),
+      // home: MyApp2(),
     );
   }
 }
@@ -64,5 +73,110 @@ extension ColorConversion on Color {
 
     return MaterialColor(value, swatch);
   }
+}
+
+
+
+class MyApp2 extends StatefulWidget {
+  @override
+  _MyApp2State createState() => _MyApp2State();
+}
+
+class _MyApp2State extends State<MyApp2> {
+  final picker = ImagePicker();
+  final pdf = pw.Document();
+  List<File> _image = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("image to pdf"),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.picture_as_pdf),
+              onPressed: () {
+                createPDF();
+                savePDF();
+              })
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: getImageFromGallery,
+      ),
+      body: _image != null
+          ? ListView.builder(
+        itemCount: _image.length,
+        itemBuilder: (context, index) => Container(
+            height: 400,
+            width: double.infinity,
+            margin: EdgeInsets.all(8),
+            child: Image.file(
+              _image[index],
+              fit: BoxFit.cover,
+            )),
+      )
+          : Container(),
+    );
+  }
+
+  getImageFromGallery() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image.add(File(pickedFile.path));
+      } else {
+        print('No image selected');
+      }
+    });
+  }
+
+  createPDF() async {
+    for (var img in _image) {
+      final image = pw.MemoryImage(img.readAsBytesSync());
+
+      pdf.addPage(pw.Page(
+          pageFormat: PdfPageFormat.a4,
+          build: (pw.Context contex) {
+            return pw.Center(child: pw.Image(image));
+          }));
+    }
+  }
+
+  savePDF() async {
+    final pdf = pw.Document();
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Center(
+          child: pw.Text('Hello World!'),
+        ),
+      ),
+    );
+
+    final dir = await getTemporaryDirectory();
+    // final dir = await getExternalStorageDirectory();
+    final file = File('${dir.path}/filename.pdf');
+    await file.writeAsBytes(await pdf.save());
+
+    return;
+
+    try {
+      final dir = await getTemporaryDirectory();
+      // final dir = await getExternalStorageDirectory();
+      final file = File('${dir.path}/filename.pdf');
+      await file.writeAsBytes(await pdf.save());
+      // await file.writeAsString('TEST ONE');
+
+      'saved to documents'.showSuccess();
+
+      print('${dir.path}/filename.pdf');
+    } catch (error) {
+      print(error.toString());
+      error.toString().showError();
+    }
+  }
+
 }
 
